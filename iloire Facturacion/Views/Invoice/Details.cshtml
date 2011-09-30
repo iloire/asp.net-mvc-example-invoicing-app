@@ -1,0 +1,30 @@
+﻿@model Invoice
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Invoice</legend>
+
+    <div class="display-label">Customer</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Customer.Name)
+    </div>
+
+    <div class="display-label">Notes</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Notes)
+    </div>
+
+    <div class="display-label">TimeStamp</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TimeStamp)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.InvoiceID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

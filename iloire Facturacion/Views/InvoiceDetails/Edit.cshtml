@@ -1,0 +1,75 @@
+﻿@model InvoiceDetails
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>InvoiceDetails</legend>
+
+        @Html.HiddenFor(model => model.InvoiceDetailsID)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.InvoiceID, "Invoice")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("InvoiceID", String.Empty)
+            @Html.ValidationMessageFor(model => model.InvoiceID)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Article)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Article)
+            @Html.ValidationMessageFor(model => model.Article)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Qty)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Qty)
+            @Html.ValidationMessageFor(model => model.Qty)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Price)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Price)
+            @Html.ValidationMessageFor(model => model.Price)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.VAT)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.VAT)
+            @Html.ValidationMessageFor(model => model.VAT)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TimeStamp)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TimeStamp)
+            @Html.ValidationMessageFor(model => model.TimeStamp)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

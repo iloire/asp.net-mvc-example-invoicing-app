@@ -1,0 +1,58 @@
+﻿@model Customer
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Customer</legend>
+
+    <div class="display-label">Name</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+
+    <div class="display-label">Address</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Address)
+    </div>
+
+    <div class="display-label">CP</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CP)
+    </div>
+
+    <div class="display-label">City</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.City)
+    </div>
+
+    <div class="display-label">Phone1</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Phone1)
+    </div>
+
+    <div class="display-label">Phone2</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Phone2)
+    </div>
+
+    <div class="display-label">Fax</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Fax)
+    </div>
+
+    <div class="display-label">Email</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Email)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

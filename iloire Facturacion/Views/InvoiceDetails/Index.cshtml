@@ -1,0 +1,63 @@
+﻿@model IEnumerable<InvoiceDetails>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            Invoice
+        </th>
+        <th>
+            Article
+        </th>
+        <th>
+            Qty
+        </th>
+        <th>
+            Price
+        </th>
+        <th>
+            VAT
+        </th>
+        <th>
+            TimeStamp
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Invoice.Notes)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Article)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Qty)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VAT)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TimeStamp)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.InvoiceDetailsID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.InvoiceDetailsID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.InvoiceDetailsID })
+        </td>
+    </tr>
+}
+
+</table>

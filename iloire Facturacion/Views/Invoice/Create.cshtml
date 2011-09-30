@@ -1,0 +1,49 @@
+﻿@model Invoice
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Invoice</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CustomerID, "Customer")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("CustomerID", String.Empty)
+            @Html.ValidationMessageFor(model => model.CustomerID)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Notes)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Notes)
+            @Html.ValidationMessageFor(model => model.Notes)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TimeStamp)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TimeStamp)
+            @Html.ValidationMessageFor(model => model.TimeStamp)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
