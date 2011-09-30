@@ -23,6 +23,11 @@
     <div class="display-field">
         @Html.DisplayFor(model => model.TimeStamp)
     </div>
+
+    <div class="display-label">Paid</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Paid)
+    </div>
 </fieldset>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id=Model.InvoiceID }) |

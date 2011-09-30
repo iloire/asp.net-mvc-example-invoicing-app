@@ -40,6 +40,14 @@
             @Html.ValidationMessageFor(model => model.TimeStamp)
         </div>
 
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Paid)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Paid)
+            @Html.ValidationMessageFor(model => model.Paid)
+        </div>
+
         <p>
             <input type="submit" value="Save" />
         </p>

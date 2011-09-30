@@ -168,11 +168,6 @@
     <Content Include="Views\Provider\Create.cshtml" />
     <Content Include="Views\Provider\Edit.cshtml" />
     <Content Include="Views\Provider\Delete.cshtml" />
-    <Content Include="Views\Invoice\Index.cshtml" />
-    <Content Include="Views\Invoice\Details.cshtml" />
-    <Content Include="Views\Invoice\Create.cshtml" />
-    <Content Include="Views\Invoice\Edit.cshtml" />
-    <Content Include="Views\Invoice\Delete.cshtml" />
     <Content Include="Views\InvoiceDetails\Index.cshtml" />
     <Content Include="Views\InvoiceDetails\Details.cshtml" />
     <Content Include="Views\InvoiceDetails\Create.cshtml" />
@@ -183,6 +178,11 @@
     <Content Include="Views\Purchase\Create.cshtml" />
     <Content Include="Views\Purchase\Edit.cshtml" />
     <Content Include="Views\Purchase\Delete.cshtml" />
+    <Content Include="Views\Invoice\Index.cshtml" />
+    <Content Include="Views\Invoice\Details.cshtml" />
+    <Content Include="Views\Invoice\Create.cshtml" />
+    <Content Include="Views\Invoice\Edit.cshtml" />
+    <Content Include="Views\Invoice\Delete.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

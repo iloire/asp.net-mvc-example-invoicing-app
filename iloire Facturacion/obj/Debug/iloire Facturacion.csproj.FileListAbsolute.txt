@@ -1,7 +1,0 @@
-D:\My Dropbox\Dropbox\Projects\iloire Facturacion\iloire Facturacion\bin\iloire Facturacion.dll
-D:\My Dropbox\Dropbox\Projects\iloire Facturacion\iloire Facturacion\bin\iloire Facturacion.pdb
-D:\My Dropbox\Dropbox\Projects\iloire Facturacion\iloire Facturacion\bin\EntityFramework.dll
-D:\My Dropbox\Dropbox\Projects\iloire Facturacion\iloire Facturacion\bin\EntityFramework.xml
-D:\My Dropbox\Dropbox\Projects\iloire Facturacion\iloire Facturacion\obj\Debug\ResolveAssemblyReference.cache
-D:\My Dropbox\Dropbox\Projects\iloire Facturacion\iloire Facturacion\obj\Debug\iloire Facturacion.dll
-D:\My Dropbox\Dropbox\Projects\iloire Facturacion\iloire Facturacion\obj\Debug\iloire Facturacion.pdb
