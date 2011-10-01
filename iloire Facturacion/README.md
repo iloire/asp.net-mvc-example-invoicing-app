@@ -1,5 +1,17 @@
 ﻿Sample invoice application used for ASP.NET MVC training.
 
+## TAGS:
+
+0.2
+- Added Twitter Boostrap CSS library to the project.
+- Changed customer create view to apply boostrap styling on it (styles of other CRUD pages haven't been changed at this time, btw, we will do that next by touching the scaffolding generation)
+
+0.1
+- Starting app.
+- Creating model by using POCO entities.
+- Use code first for creating database
+- Scaffolding basic CRUD operations
+
 ## LICENSE
 
 Copyright (c) 2011 Iván Loire Mallén
