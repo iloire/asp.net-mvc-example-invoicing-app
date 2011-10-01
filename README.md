@@ -2,6 +2,12 @@
 
 ## TAGS:
 
+0.3
+- Added T4 CodeTemplates so we can control the scaffolding generation process. Modifications on those templates so they render Boostrap css style.
+- All CRUD view regenerated using the new T4 CodeTemplates
+- Added CompanyNumber field to Customer and Provider tables.
+- Added tablesorter javascript plugin for index pages.
+
 0.2
 - Added Twitter Boostrap CSS library to the project.
 - Changed customer create view to apply boostrap styling on it (styles of other CRUD pages haven't been changed at this time, btw, we will do that next by touching the scaffolding generation)

@@ -1,8 +1,16 @@
-﻿@model Customer
+﻿@*
+	Iván Loire - www.iloire.com
+	Please readme README file for license terms.
+
+	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
+*@
+
+@model Customer
 
 @{
-    ViewBag.Title = "New Customer";
+    ViewBag.Title = "Create";
 }
+
 
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
@@ -10,81 +18,93 @@
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
     <fieldset>
-        <legend>New Customer</legend>
-
+         <legend>Create Customer</legend>
 
         <div class="clearfix">
             @Html.LabelFor(model => model.Name)
-     
-            <div class="input">
-                @Html.EditorFor(model => model.Name)
-                @Html.ValidationMessageFor(model => model.Name)
-            </div>
+        
+        <div class="input">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
         </div>
+		</div>
+
+        <div class="clearfix">
+            @Html.LabelFor(model => model.CompanyNumber)
+        
+        <div class="input">
+            @Html.EditorFor(model => model.CompanyNumber)
+            @Html.ValidationMessageFor(model => model.CompanyNumber)
+        </div>
+		</div>
 
         <div class="clearfix">
             @Html.LabelFor(model => model.Address)
         
-            <div class="input">
-                @Html.EditorFor(model => model.Address)
-                @Html.ValidationMessageFor(model => model.Address)
-            </div>
+        <div class="input">
+            @Html.EditorFor(model => model.Address)
+            @Html.ValidationMessageFor(model => model.Address)
         </div>
+		</div>
 
         <div class="clearfix">
-            @Html.LabelFor(model => model.CP)        
-            <div class="input">
-                @Html.EditorFor(model => model.CP)
-                @Html.ValidationMessageFor(model => model.CP)
-            </div>
+            @Html.LabelFor(model => model.CP)
+        
+        <div class="input">
+            @Html.EditorFor(model => model.CP)
+            @Html.ValidationMessageFor(model => model.CP)
         </div>
+		</div>
 
         <div class="clearfix">
             @Html.LabelFor(model => model.City)
-            <div class="input">
-                @Html.EditorFor(model => model.City)
-                @Html.ValidationMessageFor(model => model.City)
-            </div>
+        
+        <div class="input">
+            @Html.EditorFor(model => model.City)
+            @Html.ValidationMessageFor(model => model.City)
         </div>
+		</div>
 
         <div class="clearfix">
             @Html.LabelFor(model => model.Phone1)
-            <div class="input">
-                @Html.EditorFor(model => model.Phone1)
-                @Html.ValidationMessageFor(model => model.Phone1)
-            </div>
+        
+        <div class="input">
+            @Html.EditorFor(model => model.Phone1)
+            @Html.ValidationMessageFor(model => model.Phone1)
         </div>
+		</div>
 
         <div class="clearfix">
-            @Html.LabelFor(model => model.Phone2)  
-            <div class="input">
-                @Html.EditorFor(model => model.Phone2)
-                @Html.ValidationMessageFor(model => model.Phone2)
-            </div>
+            @Html.LabelFor(model => model.Phone2)
+        
+        <div class="input">
+            @Html.EditorFor(model => model.Phone2)
+            @Html.ValidationMessageFor(model => model.Phone2)
         </div>
+		</div>
 
         <div class="clearfix">
             @Html.LabelFor(model => model.Fax)
-            <div class="input">
-                @Html.EditorFor(model => model.Fax)
-                @Html.ValidationMessageFor(model => model.Fax)
-            </div>
+        
+        <div class="input">
+            @Html.EditorFor(model => model.Fax)
+            @Html.ValidationMessageFor(model => model.Fax)
         </div>
+		</div>
 
         <div class="clearfix">
             @Html.LabelFor(model => model.Email)
-            <div class="input">
-                @Html.EditorFor(model => model.Email)
-                @Html.ValidationMessageFor(model => model.Email)
-            </div>
+        
+        <div class="input">
+            @Html.EditorFor(model => model.Email)
+            @Html.ValidationMessageFor(model => model.Email)
         </div>
+		</div>
 
         <div class="actions">
-            <input type="submit" class="btn primary" value="Create" />&nbsp;<button type="reset" class="btn">Cancel</button>
+            <input type="submit" class="btn primary" value="Create" />
+			@Html.ActionLink("Back to List", "Index", null, new { @class = "btn"})
         </div>
     </fieldset>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>

@@ -1,16 +1,23 @@
-﻿@model IEnumerable<Invoice>
+﻿@*
+	Iván Loire - www.iloire.com
+	Please readme README file for license terms.
+
+	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
+*@
+
+@model IEnumerable<Invoice>
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h1>List <small>of Invoice</small></h1>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", null, new {@class="btn"})
 </p>
-<table>
-    <tr>
+<table class="zebra-striped">
+    <thead>
         <th>
             Customer
         </th>
@@ -24,7 +31,7 @@
             Paid
         </th>
         <th></th>
-    </tr>
+    </thead>
 
 @foreach (var item in Model) {
     <tr>
@@ -41,11 +48,17 @@
             @Html.DisplayFor(modelItem => item.Paid)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.InvoiceID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.InvoiceID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.InvoiceID })
+            @Html.ActionLink("Edit", "Edit", new { id=item.InvoiceID }, new { @class = "btn primary"}) |
+            @Html.ActionLink("Details", "Details", new { id=item.InvoiceID }, new { @class = "btn"}) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.InvoiceID }, new { @class = "btn"})
         </td>
     </tr>
 }
 
 </table>
+<script>
+	$(document).ready(function() {
+		$("table.zebra-striped").tablesorter({ sortList: [[1,0]] });
+	});
+</script>
+

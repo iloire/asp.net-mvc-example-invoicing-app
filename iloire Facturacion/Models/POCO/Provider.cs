@@ -6,6 +6,8 @@ public class Provider {
     public int ProviderID {get;set;}
     public string Name { get; set; }
 
+    public string CompanyNumber { get; set; }
+
     public string Address { get; set; }
     public string CP { get; set; }
     public string City { get; set; }

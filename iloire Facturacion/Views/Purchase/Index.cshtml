@@ -1,16 +1,23 @@
-﻿@model IEnumerable<Purchase>
+﻿@*
+	Iván Loire - www.iloire.com
+	Please readme README file for license terms.
+
+	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
+*@
+
+@model IEnumerable<Purchase>
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h1>List <small>of Purchase</small></h1>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", null, new {@class="btn"})
 </p>
-<table>
-    <tr>
+<table class="zebra-striped">
+    <thead>
         <th>
             Article
         </th>
@@ -30,7 +37,7 @@
             TimeStamp
         </th>
         <th></th>
-    </tr>
+    </thead>
 
 @foreach (var item in Model) {
     <tr>
@@ -53,11 +60,17 @@
             @Html.DisplayFor(modelItem => item.TimeStamp)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.PurchaseID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.PurchaseID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.PurchaseID })
+            @Html.ActionLink("Edit", "Edit", new { id=item.PurchaseID }, new { @class = "btn primary"}) |
+            @Html.ActionLink("Details", "Details", new { id=item.PurchaseID }, new { @class = "btn"}) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.PurchaseID }, new { @class = "btn"})
         </td>
     </tr>
 }
 
 </table>
+<script>
+	$(document).ready(function() {
+		$("table.zebra-striped").tablesorter({ sortList: [[1,0]] });
+	});
+</script>
+

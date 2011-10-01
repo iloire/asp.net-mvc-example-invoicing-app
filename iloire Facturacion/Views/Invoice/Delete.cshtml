@@ -1,38 +1,45 @@
-﻿@model Invoice
+﻿@*
+	Iván Loire - www.iloire.com
+	Please readme README file for license terms.
+
+	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
+*@
+@model Invoice
 
 @{
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
+<h2>Delete Invoice</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+
+<div class="alert-message warning">
+  <a class="close" href="#">×</a>
+  <p><strong>Are you sure you want to delete this Invoice?</strong></p>
+</div>
+
 <fieldset>
     <legend>Invoice</legend>
-
-    <div class="display-label">Customer</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Customer.Name)
-    </div>
-
-    <div class="display-label">Notes</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Notes)
-    </div>
-
-    <div class="display-label">TimeStamp</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.TimeStamp)
-    </div>
-
-    <div class="display-label">Paid</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Paid)
-    </div>
+  <p>
+        <strong>Customer: </strong>
+		@Html.DisplayFor(model => model.Customer.Name)
+  </p>
+  <p>
+        <strong>Notes: </strong>
+		@Html.DisplayFor(model => model.Notes)
+  </p>
+  <p>
+        <strong>TimeStamp: </strong>
+		@Html.DisplayFor(model => model.TimeStamp)
+  </p>
+  <p>
+        <strong>Paid: </strong>
+		@Html.DisplayFor(model => model.Paid)
+  </p>
 </fieldset>
 @using (Html.BeginForm()) {
-    <p>
-        <input type="submit" value="Delete" /> |
-        @Html.ActionLink("Back to List", "Index")
-    </p>
+	<div class="actions">
+            <input type="submit" class="btn primary" value="Delete" />
+			@Html.ActionLink("Back to List", "Index", null, new { @class = "btn"})
+    </div>
 }

@@ -1,45 +1,46 @@
-﻿@model InvoiceDetails
+﻿@*
+	Iván Loire - www.iloire.com
+	Please readme README file for license terms.
+
+	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
+*@
+
+@model InvoiceDetails
 
 @{
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
 
 <fieldset>
-    <legend>InvoiceDetails</legend>
-
-    <div class="display-label">Invoice</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Invoice.Notes)
-    </div>
-
-    <div class="display-label">Article</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Article)
-    </div>
-
-    <div class="display-label">Qty</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Qty)
-    </div>
-
-    <div class="display-label">Price</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Price)
-    </div>
-
-    <div class="display-label">VAT</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.VAT)
-    </div>
-
-    <div class="display-label">TimeStamp</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.TimeStamp)
-    </div>
+ <legend>InvoiceDetails details</legend>
+	<p>
+        <strong>Invoice: </strong>
+         @Html.DisplayFor(model => model.Invoice.Notes)
+    </p>
+	<p>
+        <strong>Article: </strong>
+         @Html.DisplayFor(model => model.Article)
+    </p>
+	<p>
+        <strong>Qty: </strong>
+         @Html.DisplayFor(model => model.Qty)
+    </p>
+	<p>
+        <strong>Price: </strong>
+         @Html.DisplayFor(model => model.Price)
+    </p>
+	<p>
+        <strong>VAT: </strong>
+         @Html.DisplayFor(model => model.VAT)
+    </p>
+	<p>
+        <strong>TimeStamp: </strong>
+         @Html.DisplayFor(model => model.TimeStamp)
+    </p>
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.InvoiceDetailsID }) |
-    @Html.ActionLink("Back to List", "Index")
+
+    @Html.ActionLink("Edit", "Edit", new { id=Model.InvoiceDetailsID }, new { @class = "btn"}) |
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn"})
 </p>

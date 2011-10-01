@@ -1,48 +1,53 @@
-﻿@model InvoiceDetails
+﻿@*
+	Iván Loire - www.iloire.com
+	Please readme README file for license terms.
+
+	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
+*@
+@model InvoiceDetails
 
 @{
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
+<h2>Delete InvoiceDetails</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+
+<div class="alert-message warning">
+  <a class="close" href="#">×</a>
+  <p><strong>Are you sure you want to delete this InvoiceDetails?</strong></p>
+</div>
+
 <fieldset>
     <legend>InvoiceDetails</legend>
-
-    <div class="display-label">Invoice</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Invoice.Notes)
-    </div>
-
-    <div class="display-label">Article</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Article)
-    </div>
-
-    <div class="display-label">Qty</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Qty)
-    </div>
-
-    <div class="display-label">Price</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Price)
-    </div>
-
-    <div class="display-label">VAT</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.VAT)
-    </div>
-
-    <div class="display-label">TimeStamp</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.TimeStamp)
-    </div>
+  <p>
+        <strong>Invoice: </strong>
+		@Html.DisplayFor(model => model.Invoice.Notes)
+  </p>
+  <p>
+        <strong>Article: </strong>
+		@Html.DisplayFor(model => model.Article)
+  </p>
+  <p>
+        <strong>Qty: </strong>
+		@Html.DisplayFor(model => model.Qty)
+  </p>
+  <p>
+        <strong>Price: </strong>
+		@Html.DisplayFor(model => model.Price)
+  </p>
+  <p>
+        <strong>VAT: </strong>
+		@Html.DisplayFor(model => model.VAT)
+  </p>
+  <p>
+        <strong>TimeStamp: </strong>
+		@Html.DisplayFor(model => model.TimeStamp)
+  </p>
 </fieldset>
 @using (Html.BeginForm()) {
-    <p>
-        <input type="submit" value="Delete" /> |
-        @Html.ActionLink("Back to List", "Index")
-    </p>
+	<div class="actions">
+            <input type="submit" class="btn primary" value="Delete" />
+			@Html.ActionLink("Back to List", "Index", null, new { @class = "btn"})
+    </div>
 }

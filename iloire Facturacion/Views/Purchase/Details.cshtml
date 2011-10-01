@@ -1,45 +1,46 @@
-﻿@model Purchase
+﻿@*
+	Iván Loire - www.iloire.com
+	Please readme README file for license terms.
+
+	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
+*@
+
+@model Purchase
 
 @{
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
 
 <fieldset>
-    <legend>Purchase</legend>
-
-    <div class="display-label">Article</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Article)
-    </div>
-
-    <div class="display-label">Price</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Price)
-    </div>
-
-    <div class="display-label">VAT</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.VAT)
-    </div>
-
-    <div class="display-label">Provider</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Provider.Name)
-    </div>
-
-    <div class="display-label">Notes</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Notes)
-    </div>
-
-    <div class="display-label">TimeStamp</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.TimeStamp)
-    </div>
+ <legend>Purchase details</legend>
+	<p>
+        <strong>Article: </strong>
+         @Html.DisplayFor(model => model.Article)
+    </p>
+	<p>
+        <strong>Price: </strong>
+         @Html.DisplayFor(model => model.Price)
+    </p>
+	<p>
+        <strong>VAT: </strong>
+         @Html.DisplayFor(model => model.VAT)
+    </p>
+	<p>
+        <strong>Provider: </strong>
+         @Html.DisplayFor(model => model.Provider.Name)
+    </p>
+	<p>
+        <strong>Notes: </strong>
+         @Html.DisplayFor(model => model.Notes)
+    </p>
+	<p>
+        <strong>TimeStamp: </strong>
+         @Html.DisplayFor(model => model.TimeStamp)
+    </p>
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.PurchaseID }) |
-    @Html.ActionLink("Back to List", "Index")
+
+    @Html.ActionLink("Edit", "Edit", new { id=Model.PurchaseID }, new { @class = "btn"}) |
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn"})
 </p>

@@ -1,35 +1,38 @@
-﻿@model Invoice
+﻿@*
+	Iván Loire - www.iloire.com
+	Please readme README file for license terms.
+
+	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
+*@
+
+@model Invoice
 
 @{
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
 
 <fieldset>
-    <legend>Invoice</legend>
-
-    <div class="display-label">Customer</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Customer.Name)
-    </div>
-
-    <div class="display-label">Notes</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Notes)
-    </div>
-
-    <div class="display-label">TimeStamp</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.TimeStamp)
-    </div>
-
-    <div class="display-label">Paid</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Paid)
-    </div>
+ <legend>Invoice details</legend>
+	<p>
+        <strong>Customer: </strong>
+         @Html.DisplayFor(model => model.Customer.Name)
+    </p>
+	<p>
+        <strong>Notes: </strong>
+         @Html.DisplayFor(model => model.Notes)
+    </p>
+	<p>
+        <strong>TimeStamp: </strong>
+         @Html.DisplayFor(model => model.TimeStamp)
+    </p>
+	<p>
+        <strong>Paid: </strong>
+         @Html.DisplayFor(model => model.Paid)
+    </p>
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.InvoiceID }) |
-    @Html.ActionLink("Back to List", "Index")
+
+    @Html.ActionLink("Edit", "Edit", new { id=Model.InvoiceID }, new { @class = "btn"}) |
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn"})
 </p>

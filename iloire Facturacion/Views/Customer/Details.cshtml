@@ -1,55 +1,58 @@
-﻿@model Customer
+﻿@*
+	Iván Loire - www.iloire.com
+	Please readme README file for license terms.
+
+	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
+*@
+
+@model Customer
 
 @{
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
 
 <fieldset>
-    <legend>Customer</legend>
-
-    <div class="display-label">Name</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Name)
-    </div>
-
-    <div class="display-label">Address</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Address)
-    </div>
-
-    <div class="display-label">CP</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.CP)
-    </div>
-
-    <div class="display-label">City</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.City)
-    </div>
-
-    <div class="display-label">Phone1</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Phone1)
-    </div>
-
-    <div class="display-label">Phone2</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Phone2)
-    </div>
-
-    <div class="display-label">Fax</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Fax)
-    </div>
-
-    <div class="display-label">Email</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Email)
-    </div>
+ <legend>Customer details</legend>
+	<p>
+        <strong>Name: </strong>
+         @Html.DisplayFor(model => model.Name)
+    </p>
+	<p>
+        <strong>CompanyNumber: </strong>
+         @Html.DisplayFor(model => model.CompanyNumber)
+    </p>
+	<p>
+        <strong>Address: </strong>
+         @Html.DisplayFor(model => model.Address)
+    </p>
+	<p>
+        <strong>CP: </strong>
+         @Html.DisplayFor(model => model.CP)
+    </p>
+	<p>
+        <strong>City: </strong>
+         @Html.DisplayFor(model => model.City)
+    </p>
+	<p>
+        <strong>Phone1: </strong>
+         @Html.DisplayFor(model => model.Phone1)
+    </p>
+	<p>
+        <strong>Phone2: </strong>
+         @Html.DisplayFor(model => model.Phone2)
+    </p>
+	<p>
+        <strong>Fax: </strong>
+         @Html.DisplayFor(model => model.Fax)
+    </p>
+	<p>
+        <strong>Email: </strong>
+         @Html.DisplayFor(model => model.Email)
+    </p>
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.CustomerID }) |
-    @Html.ActionLink("Back to List", "Index")
+
+    @Html.ActionLink("Edit", "Edit", new { id=Model.CustomerID }, new { @class = "btn"}) |
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn"})
 </p>
