@@ -7,15 +7,6 @@
 
 @model IEnumerable<Purchase>
 
-@{
-    ViewBag.Title = "Index";
-}
-
-<h1>List <small>of Purchase</small></h1>
-
-<p>
-    @Html.ActionLink("Create New", "Create", null, new {@class="btn"})
-</p>
 <table class="zebra-striped">
     <thead>
         <th>
@@ -30,6 +21,7 @@
         <th>
             Provider
         </th>
+      
         <th>
             TimeStamp
         </th>
@@ -62,3 +54,9 @@
 }
 
 </table>
+<script>
+	$(document).ready(function() {
+		$("table.zebra-striped").tablesorter({ sortList: [[1,0]] });
+	});
+</script>
+

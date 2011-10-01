@@ -22,9 +22,6 @@
             Customer
         </th>
         <th>
-            Notes
-        </th>
-        <th>
             TimeStamp
         </th>
         <th>
@@ -37,9 +34,6 @@
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Customer.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Notes)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.TimeStamp)
@@ -56,9 +50,3 @@
 }
 
 </table>
-<script>
-	$(document).ready(function() {
-		$("table.zebra-striped").tablesorter({ sortList: [[1,0]] });
-	});
-</script>
-

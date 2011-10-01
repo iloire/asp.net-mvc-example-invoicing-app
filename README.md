@@ -2,6 +2,12 @@
 
 ## TAGS:
 
+**0.5**
+ 
+ * Added PartialActions to Invoice and Purchase controllers to return unpaid invoices and recently purchased items.
+ * Added RenderAction methods to Home.Index, in order to display data from the recently created partial actions.
+ * Removed unnecessary columns from list views.
+
 **0.4**
 
  * Added System.ComponentModel.DataAnnotations reference to validate model.

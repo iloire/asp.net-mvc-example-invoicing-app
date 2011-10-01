@@ -1,0 +1,39 @@
+﻿@*
+	Iván Loire - www.iloire.com
+	Please readme README file for license terms.
+
+	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
+*@
+
+@model IEnumerable<Invoice>
+
+<table class="zebra-striped">
+    <thead>
+        <th>
+            Customer
+        </th>
+        <th>
+            Notes
+        </th>
+        <th>
+            TimeStamp
+        </th>
+       
+        
+    </thead>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Customer.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Notes)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TimeStamp)
+        </td>
+    </tr>
+}
+
+</table>
