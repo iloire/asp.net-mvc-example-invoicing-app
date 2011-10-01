@@ -1,8 +1,11 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 public class Purchase
 {
     public int PurchaseID { get; set; }
+
+    [Required]
     public string Article {get;set;}
 
     public decimal Price { get; set; }
