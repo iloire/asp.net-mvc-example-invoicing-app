@@ -2,9 +2,14 @@
     ViewBag.Title = "Página principal";
 }
 
-<h2>@ViewBag.Message</h2>
-            <div class="span7">
-               @{Html.RenderPartial("Menu");}
+<h2>Dashboard</h2>
 
-              
-             </div>
+<div class="span7">
+    <h3>Unpaid invoices</h3>
+    @{Html.RenderAction("UnPaidInvoices","Invoice");}
+</div>
+
+<div class="span7">
+    <h3>Recent purchases</h3>
+    @{Html.RenderAction("RecentPurchases","Purchase");}
+</div>
