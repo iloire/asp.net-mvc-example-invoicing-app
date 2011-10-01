@@ -8,4 +8,6 @@ public class DBContext : DbContext {
     public DbSet<Purchase> Purchases { get; set; }
     public DbSet<InvoiceDetails> InvoiceDetails { get; set; }
 
+    public DbSet<User> Users { get; set; }
+
 }

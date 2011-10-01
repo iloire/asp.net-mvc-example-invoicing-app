@@ -1,10 +1,21 @@
 ﻿using System.Data.Entity;
 using System.Collections.Generic;
 
-public class EntitiesContextInitializer : DropCreateDatabaseAlways<DBContext>
+public class EntitiesContextInitializer : DropCreateDatabaseIfModelChanges<DBContext>
 {
     protected override void Seed(DBContext context)
     {
+
+        //users
+        List<User> users = new List<User>{
+            new User { Name="Usuario dummy", Login="user", Password="pass", Email="hello2@user.com", Enabled=true}
+        };
+        foreach (User u in users)
+        {
+            context.Users.Add(u);
+        }
+
+
         //let's add some dummy customer data:
         List<Customer> customers = new List<Customer>
         {
