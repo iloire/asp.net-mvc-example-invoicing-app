@@ -12,6 +12,15 @@ namespace iloire_Facturacion.Controllers
     {
         private DBContext db = new DBContext();
 
+        /*CUSTOM*/
+        public PartialViewResult RecentPurchases()
+        {
+            var invoices = db.Purchases.Include(i => i.Provider).OrderByDescending(t=>t.TimeStamp).Take(10);
+            return PartialView("PurchasesListPartial", invoices.ToList());
+        }
+
+        /*END CUSTOM*/
+
         //
         // GET: /Purchase/
 

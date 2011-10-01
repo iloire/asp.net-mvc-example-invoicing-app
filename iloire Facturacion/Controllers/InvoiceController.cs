@@ -12,6 +12,15 @@ namespace iloire_Facturacion.Controllers
     {
         private DBContext db = new DBContext();
 
+        /*CUSTOM*/
+        public PartialViewResult UnPaidInvoices()
+        {
+            var invoices = db.Invoices.Include(i => i.Customer).Where(i=>i.Paid==false);
+            return PartialView("InvoicesListPartial", invoices.ToList());
+        }
+
+        /*END CUSTOM*/
+
         //
         // GET: /Invoice/
 
