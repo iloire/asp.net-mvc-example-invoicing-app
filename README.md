@@ -2,6 +2,16 @@
 
 ## TAGS:
 
+**0.6**
+ 
+ * Added security so only authenticated users can access the app. To do so:
+   * Added custom Membership Provider class (InvoicingMemembershipProvider)
+   * Implement ValidateUser method on (InvoicingMemembershipProvider)
+   * Change web.config to add InvoicingMemembershipProvider as default provider
+   * Added [Authorize] attribute to controllers
+   * Added User entity, added Users  table to DBConext and dummy data generation in initializer.
+   * Fixing css style in Account views.
+
 **0.5**
  
  * Added PartialActions to Invoice and Purchase controllers to return unpaid invoices and recently purchased items.

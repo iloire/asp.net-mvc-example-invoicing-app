@@ -80,6 +80,8 @@
     <Compile Include="Models\POCO\InvoiceDetails.cs" />
     <Compile Include="Models\POCO\Purchase.cs" />
     <Compile Include="Models\POCO\Invoice.cs" />
+    <Compile Include="Models\POCO\User.cs" />
+    <Compile Include="Models\Security\InvoicingMembershipProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

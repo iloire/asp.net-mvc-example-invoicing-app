@@ -1,4 +1,9 @@
-﻿/* Styles for validation helpers
+﻿span.login 
+{
+    color:White;    
+}
+
+/* Styles for validation helpers
 -----------------------------------------------------------*/
 .field-validation-error {
     color: #ff0000;
@@ -21,3 +26,4 @@
 .validation-summary-valid {
     display: none;
 }
+
