@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace iloire_Facturacion.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         public ActionResult Index()

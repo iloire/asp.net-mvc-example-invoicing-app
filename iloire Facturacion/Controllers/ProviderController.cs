@@ -7,7 +7,8 @@ using System.Web;
 using System.Web.Mvc;
 
 namespace iloire_Facturacion.Controllers
-{ 
+{
+    [Authorize]
     public class ProviderController : Controller
     {
         private DBContext db = new DBContext();
