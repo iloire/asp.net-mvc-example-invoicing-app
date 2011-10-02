@@ -2,13 +2,20 @@
 
 ## TAGS:
 
+**0.9**
+
+ * Added jquery localization file (http://plugins.jquery.com/node/8/release) in order tu support spanish format currency validation
+ * Added range validation to qty, so you need to enter at least "1"
+
 **0.8**
+
  * Improved the way the invoice and invoicedetail entity play together in the application for better UX
    * Making the invoice details views always display with their invoice parent object on the left.
  * Added partial views for encapsulation (ex: edit and add)
  * Added footer with aggregate data to invoice details lists.
 
 **0.7**
+
  * Added DateTime editor template to be able to edit datetime fields accross de application
  * Added jQuery UI calendar functionality to datetime editor fields.
  * Set PAID / UNPAID display as text with style instead of checkbox
