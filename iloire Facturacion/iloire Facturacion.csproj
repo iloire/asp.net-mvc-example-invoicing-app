@@ -199,6 +199,9 @@
     <Content Include="Views\Customer\Delete.cshtml" />
     <Content Include="Views\Invoice\InvoicesListPartial.cshtml" />
     <Content Include="Views\Purchase\PurchasesListPartial.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
+    <Content Include="Views\Invoice\InvoiceDetailsPartial.cshtml" />
+    <Content Include="Views\InvoiceDetails\EditOrAddInvoiceDetailsPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

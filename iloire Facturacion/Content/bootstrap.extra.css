@@ -1,3 +1,15 @@
 body {
   padding-top: 60px !important;
 }
+
+.container-fluid > .sidebar {width:130px}
+.container-fluid > .content {margin-left:180px}
+
+tfoot 
+{
+    background-color:#c2c2c2;
+}
+tfoot * 
+{
+  font-weight:bold;
+}

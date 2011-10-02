@@ -16,6 +16,7 @@
 <p>
     @Html.ActionLink("Create New", "Create", null, new {@class="btn"})
 </p>
+
 <table class="zebra-striped">
     <thead>
         <th>
@@ -24,9 +25,16 @@
         <th>
             TimeStamp
         </th>
+         <th>
+            SubTotal
+        </th>
+         <th>
+            Total (with VAT)
+        </th>
         <th>
             Paid
         </th>
+
         <th></th>
     </thead>
 
@@ -37,6 +45,12 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.TimeStamp)
+        </td>
+        <td>
+            @item.InvoiceDetails.Sum(i => i.Total)
+        </td>
+         <td>
+            @item.InvoiceDetails.Sum(i => i.TotalPlusVAT)
         </td>
         <td>
             

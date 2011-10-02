@@ -18,4 +18,18 @@ public class InvoiceDetails
     public decimal VAT { get; set; }
 
     public DateTime TimeStamp { get; set; }
+
+    public decimal Total {
+        get {
+            return Qty * Price;
+        }
+    }
+
+    public decimal TotalPlusVAT
+    {
+        get
+        {
+            return Qty * Price * (1 + VAT / 100);
+        }
+    }
 }

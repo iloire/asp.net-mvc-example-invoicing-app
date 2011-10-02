@@ -14,14 +14,15 @@
 <h1>List <small>of InvoiceDetails</small></h1>
 
 <p>
-    @Html.ActionLink("Create New", "Create", null, new {@class="btn"})
+    @Html.ActionLink("Create New", "Create", new { id=3 }, new { @class = "btn" })
 </p>
+
 <table class="zebra-striped">
     <thead>
-        <th>
+@*        <th>
             Invoice
         </th>
-        <th>
+*@        <th>
             Article
         </th>
         <th>
@@ -31,20 +32,23 @@
             Price
         </th>
         <th>
-            VAT
+            TOTAL
         </th>
         <th>
-            TimeStamp
+            VAT
         </th>
-        <th></th>
+         <th>
+          Total plus VAT
+        </th> 
+       <th></th>
     </thead>
 
 @foreach (var item in Model) {
     <tr>
-        <td>
+@*        <td>
             @Html.DisplayFor(modelItem => item.Invoice.Notes)
         </td>
-        <td>
+*@        <td>
             @Html.DisplayFor(modelItem => item.Article)
         </td>
         <td>
@@ -53,18 +57,38 @@
         <td>
             @Html.DisplayFor(modelItem => item.Price)
         </td>
-        <td>
+       
+         <td>
+            @Html.DisplayFor(modelItem => item.Total)
+        </td>
+
+         <td>
             @Html.DisplayFor(modelItem => item.VAT)
         </td>
-        <td>
+         <td>
+            @Html.DisplayFor(modelItem => item.TotalPlusVAT)
+        </td>
+@*        <td>
             @Html.DisplayFor(modelItem => item.TimeStamp)
         </td>
-        <td>
+*@        <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.InvoiceDetailsID }, new { @class = "btn primary"}) |
-            @Html.ActionLink("Details", "Details", new { id=item.InvoiceDetailsID }, new { @class = "btn"}) |
+         @*   @Html.ActionLink("Details", "Details", new { id=item.InvoiceDetailsID }, new { @class = "btn"}) |*@
             @Html.ActionLink("Delete", "Delete", new { id=item.InvoiceDetailsID }, new { @class = "btn"})
         </td>
     </tr>
 }
+
+    <tfoot>
+        <tr>
+            <td></td>
+            <td>@Model.Sum(i=>i.Qty)</td>
+            <td>-</td>
+            <td>-</td>
+            <td>@Model.Sum(i=>i.Total)</td>
+            <td>@Model.Sum(i=>i.TotalPlusVAT)</td>
+            <td></td>
+        </tr>
+    </tfoot>
 
 </table>

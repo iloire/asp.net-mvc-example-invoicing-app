@@ -10,44 +10,50 @@
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete InvoiceDetails</h2>
-
-
-<div class="alert-message warning">
-  <a class="close" href="#">×</a>
-  <p><strong>Are you sure you want to delete this InvoiceDetails?</strong></p>
+<div class="span6">
+    @{Html.RenderAction("DetailsPartial", "Invoice", new { id = Model.InvoiceID});}
 </div>
 
-<fieldset>
-    <legend>InvoiceDetails</legend>
-  <p>
-        <strong>Invoice: </strong>
-		@Html.DisplayFor(model => model.Invoice.Notes)
-  </p>
-  <p>
-        <strong>Article: </strong>
-		@Html.DisplayFor(model => model.Article)
-  </p>
-  <p>
-        <strong>Qty: </strong>
-		@Html.DisplayFor(model => model.Qty)
-  </p>
-  <p>
-        <strong>Price: </strong>
-		@Html.DisplayFor(model => model.Price)
-  </p>
-  <p>
-        <strong>VAT: </strong>
-		@Html.DisplayFor(model => model.VAT)
-  </p>
-  <p>
-        <strong>TimeStamp: </strong>
-		@Html.DisplayFor(model => model.TimeStamp)
-  </p>
-</fieldset>
-@using (Html.BeginForm()) {
-	<div class="actions">
-            <input type="submit" class="btn primary" value="Delete" />
-			@Html.ActionLink("Back to List", "Index", null, new { @class = "btn"})
+<div class="span9">
+    <h2>Delete InvoiceDetails</h2>
+
+    <div class="alert-message warning">
+      <a class="close" href="#">×</a>
+      <p><strong>Are you sure you want to delete this InvoiceDetails?</strong></p>
     </div>
-}
+
+    <fieldset>
+        <legend>InvoiceDetails</legend>
+      <p>
+            <strong>Invoice: </strong>
+		    @Html.DisplayFor(model => model.Invoice.Notes)
+      </p>
+      <p>
+            <strong>Article: </strong>
+		    @Html.DisplayFor(model => model.Article)
+      </p>
+      <p>
+            <strong>Qty: </strong>
+		    @Html.DisplayFor(model => model.Qty)
+      </p>
+      <p>
+            <strong>Price: </strong>
+		    @Html.DisplayFor(model => model.Price)
+      </p>
+      <p>
+            <strong>VAT: </strong>
+		    @Html.DisplayFor(model => model.VAT)
+      </p>
+      <p>
+            <strong>TimeStamp: </strong>
+		    @Html.DisplayFor(model => model.TimeStamp)
+      </p>
+    </fieldset>
+
+    @using (Html.BeginForm()) {
+	    <div class="actions">
+                <input type="submit" class="btn primary" value="Delete" />
+			    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn"})
+        </div>
+    }
+</div>

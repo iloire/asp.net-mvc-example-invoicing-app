@@ -1,0 +1,38 @@
+﻿@*
+	Iván Loire - www.iloire.com
+	Please readme README file for license terms.
+
+	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
+*@
+
+@model Invoice
+    <fieldset>
+     <legend>Invoice details</legend>
+	    <p>
+            <strong>Customer: </strong>
+             @Html.DisplayFor(model => model.Customer.Name)
+        </p>
+	    <p>
+            <strong>Notes: </strong>
+             @Html.DisplayFor(model => model.Notes)
+        </p>
+	    <p>
+            <strong>TimeStamp: </strong>
+             @Html.DisplayFor(model => model.TimeStamp)
+        </p>
+	    <p>
+             @if (!Model.Paid)
+             {
+                 <span class="label important">UNPAID</span>
+             }
+             else
+             {
+                <span class="label success">PAID</span>  
+             }
+        </p>
+    </fieldset>
+    <p>
+
+        @Html.ActionLink("Edit", "Edit", new { id = Model.InvoiceID }, new { @class = "btn" }) 
+   @*     @Html.ActionLink("Back to List", "Index", null, new { @class = "btn" })*@
+    </p>

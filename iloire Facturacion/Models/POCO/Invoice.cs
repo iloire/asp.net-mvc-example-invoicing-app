@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class Invoice
 {
@@ -17,4 +18,24 @@ public class Invoice
     public bool Paid { get; set; }
 
     public virtual ICollection<InvoiceDetails> InvoiceDetails { get; set; }
+
+    public decimal Total {
+        get {
+            if (InvoiceDetails == null)
+                return 0;
+
+            return InvoiceDetails.Sum(i => i.Total);
+        }
+    }
+
+    public decimal TotalWithVAT
+    {
+        get
+        {
+            if (InvoiceDetails == null)
+                return 0;
+
+            return InvoiceDetails.Sum(i => i.TotalPlusVAT);
+        }
+    }
 }

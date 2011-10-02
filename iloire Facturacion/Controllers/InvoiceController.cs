@@ -20,6 +20,12 @@ namespace iloire_Facturacion.Controllers
             return PartialView("InvoicesListPartial", invoices.ToList());
         }
 
+        public PartialViewResult DetailsPartial(int id)
+        {
+            Invoice invoice = db.Invoices.Find(id);
+            return PartialView("InvoiceDetailsPartial", invoice);
+        }
+
         /*END CUSTOM*/
 
         //
@@ -59,7 +65,7 @@ namespace iloire_Facturacion.Controllers
             {
                 db.Invoices.Add(invoice);
                 db.SaveChanges();
-                return RedirectToAction("Index");  
+                return RedirectToAction("Edit", "Invoice", new { id = invoice.InvoiceID });  
             }
 
             ViewBag.CustomerID = new SelectList(db.Customers, "CustomerID", "Name", invoice.CustomerID);

@@ -42,5 +42,5 @@
 <p>
 
     @Html.ActionLink("Edit", "Edit", new { id=Model.InvoiceDetailsID }, new { @class = "btn"}) |
-    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn"})
+    @Html.ActionLink("Back to invoice", "Details", "Invoice", new { id = Model.InvoiceID }, new { @class = "btn" })
 </p>
