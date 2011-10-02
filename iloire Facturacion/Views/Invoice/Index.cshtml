@@ -39,12 +39,20 @@
             @Html.DisplayFor(modelItem => item.TimeStamp)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Paid)
+            
+            @if (!item.Paid)
+            {
+             <span class="label important">UNPAID</span>
+            }
+            else
+            {
+            <span class="label success">PAID</span>  
+            }
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.InvoiceID }, new { @class = "btn primary"}) |
-            @Html.ActionLink("Details", "Details", new { id=item.InvoiceID }, new { @class = "btn"}) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.InvoiceID }, new { @class = "btn"})
+            @Html.ActionLink("Edit", "Edit", new { id = item.InvoiceID }, new { @class = "btn primary" }) |
+            @Html.ActionLink("Details", "Details", new { id = item.InvoiceID }, new { @class = "btn" }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.InvoiceID }, new { @class = "btn" })
         </td>
     </tr>
 }

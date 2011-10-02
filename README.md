@@ -2,6 +2,11 @@
 
 ## TAGS:
 
+**0.7**
+ * Added DateTime editor template to be able to edit datetime fields accross de application
+ * Added jQuery UI calendar functionality to datetime editor fields.
+ * Set PAID / UNPAID display as text with style instead of checkbox
+
 **0.6**
  
  * Added security so only authenticated users can access the app. To do so:

@@ -35,7 +35,7 @@
             @Html.LabelFor(model => model.Notes)
         
         <div class="input">
-            @Html.EditorFor(model => model.Notes)
+            @Html.TextAreaFor(model => model.Notes)
             @Html.ValidationMessageFor(model => model.Notes)
         </div>
 		</div>
@@ -44,7 +44,7 @@
             @Html.LabelFor(model => model.TimeStamp)
         
         <div class="input">
-            @Html.EditorFor(model => model.TimeStamp)
+            @Html.EditorFor(model => model.TimeStamp, "Calendar")
             @Html.ValidationMessageFor(model => model.TimeStamp)
         </div>
 		</div>

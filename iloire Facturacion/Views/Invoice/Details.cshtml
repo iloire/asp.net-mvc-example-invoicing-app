@@ -27,12 +27,18 @@
          @Html.DisplayFor(model => model.TimeStamp)
     </p>
 	<p>
-        <strong>Paid: </strong>
-         @Html.DisplayFor(model => model.Paid)
+         @if (!Model.Paid)
+         {
+             <span class="label important">UNPAID</span>
+         }
+         else
+         {
+            <span class="label success">PAID</span>  
+         }
     </p>
 </fieldset>
 <p>
 
-    @Html.ActionLink("Edit", "Edit", new { id=Model.InvoiceID }, new { @class = "btn"}) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.InvoiceID }, new { @class = "btn" }) |
     @Html.ActionLink("Back to List", "Index", null, new { @class = "btn"})
 </p>
