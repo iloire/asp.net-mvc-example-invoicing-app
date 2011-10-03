@@ -33,6 +33,16 @@
 
 
 
+@using (Html.BeginForm("Search", "Customer"))
+{
+    <div class="clearfix">
+         <input name="q" id="search_Customer" type="text" value="@Request["q"]"
+          placeholder="Please intro search text"/>
+
+           <input type="submit" value="Search" class="btn small" />
+
+    </div>
+}
 
 
 <ul class="filtroAlfab">
