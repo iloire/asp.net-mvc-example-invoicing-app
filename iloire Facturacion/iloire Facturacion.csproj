@@ -75,6 +75,10 @@
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\DBContext.cs" />
     <Compile Include="Models\EntitiesContextDBInitializer.cs" />
+    <Compile Include="Models\Paging\IPagedList.cs" />
+    <Compile Include="Models\Paging\PagedList.cs" />
+    <Compile Include="Models\Paging\Pager.cs" />
+    <Compile Include="Models\Paging\PagingExtensions.cs" />
     <Compile Include="Models\POCO\Customer.cs" />
     <Compile Include="Models\POCO\Provider.cs" />
     <Compile Include="Models\POCO\InvoiceDetails.cs" />

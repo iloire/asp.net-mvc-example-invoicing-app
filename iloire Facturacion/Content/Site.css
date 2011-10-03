@@ -11,6 +11,11 @@ ul.filtroAlfab li
     font-size:120%;
 }
 
+div.pagingContainer
+{
+    float:right;
+}
+
 /* Styles for validation helpers
 -----------------------------------------------------------*/
 .field-validation-error {

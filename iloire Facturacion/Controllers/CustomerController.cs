@@ -5,20 +5,23 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MvcPaging;
 
 namespace iloire_Facturacion.Controllers
 {
     [Authorize]
     public class CustomerController : Controller
     {
+        private const int defaultPageSize = 10;
         private DBContext db = new DBContext();
 
         /*CUSTOM*/
-        public ViewResultBase Search(string q)
+        public ViewResultBase Search(string q, int? page)
         {
-            var customers = new List<Customer>();
+            IQueryable<Customer> customers;
+
             if (q.Length == 0) {
-                customers = db.Customers.ToList();
+                customers = db.Customers;
             }
             else if (q.Length == 1)
             {
@@ -26,20 +29,23 @@ namespace iloire_Facturacion.Controllers
                 //alfabet, first letter
                 customers = (from c in db.Customers
                                  where c.Name.StartsWith(q)
-                                 select c).ToList();
+                                 select c);
             }
             else { 
                 //normal search
                  customers = (from c in db.Customers
                                  where c.Name.IndexOf(q) > -1
-                                 select c).ToList();
+                                 select c);
                 
             }
+
+            int currentPageIndex = page.HasValue ? page.Value - 1 : 0;
+            var customersListPaged = customers.OrderBy(i => i.Name).ToPagedList(currentPageIndex, defaultPageSize);
             
             if (Request.IsAjaxRequest())
-                return PartialView("Index", customers);
+                return PartialView("Index", customersListPaged);
             else
-                return View("Index",  customers);
+                return View("Index", customersListPaged);
         }
 
         /*END CUSTOM*/
@@ -48,9 +54,10 @@ namespace iloire_Facturacion.Controllers
         //
         // GET: /Customer/
 
-        public ViewResult Index()
+        public ViewResult Index(int? page)
         {
-            return View(db.Customers.ToList());
+            int currentPageIndex = page.HasValue ? page.Value - 1 : 0;
+            return View(db.Customers.ToList().ToPagedList(currentPageIndex, defaultPageSize));
         }
 
         //

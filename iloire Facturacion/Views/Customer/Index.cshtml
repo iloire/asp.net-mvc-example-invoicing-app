@@ -5,7 +5,8 @@
 	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
 *@
 
-@model IEnumerable<Customer>
+@model IPagedList<Customer>
+@using MvcPaging;
 
 @{
     ViewBag.Title = "Index";
@@ -61,6 +62,10 @@
     }
 }
 </ul>
+
+<div class="pagingContainer">
+    @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+</div>
 
 <table class="zebra-striped">
     <thead>

@@ -22,13 +22,26 @@ public class EntitiesContextInitializer : DropCreateDatabaseIfModelChanges<DBCon
             new Customer {Name="ACME Internation LS", Address="12 Stree NY", CP= "232323", CompanyNumber="3424324342", City="New York", Phone1="223-23232323", Fax="233-333333", Email="hello@hello.com"},
             new Customer {Name="Apple Inc.", Address="1233 Street NY", CP= "232323", CompanyNumber="23232323", City="NN CA", Phone1="343-23232323", Fax="233-333333", Email="apple@hello.com"}
         };
+        for (int i = 0; i < 100; i++)
+        {
+            customers.Add(new Customer()
+            {
+                Name = "Extra customer " + i,
+                Address = "Address for customer" + i,
+                City = "Zaragoza",
+                CompanyNumber = "212121212" + i,
+                CP = "50800",
+                Phone1 = "2323-2222" + i,
+                Email = "email@customer" + i + ".com"
+            });
+        }
         foreach (Customer c in customers)
         {
             context.Customers.Add(c);
         }
 
         //let's add a few providers
-        int providers_count=20;
+        int providers_count=80;
         List<Provider> providers = new List<Provider>();
         for(int i=0;i<providers_count;i++){
             providers.Add(new Provider() 

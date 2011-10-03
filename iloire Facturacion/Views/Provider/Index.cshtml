@@ -5,7 +5,8 @@
 	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
 *@
 
-@model IEnumerable<Provider>
+@model IPagedList<Provider>
+@using MvcPaging;
 
 @{
     ViewBag.Title = "Index";
@@ -14,8 +15,13 @@
 <h1>List <small>of Provider</small></h1>
 
 <p>
-    @Html.ActionLink("Create New", "Create", null, new {@class="btn"})
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn" })
 </p>
+
+<div class="pagingContainer">
+    @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+</div>
+
 <table class="zebra-striped">
     <thead>
         <th>
@@ -38,7 +44,8 @@
         <th></th>
     </thead>
 
-@foreach (var item in Model) {
+@foreach (var item in Model)
+{
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Name)
@@ -58,9 +65,9 @@
             @Html.DisplayFor(modelItem => item.Email)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ProviderID }, new { @class = "btn primary"}) 
-            @Html.ActionLink("Details", "Details", new { id=item.ProviderID }, new { @class = "btn"}) 
-            @Html.ActionLink("Delete", "Delete", new { id=item.ProviderID }, new { @class = "btn"})
+            @Html.ActionLink("Edit", "Edit", new { id = item.ProviderID }, new { @class = "btn primary" }) 
+            @Html.ActionLink("Details", "Details", new { id = item.ProviderID }, new { @class = "btn" }) 
+            @Html.ActionLink("Delete", "Delete", new { id = item.ProviderID }, new { @class = "btn" })
         </td>
     </tr>
 }

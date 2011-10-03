@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MvcPaging;
 
 namespace iloire_Facturacion.Controllers
 {
@@ -12,13 +13,17 @@ namespace iloire_Facturacion.Controllers
     public class ProviderController : Controller
     {
         private DBContext db = new DBContext();
+        private const int defaultPageSize = 10;
 
         //
         // GET: /Provider/
 
-        public ViewResult Index()
+        public ViewResult Index(int? page)
         {
-            return View(db.Providers.ToList());
+            var providers = db.Providers.ToList();
+            int currentPageIndex = page.HasValue ? page.Value - 1 : 0;
+            var providersListPaged = providers.OrderBy(i => i.Name).ToPagedList(currentPageIndex, defaultPageSize);
+            return View(providersListPaged);
         }
 
         //
