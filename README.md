@@ -2,6 +2,10 @@
 
 ## TAGS:
 
+**0.11**
+
+ * Added search functionality in Customer list.
+
 **0.10**
  
  * Added DueDate field to invoice.
