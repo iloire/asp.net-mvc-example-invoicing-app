@@ -15,6 +15,8 @@ public class Invoice
     public string Notes { get; set; }
     public DateTime TimeStamp { get; set; }
 
+    public DateTime DueDate { get; set; }
+
     public bool Paid { get; set; }
 
     public virtual ICollection<InvoiceDetails> InvoiceDetails { get; set; }

@@ -2,8 +2,8 @@ body {
   padding-top: 60px !important;
 }
 
-.container-fluid > .sidebar {width:130px}
-.container-fluid > .content {margin-left:180px}
+.container-fluid > .sidebar {width:120px}
+.container-fluid > .content {margin-left:140px}
 
 tfoot 
 {

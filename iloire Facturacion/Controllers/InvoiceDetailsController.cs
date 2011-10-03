@@ -16,6 +16,7 @@ namespace iloire_Facturacion.Controllers
         /*CUSTOM*/
         public PartialViewResult IndexByInvoice(int id)
         {
+            ViewBag.InvoiceID = id;
             var invoicedetails = db.InvoiceDetails.Include(i => i.Invoice).Where(i=>i.InvoiceID==id);
             return PartialView("Index", invoicedetails.ToList());
         }

@@ -13,9 +13,12 @@
 
 <h1>List <small>of InvoiceDetails</small></h1>
 
+@if (ViewBag.InvoiceID != null)
+{
 <p>
-    @Html.ActionLink("Create New", "Create", new { id=3 }, new { @class = "btn" })
+    @Html.ActionLink("Create New", "Create", new { id = ViewBag.InvoiceID }, new { @class = "btn" })
 </p>
+}
 
 <table class="zebra-striped">
     <thead>
@@ -72,9 +75,9 @@
             @Html.DisplayFor(modelItem => item.TimeStamp)
         </td>
 *@        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.InvoiceDetailsID }, new { @class = "btn primary"}) |
+            @Html.ActionLink("Edit", "Edit", new { id=item.InvoiceDetailsID }, new { @class = "btn primary small"}) 
          @*   @Html.ActionLink("Details", "Details", new { id=item.InvoiceDetailsID }, new { @class = "btn"}) |*@
-            @Html.ActionLink("Delete", "Delete", new { id=item.InvoiceDetailsID }, new { @class = "btn"})
+            @Html.ActionLink("Delete", "Delete", new { id=item.InvoiceDetailsID }, new { @class = "btn small"})
         </td>
     </tr>
 }

@@ -63,10 +63,14 @@
     </div>
 
     <div class="container-fluid">
-        <div class="sidebar">
+        
+        @if (Request.IsAuthenticated){
+            <div class="sidebar">
             <h3>Admin</h3>
             @{Html.RenderPartial("Menu");}
-        </div>
+            </div>
+         }
+        
         <div class="content">
            @RenderBody()
         </div>

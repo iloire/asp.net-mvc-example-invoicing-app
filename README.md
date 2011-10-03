@@ -2,6 +2,11 @@
 
 ## TAGS:
 
+**0.10**
+ 
+ * Added DueDate field to invoice.
+ * Some bug fixing.	
+
 **0.9**
 
  * Added jquery localization file (http://plugins.jquery.com/node/8/release) in order tu support spanish format currency validation
