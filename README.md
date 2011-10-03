@@ -5,7 +5,9 @@
 **0.10**
  
  * Added DueDate field to invoice.
- * Some bug fixing.	
+ * Some bug fixing.
+ * Alphabetical and "by name" search in Customer.
+ * Support for ajax in alphabetical search.
 
 **0.9**
 

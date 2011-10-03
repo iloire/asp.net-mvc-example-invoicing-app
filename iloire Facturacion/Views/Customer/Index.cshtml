@@ -11,11 +11,29 @@
     ViewBag.Title = "Index";
 }
 
+<div id="ajaxReponse">
+
 <h1>List <small>of Customer</small></h1>
 
 <p>
     @Html.ActionLink("Create New", "Create", null, new {@class="btn"})
 </p>
+
+ <script type="text/javascript">
+     $(document).ready(function () {
+         $("ul.filtroAlfab a").click(function (e) {
+             $.ajax({ url: this.href, success: function (data) {
+                 $("#ajaxReponse").html(data);
+             }
+             });
+             return false;
+         });
+     }); 
+</script>
+
+
+
+
 
 <ul class="filtroAlfab">
 @foreach (var letra in "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ")
@@ -82,3 +100,4 @@
 }
 
 </table>
+</div>

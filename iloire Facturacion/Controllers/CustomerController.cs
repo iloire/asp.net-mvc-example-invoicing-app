@@ -14,9 +14,8 @@ namespace iloire_Facturacion.Controllers
         private DBContext db = new DBContext();
 
         /*CUSTOM*/
-        public ViewResult Search(string q)
+        public ViewResultBase Search(string q)
         {
-            
             var customers = new List<Customer>();
             if (q.Length == 1)
             {
@@ -32,7 +31,11 @@ namespace iloire_Facturacion.Controllers
                                  where c.Name.IndexOf(q)>-1
                                  select c).ToList();
             }
-            return View("Index",customers);
+            
+            if (Request.IsAjaxRequest())
+                return PartialView("Index", customers);
+            else
+                return View("Index",  customers);
         }
 
         /*END CUSTOM*/
