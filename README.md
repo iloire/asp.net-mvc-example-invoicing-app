@@ -13,13 +13,13 @@ This is a sample invoicing application used for ASP.NET MVC3 training purposes.
 
 ## ScreenShots
 
-![New Customer](https://github.com/iloire/ASP.NET-MVC-ACME-Invoicing--App/blob/master/screenshots/new_customer_bootstrap_style01.png)
+![New Customer](https://github.com/iloire/ASP.NET-MVC-ACME-Invoicing--App/raw/master/screenshots/new_customer_bootstrap_style01.png)
 
-![Invoice list](https://github.com/iloire/ASP.NET-MVC-ACME-Invoicing--App/blob/master/screenshots/list_invoice01.png)
+![Invoice list](https://github.com/iloire/ASP.NET-MVC-ACME-Invoicing--App/raw/master/screenshots/list_invoice01.png)
 
-![Invoice Details](https://github.com/iloire/ASP.NET-MVC-ACME-Invoicing--App/blob/master/screenshots/detail_invoice01.png)
+![Invoice Details](https://github.com/iloire/ASP.NET-MVC-ACME-Invoicing--App/raw/master/screenshots/detail_invoice01.png)
 
-![Customer list](https://github.com/iloire/ASP.NET-MVC-ACME-Invoicing--App/blob/master/screenshots/list_customer01.png)
+![Customer list](https://github.com/iloire/ASP.NET-MVC-ACME-Invoicing--App/raw/master/screenshots/list_customer01.png)
 
 
 ## TAGS (change log):
