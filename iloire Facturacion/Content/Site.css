@@ -3,6 +3,14 @@
     color:White;    
 }
 
+ul.filtroAlfab{ list-style-type:none; margin:0px;}
+ul.filtroAlfab li 
+{ 
+    float:left;
+    margin:4px;
+    font-size:120%;
+}
+
 /* Styles for validation helpers
 -----------------------------------------------------------*/
 .field-validation-error {

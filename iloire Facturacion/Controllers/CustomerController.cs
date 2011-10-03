@@ -13,6 +13,31 @@ namespace iloire_Facturacion.Controllers
     {
         private DBContext db = new DBContext();
 
+        /*CUSTOM*/
+        public ViewResult Search(string q)
+        {
+            
+            var customers = new List<Customer>();
+            if (q.Length == 1)
+            {
+                ViewBag.LetraAlfabetica = q;
+                //alfabet, first letter
+                customers = (from c in db.Customers
+                                 where c.Name.StartsWith(q)
+                                 select c).ToList();
+            }
+            else { 
+                //normal search
+                customers = (from c in db.Customers
+                                 where c.Name.IndexOf(q)>-1
+                                 select c).ToList();
+            }
+            return View("Index",customers);
+        }
+
+        /*END CUSTOM*/
+        
+        
         //
         // GET: /Customer/
 

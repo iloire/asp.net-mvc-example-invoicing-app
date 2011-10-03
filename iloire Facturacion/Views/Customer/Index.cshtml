@@ -16,6 +16,24 @@
 <p>
     @Html.ActionLink("Create New", "Create", null, new {@class="btn"})
 </p>
+
+<ul class="filtroAlfab">
+@foreach (var letra in "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ")
+ {
+    if (ViewBag.LetraAlfabetica == letra.ToString())
+    {     
+    <li><strong class="miembro_seleccionado_letras">@letra</strong></li>
+    }
+    else
+    { 
+    <text>
+    <li>@Html.ActionLink(letra.ToString(), "Search", "Customer", new { q = letra }, null)</li>
+    </text>
+     
+    }
+}
+</ul>
+
 <table class="zebra-striped">
     <thead>
         <th>
