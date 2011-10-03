@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.ComponentModel;
 
 public class Invoice
 {
@@ -13,8 +14,11 @@ public class Invoice
     public string Name { get; set; }
 
     public string Notes { get; set; }
+
+    [DisplayName("Created")]
     public DateTime TimeStamp { get; set; }
 
+    [DisplayName("Due Date")]
     public DateTime DueDate { get; set; }
 
     public bool Paid { get; set; }

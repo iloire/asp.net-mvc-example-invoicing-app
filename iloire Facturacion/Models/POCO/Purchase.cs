@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
 
 public class Purchase
 {
@@ -15,5 +16,7 @@ public class Purchase
     public virtual Provider Provider { get; set; }
 
     public string Notes { get; set; }
+
+    [DisplayName("Created")]
     public DateTime TimeStamp { get; set; }
 }
