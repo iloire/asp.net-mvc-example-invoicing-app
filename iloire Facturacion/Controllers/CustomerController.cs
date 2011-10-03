@@ -17,7 +17,10 @@ namespace iloire_Facturacion.Controllers
         public ViewResultBase Search(string q)
         {
             var customers = new List<Customer>();
-            if (q.Length == 1)
+            if (q.Length == 0) {
+                customers = db.Customers.ToList();
+            }
+            else if (q.Length == 1)
             {
                 ViewBag.LetraAlfabetica = q;
                 //alfabet, first letter
@@ -27,9 +30,10 @@ namespace iloire_Facturacion.Controllers
             }
             else { 
                 //normal search
-                customers = (from c in db.Customers
-                                 where c.Name.IndexOf(q)>-1
+                 customers = (from c in db.Customers
+                                 where c.Name.IndexOf(q) > -1
                                  select c).ToList();
+                
             }
             
             if (Request.IsAjaxRequest())

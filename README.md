@@ -1,5 +1,4 @@
-﻿
-## What is this?
+﻿## What is this?
 
 This is a sample invoicing application used for ASP.NET MVC3 training purposes.
 
