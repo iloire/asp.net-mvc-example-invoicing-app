@@ -11,10 +11,9 @@
     ViewBag.Title = "Details";
 }
 
-<div class="span5">
-    @{Html.RenderPartial("InvoiceDetailsPartial", Model);}
-</div>
 
-<div class="span10">
-    @{Html.RenderAction("IndexByInvoice", "InvoiceDetails", new {id = Model.InvoiceID});}
-</div>
+@{Html.RenderPartial("InvoiceDetailsPartial", Model);}
+
+
+
+@{Html.RenderAction("IndexByInvoice", "InvoiceDetails", new {id = Model.InvoiceID});}

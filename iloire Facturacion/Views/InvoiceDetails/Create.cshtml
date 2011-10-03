@@ -13,11 +13,9 @@
 
 @if (Model!=null)
 {
-<div class="span5">
+    <text>
     @{Html.RenderAction("DetailsPartial", "Invoice", new { id = Model.InvoiceID });}
-</div>
+    </text>
 }
 
-<div class="span10">
-      @{Html.RenderPartial("EditOrAddInvoiceDetailsPartial", Model);}
-</div>
+ @{Html.RenderPartial("EditOrAddInvoiceDetailsPartial", Model);}

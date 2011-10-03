@@ -1,10 +1,24 @@
 ﻿Sample invoice application used for ASP.NET MVC training.
 
+
+## ScreenShots
+
+![New Customer](https://github.com/iloire/ASP.NET-MVC-ACME-Invoicing--App/blob/master/screenshots/new_customer_bootstrap_style01.png)
+
+![Invoice list](https://github.com/iloire/ASP.NET-MVC-ACME-Invoicing--App/blob/master/screenshots/list_invoice01.png)
+
+![Invoice Details](https://github.com/iloire/ASP.NET-MVC-ACME-Invoicing--App/blob/master/screenshots/detail_invoice01.png)
+
+![Customer list](https://github.com/iloire/ASP.NET-MVC-ACME-Invoicing--App/blob/master/screenshots/list_customer01.png)
+
+
 ## TAGS:
 
 **0.11**
 
  * Added search functionality in Customer list.
+ * Style and css modifications.
+ * New screenshots
 
 **0.10**
  

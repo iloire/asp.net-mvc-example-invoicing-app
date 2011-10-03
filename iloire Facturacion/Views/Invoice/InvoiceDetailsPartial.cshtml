@@ -6,9 +6,8 @@
 *@
 
 @model Invoice
-    <fieldset>
-     <legend>Invoice details</legend>
-	    <p>
+    <h2>Invoice number # @Model.InvoiceID #  @Html.ActionLink("Edit", "Edit", new { id = Model.InvoiceID }, new { @class = "btn" }) </h2> 
+    <p>
             <strong>Customer: </strong>
              @Html.DisplayFor(model => model.Customer.Name)
         </p>
@@ -30,9 +29,4 @@
                 <span class="label success">PAID</span>  
              }
         </p>
-    </fieldset>
-    <p>
-
-        @Html.ActionLink("Edit", "Edit", new { id = Model.InvoiceID }, new { @class = "btn" }) 
-   @*     @Html.ActionLink("Back to List", "Index", null, new { @class = "btn" })*@
-    </p>
+ 

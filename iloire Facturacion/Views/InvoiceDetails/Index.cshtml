@@ -84,12 +84,12 @@
 
     <tfoot>
         <tr>
-            <td></td>
+            <td><span class="label">TOTALS: </span></td>
             <td>@Model.Sum(i=>i.Qty)</td>
             <td>-</td>
             <td>-</td>
-            <td>@Model.Sum(i=>i.Total)</td>
-            <td>@Model.Sum(i=>i.TotalPlusVAT)</td>
+            <td>@Math.Round(Model.Sum(i=>i.Total),2) EUR</td>
+            <td>@Math.Round(Model.Sum(i=>i.TotalPlusVAT),2) EUR</td>
             <td></td>
         </tr>
     </tfoot>
