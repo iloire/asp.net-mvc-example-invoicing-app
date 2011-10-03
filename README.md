@@ -1,5 +1,15 @@
-﻿Sample invoice application used for ASP.NET MVC training.
+﻿
+## What is this?
 
+This is a sample invoicing application used for ASP.NET MVC3 training purposes.
+
+## How to best use this code:
+
+ * This application is meant to show how to create an ASP.NET MVC application from scratch.
+ * This application show how to use Code First, EF, Razor view engine, partial views, partial actions, Html Helpers, Data Annotation validation, etc..
+ * Every major development on this invoicing app has been tagged (0.1, 0.2, etc...)
+ * You can download each tag (starting with 0.1), check progress and move to the next when you understood everything that has been done.
+ * Follow the change log (tag history) and enjoy!
 
 ## ScreenShots
 
@@ -12,7 +22,7 @@
 ![Customer list](https://github.com/iloire/ASP.NET-MVC-ACME-Invoicing--App/blob/master/screenshots/list_customer01.png)
 
 
-## TAGS:
+## TAGS (change log):
 
 **0.11**
 
