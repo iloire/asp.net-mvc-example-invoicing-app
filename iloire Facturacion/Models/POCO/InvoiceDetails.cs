@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
 
 public class InvoiceDetails
 {
@@ -20,6 +21,7 @@ public class InvoiceDetails
     [Range(1, 100, ErrorMessage = "VAT must be between 1 and 100")]
     public decimal VAT { get; set; }
 
+    [DisplayName("Created")]
     public DateTime TimeStamp { get; set; }
 
     public decimal Total {

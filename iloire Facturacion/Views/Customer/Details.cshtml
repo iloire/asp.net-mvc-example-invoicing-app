@@ -12,6 +12,7 @@
 }
 
 
+<div class="span7">
 <fieldset>
  <legend>Customer details</legend>
 	<p>
@@ -56,3 +57,9 @@
     @Html.ActionLink("Edit", "Edit", new { id=Model.CustomerID }, new { @class = "btn"}) |
     @Html.ActionLink("Back to List", "Index", null, new { @class = "btn"})
 </p>
+</div>
+
+<div class="span12">
+    <h2>Last invoices from this customer</h2>
+    @{Html.RenderAction("LastInvoicesByCustomer", "Invoice", new { id = Model.CustomerID });}
+</div>

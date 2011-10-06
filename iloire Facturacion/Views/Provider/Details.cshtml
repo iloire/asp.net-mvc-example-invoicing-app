@@ -11,7 +11,7 @@
     ViewBag.Title = "Details";
 }
 
-
+<div class="span7">
 <fieldset>
  <legend>Provider details</legend>
 	<p>
@@ -56,3 +56,9 @@
     @Html.ActionLink("Edit", "Edit", new { id=Model.ProviderID }, new { @class = "btn"}) |
     @Html.ActionLink("Back to List", "Index", null, new { @class = "btn"})
 </p>
+</div>
+
+<div class="span11">
+    <h2>Last purchases from this provider</h2>
+    @{Html.RenderAction("RecentPurchasesByCustomer", "Purchase", new { providerID = Model.ProviderID });}
+</div>

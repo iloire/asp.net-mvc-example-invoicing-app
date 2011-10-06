@@ -10,13 +10,19 @@
 <table class="zebra-striped">
     <thead>
         <th>
+            ID
+        </th>
+        <th>
             Customer
         </th>
         <th>
-            Notes
+            Invoice
+        </th>
+         <th>
+            NET Amount
         </th>
         <th>
-            TimeStamp
+            Date
         </th>
        
         
@@ -24,11 +30,17 @@
 
 @foreach (var item in Model) {
     <tr>
+        <td># @item.InvoiceID</td>
         <td>
             @Html.DisplayFor(modelItem => item.Customer.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Notes)
+            <a href="@Url.Action("Edit", "Invoice", new { id=item.InvoiceID })">
+                @Html.DisplayFor(modelItem => item.Notes)
+            </a>
+        </td>
+         <td>
+            @Math.Round(item.InvoiceDetails.Sum(i=>i.Total),2) EUR
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.TimeStamp)

@@ -11,11 +11,10 @@
     ViewBag.Title = "Create";
 }
 
-@if (Model!=null)
-{
+
+@using (Html.BeginForm("Create","InvoiceDetails")) {
+    @Html.ValidationSummary(true)
     <text>
-    @{Html.RenderAction("DetailsPartial", "Invoice", new { id = Model.InvoiceID });}
+    @{Html.RenderPartial("EditOrAddInvoiceDetailsPartial", Model);}
     </text>
 }
-
- @{Html.RenderPartial("EditOrAddInvoiceDetailsPartial", Model);}

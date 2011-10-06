@@ -3,12 +3,24 @@
     color:White;    
 }
 
-ul.filtroAlfab{ list-style-type:none; margin:0px;}
+ul.filtroAlfab 
+{
+    list-style-type:none; 
+    margin:0px;
+    float:left;
+}
+
 ul.filtroAlfab li 
 { 
     float:left;
-    margin:4px;
+}
+
+ul.filtroAlfab li a 
+{
+    margin:2px;
     font-size:120%;
+    border: 1px solid #f5f5f5;
+    padding:4px 6px;    
 }
 
 div.pagingContainer

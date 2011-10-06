@@ -11,11 +11,9 @@
     ViewBag.Title = "Edit";
 }
 
-
-<div class="span6">
-    @{Html.RenderAction("DetailsPartial", "Invoice", new { id = Model.InvoiceID});}
-</div>
-
-<div class="span9">
+@using (Html.BeginForm("Edit","InvoiceDetails")) {
+    @Html.ValidationSummary(true)
+    <text>
     @{Html.RenderPartial("EditOrAddInvoiceDetailsPartial", Model);}
-</div>
+    </text>
+}

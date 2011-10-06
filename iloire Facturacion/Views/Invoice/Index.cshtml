@@ -5,7 +5,8 @@
 	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
 *@
 
-@model IEnumerable<Invoice>
+@model IPagedList<Invoice>
+@using MvcPaging;
 
 @{
     ViewBag.Title = "Index";
@@ -14,19 +15,26 @@
 <h1>List <small>of Invoice</small></h1>
 
 <p>
-    @Html.ActionLink("Create New", "Create", null, new {@class="btn"})
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn" })
 </p>
+
+<div class="pagingContainer">
+    @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+</div>
 
 <table class="zebra-striped">
     <thead>
         <th>
             Customer
         </th>
+         <th>
+            Notes
+        </th>
         <th>
-            TimeStamp
+            Created
         </th>
          <th>
-            SubTotal
+            Net Amount
         </th>
          <th>
             Total (with VAT)
@@ -38,19 +46,25 @@
         <th></th>
     </thead>
 
-@foreach (var item in Model) {
+@foreach (var item in Model)
+{
     <tr>
         <td>
+            <a href="@Url.Action("Details", "Customer", new { id=item.CustomerID})">
             @Html.DisplayFor(modelItem => item.Customer.Name)
+            </a>
+        </td>
+         <td>
+            @Html.DisplayFor(modelItem => item.Notes)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.TimeStamp)
         </td>
         <td>
-            @item.InvoiceDetails.Sum(i => i.Total)
+            @Math.Round(item.InvoiceDetails.Sum(i => i.Total),2)
         </td>
          <td>
-            @item.InvoiceDetails.Sum(i => i.TotalPlusVAT)
+            @Math.Round(item.InvoiceDetails.Sum(i => i.TotalPlusVAT),2)
         </td>
         <td>
             
@@ -65,7 +79,7 @@
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id = item.InvoiceID }, new { @class = "btn primary" }) 
-            @Html.ActionLink("Details", "Details", new { id = item.InvoiceID }, new { @class = "btn" }) 
+            @Html.ActionLink("Print", "Print", new { id = item.InvoiceID }, new { target = "_blank", @class = "btn" }) 
             @Html.ActionLink("Delete", "Delete", new { id = item.InvoiceID }, new { @class = "btn" })
         </td>
     </tr>

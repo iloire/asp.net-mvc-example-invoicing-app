@@ -20,6 +20,11 @@ namespace iloire_Facturacion.Controllers
             return PartialView("PurchasesListPartial", invoices.ToList());
         }
 
+        public PartialViewResult RecentPurchasesByCustomer(int? providerID)
+        {
+            var invoices = db.Purchases.Include(i => i.Provider).Where(p=>p.ProviderID==providerID).OrderByDescending(t => t.TimeStamp).Take(10);
+            return PartialView("PurchasesListPartial", invoices.ToList());
+        }
         /*END CUSTOM*/
 
         //
@@ -45,8 +50,10 @@ namespace iloire_Facturacion.Controllers
 
         public ActionResult Create()
         {
+            Purchase p = new Purchase();
+            p.TimeStamp = DateTime.Now;
             ViewBag.ProviderID = new SelectList(db.Providers, "ProviderID", "Name");
-            return View();
+            return View(p);
         } 
 
         //

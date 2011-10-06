@@ -23,6 +23,16 @@ This is a sample invoicing application used for ASP.NET MVC3 training purposes.
 
 ## TAGS (change log):
 
+**0.12
+
+ * Added pagination functionality using https://github.com/martijnboland/MvcPaging library to some entities (pending the other ones)
+ * Added NUnit testing project as example of how to include it.
+ * Make "new", "edit" and delete invoice details work in new modal window, using AJAX and the twitter bootstrap css library.
+ * Layout changes
+ * Basic print view for invoices, with a custom layout for printing.
+ * Added error handling by including Elmah from NuGet repository (try it by accessing http://localhost:xxxx/elmah.axd)
+ * Added a custom functionality to HandleErrorAttribute so it logs to Elmah.
+
 **0.11**
 
  * Added search functionality in Customer list.

@@ -11,8 +11,7 @@ namespace iloire_Facturacion.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Message = "ASP.NET MVC";
-
+            throw new Exception("");
             return View();
         }
 

@@ -6,15 +6,15 @@
 *@
 
 @model InvoiceDetails
+           
 
-
-@using (Html.BeginForm()) {
-    @Html.ValidationSummary(true)
-    <fieldset>
+<fieldset>
         <legend>InvoiceDetails edition</legend>
 
         @Html.HiddenFor(model => model.InvoiceDetailsID)
-
+         @Html.Hidden("InvoiceID", Model.InvoiceID)
+       
+     @*   @Model.Invoice.InvoiceID
         <div class="clearfix">
             @Html.LabelFor(model => model.InvoiceID, "Invoice")
         
@@ -22,7 +22,7 @@
             @Html.DropDownList("InvoiceID", String.Empty)
             @Html.ValidationMessageFor(model => model.InvoiceID)
         </div>
-		</div>
+		</div>*@
 
         <div class="clearfix">
             @Html.LabelFor(model => model.Article)
@@ -71,7 +71,6 @@
 
 		<div class="actions">
             <input type="submit" class="btn primary" value="Save" />
-			@Html.ActionLink("Back to invoice", "Details", "Invoice", new { id = Model.InvoiceID }, new { @class = "btn" })
+            <input type="button" class="btn closeModal" value="Close window" /> 
         </div>
     </fieldset>
-}

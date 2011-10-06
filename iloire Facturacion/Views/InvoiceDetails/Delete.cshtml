@@ -10,12 +10,6 @@
     ViewBag.Title = "Delete";
 }
 
-<div class="span6">
-    @{Html.RenderAction("DetailsPartial", "Invoice", new { id = Model.InvoiceID});}
-</div>
-
-<div class="span9">
-    <h2>Delete InvoiceDetails</h2>
 
     <div class="alert-message warning">
       <a class="close" href="#">×</a>
@@ -23,7 +17,7 @@
     </div>
 
     <fieldset>
-        <legend>InvoiceDetails</legend>
+        <legend></legend>
       <p>
             <strong>Invoice: </strong>
 		    @Html.DisplayFor(model => model.Invoice.Notes)
@@ -53,7 +47,6 @@
     @using (Html.BeginForm()) {
 	    <div class="actions">
                 <input type="submit" class="btn primary" value="Delete" />
-			    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn"})
+			     <input type="button" class="btn closeModal" value="Close window" /> 
         </div>
     }
-</div>

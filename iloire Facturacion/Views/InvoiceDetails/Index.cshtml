@@ -11,47 +11,35 @@
     ViewBag.Title = "Index";
 }
 
-<h1>List <small>of InvoiceDetails</small></h1>
-
-@if (ViewBag.InvoiceID != null)
-{
-<p>
-    @Html.ActionLink("Create New", "Create", new { id = ViewBag.InvoiceID }, new { @class = "btn" })
-</p>
-}
-
 <table class="zebra-striped">
     <thead>
-@*        <th>
-            Invoice
-        </th>
-*@        <th>
+        <th>
             Article
         </th>
-        <th>
+        <th width="40">
             Qty
         </th>
-        <th>
+        <th width="45">
             Price
         </th>
-        <th>
-            TOTAL
+        <th width="55">
+            SubTotal
         </th>
-        <th>
+        <th width="45">
             VAT
         </th>
-         <th>
-          Total plus VAT
+         <th width="55">
+          Total
         </th> 
-       <th></th>
+        @if (ViewBag.Print != true){
+        <th width="100"></th>
+        }
     </thead>
 
 @foreach (var item in Model) {
-    <tr>
-@*        <td>
-            @Html.DisplayFor(modelItem => item.Invoice.Notes)
-        </td>
-*@        <td>
+    var invoiceDetail = "invoiceDetail" + item.InvoiceDetailsID; 
+    <tr id="@invoiceDetail">
+        <td>
             @Html.DisplayFor(modelItem => item.Article)
         </td>
         <td>
@@ -64,21 +52,20 @@
          <td>
             @Html.DisplayFor(modelItem => item.Total)
         </td>
-
          <td>
             @Html.DisplayFor(modelItem => item.VAT)
         </td>
          <td>
             @Html.DisplayFor(modelItem => item.TotalPlusVAT)
         </td>
-@*        <td>
-            @Html.DisplayFor(modelItem => item.TimeStamp)
-        </td>
-*@        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.InvoiceDetailsID }, new { @class = "btn primary small"}) 
+        @if (ViewBag.Print != true)
+        {
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.InvoiceDetailsID }, new { idInvoiceDetails = item.InvoiceDetailsID, @class = "btn primary small editInvoiceDetails" }) 
          @*   @Html.ActionLink("Details", "Details", new { id=item.InvoiceDetailsID }, new { @class = "btn"}) |*@
-            @Html.ActionLink("Delete", "Delete", new { id=item.InvoiceDetailsID }, new { @class = "btn small"})
+            @Html.ActionLink("Delete", "Delete", new { id = item.InvoiceDetailsID }, new { idInvoiceDetails = item.InvoiceDetailsID, @class = "btn small deleteInvoiceDetails" })
         </td>
+        }
     </tr>
 }
 
@@ -87,10 +74,12 @@
             <td><span class="label">TOTALS: </span></td>
             <td>@Model.Sum(i=>i.Qty)</td>
             <td>-</td>
+            <td>@Math.Round(Model.Sum(i=>i.Total),2)</td>
             <td>-</td>
-            <td>@Math.Round(Model.Sum(i=>i.Total),2) EUR</td>
-            <td>@Math.Round(Model.Sum(i=>i.TotalPlusVAT),2) EUR</td>
+            <td>@Math.Round(Model.Sum(i=>i.TotalPlusVAT),2)</td>
+            @if (ViewBag.Print != true){
             <td></td>
+            }
         </tr>
     </tfoot>
 

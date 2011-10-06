@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Web Developer Express 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iloire Facturacion", "iloire Facturacion\iloire Facturacion.csproj", "{1895D1C8-FDCE-4BB7-839F-ADB779ED1EC6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iloire Facturacion Tests", "iloire Facturacion Tests\iloire Facturacion Tests.csproj", "{F54F4D12-10BE-4084-8470-5690D7831A44}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{1895D1C8-FDCE-4BB7-839F-ADB779ED1EC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1895D1C8-FDCE-4BB7-839F-ADB779ED1EC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1895D1C8-FDCE-4BB7-839F-ADB779ED1EC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F54F4D12-10BE-4084-8470-5690D7831A44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F54F4D12-10BE-4084-8470-5690D7831A44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F54F4D12-10BE-4084-8470-5690D7831A44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F54F4D12-10BE-4084-8470-5690D7831A44}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

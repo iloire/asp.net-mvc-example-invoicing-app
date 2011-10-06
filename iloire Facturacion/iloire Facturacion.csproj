@@ -34,6 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Elmah">
+      <HintPath>..\packages\elmah.corelibrary.1.2\lib\Elmah.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.4.1.10331.0\lib\EntityFramework.dll</HintPath>
     </Reference>
@@ -73,6 +76,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\Attributes\HandleErrorAttribute.cs" />
     <Compile Include="Models\DBContext.cs" />
     <Compile Include="Models\EntitiesContextDBInitializer.cs" />
     <Compile Include="Models\Paging\IPagedList.cs" />
@@ -123,6 +127,7 @@
     <Content Include="Scripts\jquery-1.5.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.5.1.js" />
     <Content Include="Scripts\jquery-1.5.1.min.js" />
+    <Content Include="Scripts\jquery-calendar.js" />
     <Content Include="Scripts\jquery-ui-1.8.11.js" />
     <Content Include="Scripts\jquery-ui-1.8.11.min.js" />
     <Content Include="Scripts\jquery.tablesorter.min.js" />
@@ -164,6 +169,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="App_Error\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -195,7 +201,7 @@
     <Content Include="Views\Purchase\Edit.cshtml" />
     <Content Include="Views\Purchase\Delete.cshtml" />
     <Content Include="Views\Invoice\Index.cshtml" />
-    <Content Include="Views\Invoice\Details.cshtml" />
+    <Content Include="Views\Invoice\Print.cshtml" />
     <Content Include="Views\Invoice\Create.cshtml" />
     <Content Include="Views\Invoice\Edit.cshtml" />
     <Content Include="Views\Invoice\Delete.cshtml" />
@@ -207,8 +213,10 @@
     <Content Include="Views\Invoice\InvoicesListPartial.cshtml" />
     <Content Include="Views\Purchase\PurchasesListPartial.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
-    <Content Include="Views\Invoice\InvoiceDetailsPartial.cshtml" />
     <Content Include="Views\InvoiceDetails\EditOrAddInvoiceDetailsPartial.cshtml" />
+    <Content Include="Views\Shared\Messages\Success.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\DateTime.cshtml" />
+    <Content Include="Views\Shared\_LayoutPrint.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

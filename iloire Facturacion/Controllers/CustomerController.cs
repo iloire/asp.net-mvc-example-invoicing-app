@@ -9,7 +9,7 @@ using MvcPaging;
 
 namespace iloire_Facturacion.Controllers
 {
-    [Authorize]
+   [Authorize]
     public class CustomerController : Controller
     {
         private const int defaultPageSize = 10;
@@ -56,6 +56,7 @@ namespace iloire_Facturacion.Controllers
 
         public ViewResult Index(int? page)
         {
+            //throw new Exception("ops, error");
             int currentPageIndex = page.HasValue ? page.Value - 1 : 0;
             return View(db.Customers.ToList().ToPagedList(currentPageIndex, defaultPageSize));
         }

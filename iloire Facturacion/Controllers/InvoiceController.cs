@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MvcPaging;
 
 namespace iloire_Facturacion.Controllers
 {
@@ -12,6 +13,7 @@ namespace iloire_Facturacion.Controllers
     public class InvoiceController : Controller
     {
         private DBContext db = new DBContext();
+        private const int defaultPageSize=10;
 
         /*CUSTOM*/
         public PartialViewResult UnPaidInvoices()
@@ -20,10 +22,10 @@ namespace iloire_Facturacion.Controllers
             return PartialView("InvoicesListPartial", invoices.ToList());
         }
 
-        public PartialViewResult DetailsPartial(int id)
+        public PartialViewResult LastInvoicesByCustomer(int id)
         {
-            Invoice invoice = db.Invoices.Find(id);
-            return PartialView("InvoiceDetailsPartial", invoice);
+            var invoices = db.Invoices.Include(i => i.Customer).Where(i => i.CustomerID == id);
+            return PartialView("InvoicesListPartial", invoices.ToList());  
         }
 
         /*END CUSTOM*/
@@ -31,17 +33,19 @@ namespace iloire_Facturacion.Controllers
         //
         // GET: /Invoice/
 
-        public ViewResult Index()
+        public ViewResult Index(int? page)
         {
+            int currentPageIndex = page.HasValue ? page.Value - 1 : 0;
             var invoices = db.Invoices.Include(i => i.Customer);
-            return View(invoices.ToList());
+            return View(invoices.ToList().ToPagedList(currentPageIndex, defaultPageSize));
         }
 
         //
         // GET: /Invoice/Details/5
 
-        public ViewResult Details(int id)
+        public ViewResult Print(int id)
         {
+            ViewBag.Print = true;
             Invoice invoice = db.Invoices.Find(id);
             return View(invoice);
         }
@@ -51,8 +55,11 @@ namespace iloire_Facturacion.Controllers
 
         public ActionResult Create()
         {
+            Invoice i = new Invoice();
+            i.TimeStamp = DateTime.Now;
+            i.DueDate = DateTime.Now.AddDays(30); //30 days after today
             ViewBag.CustomerID = new SelectList(db.Customers, "CustomerID", "Name");
-            return View();
+            return View(i);
         } 
 
         //

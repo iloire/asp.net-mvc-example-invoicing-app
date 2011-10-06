@@ -7,13 +7,12 @@ body {
 
 tfoot 
 {
-    background-color:#222;
+    background-color:#666666;
 }
 tfoot * 
 {
   font-weight:bold;
-  color:White;
-  font-size:110%;
+  color:white;
 }
 
 
