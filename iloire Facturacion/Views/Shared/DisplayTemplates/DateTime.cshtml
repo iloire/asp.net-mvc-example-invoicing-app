@@ -1,0 +1,16 @@
+﻿@model DateTime?
+@if (Model.HasValue && (Model.Value > DateTime.MinValue))
+{
+    <text>
+    @Model.Value.ToShortDateString()
+    </text>
+    if (Model.Value.Hour + Model.Value.Minute + Model.Value.Second > 0) { 
+        <text>
+            @Model.Value.ToShortTimeString();
+        </text>
+    }
+}
+else
+{ 
+    <text>-</text>
+}
