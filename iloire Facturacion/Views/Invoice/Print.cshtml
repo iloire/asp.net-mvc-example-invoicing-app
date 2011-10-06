@@ -1,0 +1,41 @@
+﻿@*
+	Iván Loire - www.iloire.com
+	Please readme README file for license terms.
+
+	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
+*@
+
+@model Invoice
+
+@{
+    ViewBag.Title = "Print";
+    Layout = "~/Views/Shared/_LayoutPrint.cshtml";
+}
+
+
+ <h2>Invoice number # @Model.InvoiceID # </h2> 
+    <p>
+            <strong>Customer: </strong>
+             @Html.DisplayFor(model => model.Customer.Name)
+        </p>
+	    <p>
+            <strong>Notes: </strong>
+             @Html.DisplayFor(model => model.Notes)
+        </p>
+	    <p>
+            <strong>TimeStamp: </strong>
+             @Html.DisplayFor(model => model.TimeStamp)
+        </p>
+	    <p>
+             @if (!Model.Paid)
+             {
+                 <span class="label important">UNPAID</span>
+             }
+             else
+             {
+                <span class="label success">PAID</span>  
+             }
+        </p>
+
+
+@{Html.RenderPartial("../InvoiceDetails/Index", Model.InvoiceDetails);}
