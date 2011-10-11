@@ -31,8 +31,7 @@ namespace iloire_Facturacion
 
         protected void Application_Start()
         {
-            System.Data.Entity.Database.SetInitializer(new EntitiesContextInitializer());
-            
+           
             AreaRegistration.RegisterAllAreas();
 
             RegisterGlobalFilters(GlobalFilters.Filters);
