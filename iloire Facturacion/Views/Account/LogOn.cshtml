@@ -1,21 +1,25 @@
 ﻿@model iloire_Facturacion.Models.LogOnModel
 
 @{
-    ViewBag.Title = "Iniciar sesión";
+    ViewBag.Title = "Log in";
 }
 
-<h2>Iniciar sesión</h2>
+<div class="container-fluid" id="login">
+<div class="span7">
+<img class="logo" src="@Url.Content("~/Content/images/logo.png")" alt="" />
+
+<h2>Log in</h2>
 <p>
-    Escriba su nombre de usuario y contraseña. @Html.ActionLink("Regístrese", "Register") si no tiene una cuenta.
+    Plase enter your email and password to access the application
 </p>
 
 
-@Html.ValidationSummary(true, "No se ha iniciado la sesión. Corrija los errores e inténtelo de nuevo.")
+@Html.ValidationSummary(true, "There were some errors. Please fix them and try again")
 
 @using (Html.BeginForm()) {
     <div>
         <fieldset>
-            <legend>Información de cuenta</legend>
+            <legend>Account information</legend>
 
              <div class="clearfix">
                 @Html.LabelFor(m => m.UserName) 
@@ -46,3 +50,23 @@
         </fieldset>
     </div>
 }
+</div>
+
+<div class="span11" style="padding-top:120px;">
+    <div class="alert-message block-message info">
+    <h3>Demo</h3>
+    <p>
+        In order to try the application, use this credentials:
+    </p>
+    <br />
+    <ul>
+    <li><strong>login:</strong> user</li>
+    <li><strong>password:</strong> pass</li>
+    </ul>
+    <br />
+    <p>Remember you can fork the project on github: <a class="btn" target="_blank" href="https://github.com/iloire/ASP.NET-MVC-ACME-Invoicing--App">Fork project on Github</a></p>
+    </div>
+</div>
+
+
+</div>

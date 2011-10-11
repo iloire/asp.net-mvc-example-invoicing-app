@@ -1,8 +1,38 @@
 ﻿  <nav>
         <ul class="nav" id="menu">
-            <li>@Html.ActionLink("Customers", "Index", "Customer")</li>
-            <li>@Html.ActionLink("Providers", "Index", "Provider")</li>
-            <li>@Html.ActionLink("Invoices", "Index", "Invoice")</li>
-            <li>@Html.ActionLink("Purchases", "Index", "Purchase")</li>
+            @if (Request.RawUrl.Contains("/Invoice"))
+             {
+                <text>
+                <li class="active">
+                </text>
+             }
+             else{
+                <text>
+                <li>
+                </text>
+             }
+            @Html.ActionLink("Invoices", "Index", "Invoice")</li>
+            
+             @if (Request.RawUrl.Contains("/Purchase"))
+             {
+                <text>
+                <li class="active">
+                </text>
+             }
+             else{
+                <text>
+                <li>
+                </text>
+             }
+            @Html.ActionLink("Expenses", "Index", "Purchase")</li>
+        </ul>
+        <ul class="nav" id="adminmenu">
+            <li class="dropdown" data-dropdown="dropdown">
+              <a href="#" class="dropdown-toggle">Admin</a>
+              <ul class="dropdown-menu">
+                <li><a href="@Url.Action("Index", "Provider")">Edit providers</a></li>
+                <li><a href="@Url.Action("Index", "Customer")">Edit customers</a></li>
+              </ul>
+            </li>
         </ul>
    </nav>

@@ -4,15 +4,34 @@
 
 <h2>Dashboard</h2>
 
+
+<p align="right">
+    @Html.ActionLink("Create new Invoice", "Create","Invoice", null, new { @class = "btn" })
+    @Html.ActionLink("Create new expense", "Create","Purchase", null, new { @class = "btn" })
+</p>
+
 <table width="100%">
 <tr>
-    <td>
+    <td width="50%">
+     <h3>Invoices Overdue</h3>
+      @{Html.RenderAction("OverDueInvoices","Invoice");}
+
       <h3>Unpaid invoices</h3>
       @{Html.RenderAction("UnPaidInvoices","Invoice");}
     </td>
     <td>
        <h3>Recent purchases</h3>
-      @{Html.RenderAction("RecentPurchases","Purchase");}
+      @{Html.RenderAction("RecentPurchases","Purchase", new {top=5});}
+    </td>
+</tr>
+<tr>
+    <td>
+        <h3>This Quarter</h3>
+        @{Html.RenderAction("ThisQuarterSummary", "Reports");}
+    </td>
+    <td>
+        <h3>This year</h3>
+        @{Html.RenderAction("ThisYearSummary", "Reports");}
     </td>
 </tr>
 </table>
