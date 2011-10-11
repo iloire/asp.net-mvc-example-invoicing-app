@@ -1,0 +1,3 @@
+﻿- Be able to edit invoice number.
+- Protect again invoice deletion when there are invoice details.
+- Protect from invoice modification one is saved (drafts?)
