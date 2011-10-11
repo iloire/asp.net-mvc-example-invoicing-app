@@ -5,7 +5,8 @@
 	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
 *@
 
-@model IEnumerable<Purchase>
+@using MvcPaging;
+@model IPagedList<Purchase>
 
 @{
     ViewBag.Title = "Index";
@@ -16,9 +17,22 @@
 <p>
     @Html.ActionLink("Create New", "Create", null, new {@class="btn"})
 </p>
+
+@{Html.RenderPartial("SearchBoxItems", "Purchase");}
+
+<div class="pagingContainer">
+    @{
+        RouteValueDictionary r = new RouteValueDictionary();
+        r.Add("to", Request["to"]);
+        r.Add("from", Request["from"]);
+        r.Add("text", Request["text"]);
+        }
+    @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount, r)
+</div>
+
 <table class="zebra-striped">
     <thead>
-        <th>
+        <th  width="25%">
             Article
         </th>
         <th>
@@ -27,13 +41,16 @@
         <th>
             VAT
         </th>
+         <th>
+            Total
+        </th>
         <th>
             Provider
         </th>
         <th>
-            TimeStamp
+            Date
         </th>
-        <th></th>
+        <th width="200"></th>
     </thead>
 
 @foreach (var item in Model) {
@@ -42,13 +59,18 @@
             @Html.DisplayFor(modelItem => item.Article)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Price)
+            @String.Format("{0:C}", item.Price)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.VAT)
+            @Html.DisplayFor(modelItem => item.VAT) %
         </td>
         <td>
+            @String.Format("{0:C}", item.TotalWithVAT)
+        </td>
+        <td>
+            <a href="@Url.Action("Details", "Provider", new { id= item.ProviderID})">
             @Html.DisplayFor(modelItem => item.Provider.Name)
+            </a>
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.TimeStamp)
@@ -60,5 +82,13 @@
         </td>
     </tr>
 }
+
+ <tfoot>
+        <tr>
+            <td colspan="3"><span class="label">TOTALS: </span></td>
+            <td>@String.Format("{0:C}", Model.Sum(i => i.TotalWithVAT))</td>
+            <td colspan="3"></td>
+        </tr>
+    </tfoot>
 
 </table>

@@ -9,7 +9,7 @@
 
 <table class="zebra-striped">
     <thead>
-        <th>
+        <th width="30%">
             Article
         </th>
         <th>
@@ -22,36 +22,49 @@
             Provider
         </th>
       
-        <th>
-            TimeStamp
+        <th with="80">
+            Date
         </th>
-        <th></th>
+        @*<th></th>*@
     </thead>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Article)
+            <a href="@Url.Action("Edit", "Purchase", new { id=item.PurchaseID})">
+                @Html.DisplayFor(modelItem => item.Article)
+            </a>
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Price)
+            @String.Format("{0:C}", item.Price)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.VAT)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Provider.Name)
+            <a href="@Url.Action("Edit", "Provider", new { id=item.ProviderID})">
+              @Html.DisplayFor(modelItem => item.Provider.Name)
+            </a>
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.TimeStamp)
         </td>
-        <td>
+     @*   <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.PurchaseID }, new { @class = "btn primary"})
-            @* |
+           
             @Html.ActionLink("Details", "Details", new { id=item.PurchaseID }, new { @class = "btn"}) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.PurchaseID }, new { @class = "btn"})*@
-        </td>
+            @Html.ActionLink("Delete", "Delete", new { id=item.PurchaseID }, new { @class = "btn"})
+        </td>*@
     </tr>
 }
+
+ <tfoot>
+        <tr>
+            <td><span class="label">TOTALS: </span></td>
+            <td>@String.Format("{0:C}", Model.Sum(i => i.TotalWithVAT))</td>
+            <td colspan="4"></td>
+        </tr>
+    </tfoot>
+
 </table>
 

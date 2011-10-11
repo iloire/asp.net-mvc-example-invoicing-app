@@ -8,75 +8,13 @@
 @model Purchase
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Edit Expense";
 }
-
 
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
-    <fieldset>
-        <legend>Purchase edition</legend>
-
-        @Html.HiddenFor(model => model.PurchaseID)
-
-        <div class="clearfix">
-            @Html.LabelFor(model => model.Article)
-        
-        <div class="input">
-            @Html.EditorFor(model => model.Article)
-            @Html.ValidationMessageFor(model => model.Article)
-        </div>
-		</div>
-
-        <div class="clearfix">
-            @Html.LabelFor(model => model.Price)
-        
-        <div class="input">
-            @Html.EditorFor(model => model.Price)
-            @Html.ValidationMessageFor(model => model.Price)
-        </div>
-		</div>
-
-        <div class="clearfix">
-            @Html.LabelFor(model => model.VAT)
-        
-        <div class="input">
-            @Html.EditorFor(model => model.VAT)
-            @Html.ValidationMessageFor(model => model.VAT)
-        </div>
-		</div>
-
-        <div class="clearfix">
-            @Html.LabelFor(model => model.ProviderID, "Provider")
-        
-        <div class="input">
-            @Html.DropDownList("ProviderID", String.Empty)
-            @Html.ValidationMessageFor(model => model.ProviderID)
-        </div>
-		</div>
-
-        <div class="clearfix">
-            @Html.LabelFor(model => model.Notes)
-        
-        <div class="input">
-            @Html.TextAreaFor(model => model.Notes)
-            @Html.ValidationMessageFor(model => model.Notes)
-        </div>
-		</div>
-
-        <div class="clearfix">
-            @Html.LabelFor(model => model.TimeStamp)
-        
-        <div class="input">
-            @Html.EditorFor(model => model.TimeStamp)
-            @Html.ValidationMessageFor(model => model.TimeStamp)
-        </div>
-		</div>
-
-		<div class="actions">
-            <input type="submit" class="btn primary" value="Save" />
-			@Html.ActionLink("Back to List", "Index", null, new { @class = "btn"})
-        </div>
-    </fieldset>
+    <text>
+    @{Html.RenderPartial("EditOrCreatePurchasePartial", Model);}
+    </text>
 }
 

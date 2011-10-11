@@ -13,29 +13,42 @@
 
 
 <fieldset>
- <legend>Purchase details</legend>
+ <legend>Expense edition</legend>
 	<p>
         <strong>Article: </strong>
          @Html.DisplayFor(model => model.Article)
     </p>
+    <hr />
 	<p>
-        <strong>Price: </strong>
-         @Html.DisplayFor(model => model.Price)
+        <strong>Net Price: </strong>
+         @String.Format("{0:C}", Model.Price)
     </p>
 	<p>
         <strong>VAT: </strong>
-         @Html.DisplayFor(model => model.VAT)
+        @String.Format("{0:C}", Model.VATAmount)
+        (@Html.DisplayFor(model => model.VAT) %)
     </p>
+
+    <p>
+        <strong>Total: </strong>
+        <strong>
+            @String.Format("{0:C}", Model.TotalWithVAT)
+         </strong>
+    </p>
+
+    <hr />
 	<p>
         <strong>Provider: </strong>
          @Html.DisplayFor(model => model.Provider.Name)
     </p>
+    @if (!string.IsNullOrWhiteSpace(Model.Notes)){
 	<p>
         <strong>Notes: </strong>
          @Html.DisplayFor(model => model.Notes)
     </p>
+    }
 	<p>
-        <strong>TimeStamp: </strong>
+        <strong>Date: </strong>
          @Html.DisplayFor(model => model.TimeStamp)
     </p>
 </fieldset>
