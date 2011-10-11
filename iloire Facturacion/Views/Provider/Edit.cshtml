@@ -11,7 +11,7 @@
     ViewBag.Title = "Edit";
 }
 
-
+<div class="span7">
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
     <fieldset>
@@ -107,3 +107,9 @@
     </fieldset>
 }
 
+</div>
+
+<div class="span12">
+    <h2>Last purchases from this provider</h2>
+    @{Html.RenderAction("RecentPurchasesByCustomer", "Purchase", new { providerID = Model.ProviderID });}
+</div>

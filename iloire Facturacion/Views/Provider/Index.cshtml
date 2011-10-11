@@ -5,71 +5,78 @@
 	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
 *@
 
-@model IPagedList<Provider>
 @using MvcPaging;
+
+@model IPagedList<Provider>
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h1>List <small>of Provider</small></h1>
+<div id="ajaxReponse">
 
-<p>
-    @Html.ActionLink("Create New", "Create", null, new { @class = "btn" })
-</p>
+    <h1>List <small>of Provider</small></h1>
 
-<div class="pagingContainer">
-    @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
-</div>
+    <p>
+        @Html.ActionLink("Create New", "Create", null, new { @class = "btn" })
+    </p>
 
-<table class="zebra-striped">
-    <thead>
-        <th>
-            Name
-        </th>
-        <th>
-            CompanyNumber
-        </th>
+    @{Html.RenderPartial("SearchBoxCompany", "Provider");}
+
+    <div class="pagingContainer">
+        @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+    </div>
+
+    <table class="zebra-striped">
+        <thead>
+            <th>
+                Name
+            </th>
+            <th>
+                CompanyNumber
+            </th>
    
-        <th>
-            City
-        </th>
-        <th>
-            Phone1
-        </th>
+            <th>
+                City
+            </th>
+            <th>
+                Phone1
+            </th>
      
-        <th>
-            Email
-        </th>
-        <th></th>
-    </thead>
+            <th>
+                Email
+            </th>
+            <th></th>
+        </thead>
 
-@foreach (var item in Model)
-{
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CompanyNumber)
-        </td>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CompanyNumber)
+            </td>
        
-        <td>
-            @Html.DisplayFor(modelItem => item.City)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Phone1)
-        </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone1)
+            </td>
       
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.ProviderID }, new { @class = "btn primary" }) 
-            @Html.ActionLink("Details", "Details", new { id = item.ProviderID }, new { @class = "btn" }) 
-            @Html.ActionLink("Delete", "Delete", new { id = item.ProviderID }, new { @class = "btn" })
-        </td>
-    </tr>
-}
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ProviderID }, new { @class = "btn primary" }) 
+                @Html.ActionLink("Details", "Details", new { id = item.ProviderID }, new { @class = "btn" }) 
+                @Html.ActionLink("Delete", "Delete", new { id = item.ProviderID }, new { @class = "btn" })
+            </td>
+        </tr>
+    }
 
-</table>
+    </table>
+
+</div>

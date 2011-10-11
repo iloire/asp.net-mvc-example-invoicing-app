@@ -27,7 +27,7 @@
          @Html.DisplayFor(model => model.Address)
     </p>
 	<p>
-        <strong>CP: </strong>
+        <strong>Zip Code: </strong>
          @Html.DisplayFor(model => model.CP)
     </p>
 	<p>
@@ -58,7 +58,7 @@
 </p>
 </div>
 
-<div class="span11">
+<div class="span12">
     <h2>Last purchases from this provider</h2>
     @{Html.RenderAction("RecentPurchasesByCustomer", "Purchase", new { providerID = Model.ProviderID });}
 </div>
