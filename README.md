@@ -1,11 +1,11 @@
 ﻿
 ## What is this?
 
- * This is a sample invoicing application used for ASP.NET MVC3 training purposes. 
+ * This is a **sample invoicing application** used for **ASP.NET MVC3 training purposes**. 
  * This is a good code base to learn ASP.NET MVC3, since it covers many areas and development techniques.
- * I am using it as a personal invoicing tool for my freelancing activity, you may use it as well for this or any other purpose (it is very easy to customize to fit your needs) 
- * The solution has been created with Visual Studio 2010 Express, but you can open it with other versions of VS 2010.
- * Unit tests have been written with NUnit.
+ * I am using it as a personal invoicing tool for my freelancing activity, you may use it as well for this or any other purpose (it is very **easy to customize** to fit your needs) 
+ * The solution has been created with **Visual Studio 2010 Express**, but you can open it with other versions of VS 2010.
+ * Unit tests have been written with [NUnit](http://www.nunit.org/).
 
 ## Demo
 
@@ -13,16 +13,16 @@
 
 ## How to best use this code:
 
- * This application is meant to show how to create an ASP.NET MVC application from scratch.
+ * This application is meant to show **how to create an ASP.NET MVC application from scratch.**
  * This application show how to use some of the cool features of ASP.NET MVC3 like:
-   * Code First
-   * Entity Framework and LINQ
-   * Razor view engine 
-   * Partial views and partial actions (with independent cache for high concurrency page rendering) 
-   * Html Helpers
-   * Data Annotation validation
-   * AJAX partial rendering
-   * Custom T4 templates for customized scaffolding
+   * **Code First**
+   * **Entity Framework** and **LINQ**
+   * **Razor** view engine 
+   * **Partial views** and **partial actions** (with independent OutputCache for high concurrency page rendering) 
+   * **Html Helpers**
+   * **Data Annotation** validation
+   * **AJAX** partial rendering
+   * Custom **T4 templates** for customized scaffolding
  * Every major development on this invoicing app has been tagged (0.1, 0.2, etc...)
  * You can download each tag (starting with 0.1), check progress and move to the next when you understood everything that has been done.
  * Follow the change log (tag history) and enjoy!
@@ -46,19 +46,19 @@
 
 **0.13**
 
- * Support for SQL Server Compact Edition (by default). You can choose to other database provider in web.config.
+ * Support for **SQL Server Compact Edition** (by default). You can choose to other database provider in web.config.
  * New field on invoice: "AdvancePaymentTax"
- * New Reports controller for summary and reports. Yearly summary, quarter summary, etc.
+ * New Reports controller for **summary and reports** (used in home page so far). Yearly summary, quarter summary, etc.
  * Better dummy data generation when database is re-created.
- * Search field for Providers.
+ * **Search field** for Providers.
  * Date search in Invoices
- * Paging on expenses (purchases)
- * Extra EditorTemplates and DisplayTemplates views.
+ * **Paging** on expenses (purchases)
+ * Extra **EditorTemplates and DisplayTemplates views**.
  * Aggregated data in invoice list for a customer.
  * Lots of style and usability improvements. Overall improvements to prepare the application for a 1.0 version.
  * Search by date. Auto select Q1, Q2, Q3, Q4 dates interval in order to search by date.
- * Pie chart using Google Chart calls.
- * More coverage in unit testing. Added Moq reference for object mocking.
+ * Pie chart using **Google Chart** calls.
+ * More **coverage in unit testing**. Added **Moq reference for object mocking**.
 
 **0.12**
 
