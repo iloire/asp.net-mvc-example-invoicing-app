@@ -1,4 +1,13 @@
-﻿using System;
+﻿/*
+Iván Loire - www.iloire.com
+Please readme README file for license terms.
+
+ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
+
+Descripction: Custom Membership proider for this app. This Membership provider validates user agains the User table.
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -149,7 +158,7 @@ namespace  iloire_Facturacion.Models.Security {
 
         public override bool ValidateUser(string username, string password)
         {
-            DBContext db = new DBContext();
+            InvoiceDB db = new InvoiceDB();
             var user = (from u in db.Users
                         where u.Login == username && u.Password == password
                         select u).FirstOrDefault();

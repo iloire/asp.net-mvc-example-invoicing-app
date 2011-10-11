@@ -18,6 +18,7 @@ public class Provider {
     public string Address { get; set; }
 
     [Required]
+    [DisplayName("Zip Code")]
     public string CP { get; set; }
     
     [Required]

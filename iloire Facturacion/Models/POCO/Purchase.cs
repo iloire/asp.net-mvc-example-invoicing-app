@@ -9,7 +9,10 @@ public class Purchase
     [Required]
     public string Article {get;set;}
 
+    [Range(0.1, 999999999, ErrorMessage = "Price must be between 1 and 999999999")]
     public decimal Price { get; set; }
+
+    [Range(0.01, 100.0, ErrorMessage = "VAT must be a % between 0.01 and 100")]
     public decimal VAT { get; set; }
 
     public int ProviderID { get; set; }
@@ -19,4 +22,32 @@ public class Purchase
 
     [DisplayName("Created")]
     public DateTime TimeStamp { get; set; }
+
+    #region Calculated fields
+    public decimal SubTotal
+    {
+        get
+        {
+            return Price;
+        }
+    }
+
+    public decimal TotalWithVAT
+    {
+
+        get
+        {
+            return Price + (Price * VAT / 100);
+        }
+    }
+
+    public decimal VATAmount
+    {
+        get
+        {
+            return TotalWithVAT - SubTotal;
+        }
+    }
+    #endregion
+
 }
