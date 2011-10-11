@@ -9,7 +9,7 @@
 @using MvcPaging;
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "List of Invoices";
 }
 
 <h1>List <small>of Invoice</small></h1>
@@ -18,12 +18,23 @@
     @Html.ActionLink("Create New", "Create", null, new { @class = "btn" })
 </p>
 
+@{Html.RenderPartial("SearchBoxItems", "Invoice");}
+
 <div class="pagingContainer">
-    @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+    @{
+        RouteValueDictionary r = new RouteValueDictionary();
+        r.Add("to", Request["to"]);
+        r.Add("from", Request["from"]);
+        r.Add("text", Request["text"]);
+        }
+    @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount, r)
 </div>
 
 <table class="zebra-striped">
     <thead>
+         <th>
+            ID
+        </th>
         <th>
             Customer
         </th>
@@ -37,10 +48,13 @@
             Net Amount
         </th>
          <th>
-            Total (with VAT)
+            SubTotal (VAT inc.)
         </th>
         <th>
-            Paid
+            Advance Tax Pay.
+        </th>
+        <th>
+            Total to be Paid
         </th>
 
         <th></th>
@@ -49,6 +63,9 @@
 @foreach (var item in Model)
 {
     <tr>
+        <td>
+            # @Html.DisplayFor(modelItem => item.InvoiceID)
+        </td>
         <td>
             <a href="@Url.Action("Details", "Customer", new { id=item.CustomerID})">
             @Html.DisplayFor(modelItem => item.Customer.Name)
@@ -61,13 +78,17 @@
             @Html.DisplayFor(modelItem => item.TimeStamp)
         </td>
         <td>
-            @Math.Round(item.InvoiceDetails.Sum(i => i.Total),2)
+            @String.Format("{0:C}", item.InvoiceDetails.Sum(i => i.Total))
         </td>
          <td>
-            @Math.Round(item.InvoiceDetails.Sum(i => i.TotalPlusVAT),2)
+            @String.Format("{0:C}", item.InvoiceDetails.Sum(i => i.TotalPlusVAT))
         </td>
         <td>
-            
+            @item.AdvancePaymentTax %
+        </td>
+        <td>
+            @String.Format("{0:C}", item.TotalToPay)
+
             @if (!item.Paid)
             {
              <span class="label important">UNPAID</span>

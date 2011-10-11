@@ -9,20 +9,20 @@
 
 <table class="zebra-striped">
     <thead>
-        <th>
+        <th width="30">
             ID
         </th>
         <th>
             Customer
         </th>
-        <th>
+        <th width="35%">
             Invoice
         </th>
-         <th>
-            NET Amount
+         <th width="90">
+            Total to pay
         </th>
-        <th>
-            Date
+        <th  width="80">
+            Due Date
         </th>
        
         
@@ -32,7 +32,9 @@
     <tr>
         <td># @item.InvoiceID</td>
         <td>
+         <a href="@Url.Action("Edit", "Customer", new { id=item.CustomerID})">
             @Html.DisplayFor(modelItem => item.Customer.Name)
+         </a>
         </td>
         <td>
             <a href="@Url.Action("Edit", "Invoice", new { id=item.InvoiceID })">
@@ -40,12 +42,23 @@
             </a>
         </td>
          <td>
-            @Math.Round(item.InvoiceDetails.Sum(i=>i.Total),2) EUR
+            @String.Format("{0:C}", item.TotalToPay)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.TimeStamp)
+            @Html.DisplayFor(modelItem => item.DueDate)
+              @if (item.DueDate < DateTime.Now)
+             {
+                 <span class="label important">OVERDUE</span>
+             }
         </td>
     </tr>
 }
 
+  <tfoot>
+        <tr>
+            <td colspan=3><span class="label">TOTALS: </span></td>
+            <td>@String.Format("{0:C}", Model.Sum(i => i.TotalToPay))</td>
+            <td></td>
+        </tr>
+    </tfoot>
 </table>

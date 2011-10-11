@@ -11,6 +11,7 @@
     ViewBag.Title = "Index";
 }
 
+
 <table class="zebra-striped">
     <thead>
         <th>
@@ -19,16 +20,16 @@
         <th width="40">
             Qty
         </th>
-        <th width="45">
+        <th width="70">
             Price
         </th>
-        <th width="55">
+        <th width="70">
             SubTotal
         </th>
         <th width="45">
             VAT
         </th>
-         <th width="55">
+         <th width="80">
           Total
         </th> 
         @if (ViewBag.Print != true){
@@ -46,17 +47,17 @@
             @Html.DisplayFor(modelItem => item.Qty)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Price)
+            @String.Format("{0:C}", item.Price)
         </td>
        
          <td>
-            @Html.DisplayFor(modelItem => item.Total)
+            @String.Format("{0:C}", item.Total)
         </td>
          <td>
-            @Html.DisplayFor(modelItem => item.VAT)
+            @String.Format("{0:C}", item.VAT)
         </td>
          <td>
-            @Html.DisplayFor(modelItem => item.TotalPlusVAT)
+            @String.Format("{0:C}", item.TotalPlusVAT)
         </td>
         @if (ViewBag.Print != true)
         {
@@ -74,9 +75,9 @@
             <td><span class="label">TOTALS: </span></td>
             <td>@Model.Sum(i=>i.Qty)</td>
             <td>-</td>
-            <td>@Math.Round(Model.Sum(i=>i.Total),2)</td>
+            <td>@String.Format("{0:C}", Model.Sum(i => i.Total))</td>
             <td>-</td>
-            <td>@Math.Round(Model.Sum(i=>i.TotalPlusVAT),2)</td>
+            <td>@String.Format("{0:C}", Model.Sum(i => i.TotalPlusVAT))</td>
             @if (ViewBag.Print != true){
             <td></td>
             }

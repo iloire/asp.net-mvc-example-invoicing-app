@@ -11,60 +11,11 @@
     ViewBag.Title = "Create";
 }
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm())
+{
     @Html.ValidationSummary(true)
-    <fieldset>
-         <legend>Create Invoice</legend>
-
-        <div class="clearfix">
-            @Html.LabelFor(model => model.CustomerID, "Customer")
-        
-        <div class="input">
-            @Html.DropDownList("CustomerID", String.Empty)
-            @Html.ValidationMessageFor(model => model.CustomerID)
-        </div>
-		</div>
-
-        <div class="clearfix">
-            @Html.LabelFor(model => model.Notes)
-        
-        <div class="input">
-            @Html.TextAreaFor(model => model.Notes)
-            @Html.ValidationMessageFor(model => model.Notes)
-        </div>
-		</div>
-
-        <div class="clearfix">
-            @Html.LabelFor(model => model.TimeStamp)
-        
-        <div class="input">
-            @Html.EditorFor(model => model.TimeStamp)
-            @Html.ValidationMessageFor(model => model.TimeStamp)
-        </div>
-		</div>
-
-        <div class="clearfix">
-            @Html.LabelFor(model => model.DueDate)
-        
-        <div class="input">
-            @Html.EditorFor(model => model.DueDate, "Calendar")
-            @Html.ValidationMessageFor(model => model.DueDate)
-        </div>
-		</div>
-
-        <div class="clearfix">
-            @Html.LabelFor(model => model.Paid)
-        
-        <div class="input">
-            @Html.EditorFor(model => model.Paid)
-            @Html.ValidationMessageFor(model => model.Paid)
-        </div>
-		</div>
-
-        <div class="actions">
-            <input type="submit" class="btn primary" value="Create" />
-			@Html.ActionLink("Back to List", "Index", null, new { @class = "btn"})
-        </div>
-    </fieldset>
+    <text>
+        @{Html.RenderPartial("EditOrCreateInvoicePartial", Model);}
+    </text>
 }
 

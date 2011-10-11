@@ -37,7 +37,7 @@
             @Html.LabelFor(model => model.Qty)
         
         <div class="input">
-            @Html.EditorFor(model => model.Qty)
+            @Html.EditorFor(model => model.Qty, "Number")
             @Html.ValidationMessageFor(model => model.Qty)
         </div>
 		</div>
@@ -46,25 +46,27 @@
             @Html.LabelFor(model => model.Price)
         
         <div class="input">
-            @Html.EditorFor(model => model.Price)
+            @Html.EditorFor(model => model.Price, "Currency")
             @Html.ValidationMessageFor(model => model.Price)
         </div>
 		</div>
+
 
         <div class="clearfix">
             @Html.LabelFor(model => model.VAT)
         
         <div class="input">
-            @Html.EditorFor(model => model.VAT)
+            @Html.EditorFor(model => model.VAT, (string)ViewBag.DefaultVAT) %
             @Html.ValidationMessageFor(model => model.VAT)
         </div>
 		</div>
 
+ 
         <div class="clearfix">
             @Html.LabelFor(model => model.TimeStamp)
         
         <div class="input">
-            @Html.EditorFor(model => model.TimeStamp)
+            @Html.EditorFor(model => model.TimeStamp) 
             @Html.ValidationMessageFor(model => model.TimeStamp)
         </div>
 		</div>

@@ -45,15 +45,7 @@
               return false;
           });
 
-
-
-          $('a.newDetailInvoice').live('click', function () {
-              clearErrors();
-
-              //alert('sdf');
-              var id = $(this).attr("idInvoice");
-              var url = '/InvoiceDetails/Create/' + id;
-
+          function getRequest(url) {
               $.ajax({
                   url: url,
                   context: document.body,
@@ -65,9 +57,19 @@
                   },
                   error: function (err) {
                       writeError('msgErrorNewInvoiceDetails', err);
-                      //alert('error: ' + err);
                   }
               });
+          }
+
+          $('a.newDetailInvoice').live('click', function () {
+              clearErrors();
+
+              //alert('sdf');
+              var id = $(this).attr("idInvoice");
+              var url = '@Url.Content("~/InvoiceDetails/Create")/' + id;
+
+              getRequest(url);
+
               return false;
           });
 
@@ -75,48 +77,22 @@
               clearErrors();
 
               var id = $(this).attr("idInvoiceDetails");
-              var url = '/InvoiceDetails/Delete/' + id;
-              $.ajax({
-                  url: url,
-                  context: document.body,
-                  success: function (data) {
-                      //alert(data);
-                      $('.modal-body p.body').html(data);
-                      $(this).addClass("done");
-                      $('#my-modal').modal('show');
-                      $('#Article').focus();
-                  },
-                  error: function (err) {
-                      alert('error: ' + JSON.stringify(err));
-                      writeError('msgErrorNewInvoiceDetails', err);
-                  }
-              });
+              var url = '@Url.Content("~/InvoiceDetails/Delete")/' + id;
+              
+              getRequest(url);
+
               return false;
           });
 
-          
+
 
           $('.editInvoiceDetails').live('click', function () {
               clearErrors();
 
               var id = $(this).attr("idInvoiceDetails");
-              var url = '/InvoiceDetails/Edit/' + id;
-              $.ajax({
-                  url: url,
-                  context: document.body,
-                  success: function (data) {
-                      //alert(data);
-                      $('.modal-body p.body').html(data);
-                      $(this).addClass("done");
-                      $('#my-modal').modal('show');
-                      $('#Article').focus();
-                  },
-                  error: function (err) {
-                      alert('error: ' + JSON.stringify(err));
-                      writeError('msgErrorNewInvoiceDetails', err);
-                  }
-              });
+              var url = '@Url.Content("~/InvoiceDetails/Edit")/' + id;
 
+              getRequest(url);
 
               return false;
           });
@@ -133,66 +109,14 @@
 @using (Html.BeginForm())
 {
     @Html.ValidationSummary(true)
-    <fieldset>
-        <legend>Invoice edition</legend>
-
-        @Html.HiddenFor(model => model.InvoiceID)
-
-        <div class="clearfix">
-            @Html.LabelFor(model => model.CustomerID, "Customer")
-        
-        <div class="input">
-            @Html.DropDownList("CustomerID", String.Empty)
-            @Html.ValidationMessageFor(model => model.CustomerID)
-        </div>
-		</div>
-
-        <div class="clearfix">
-            @Html.LabelFor(model => model.Notes)
-        
-        <div class="input">
-            @Html.TextAreaFor(model => model.Notes)
-            @Html.ValidationMessageFor(model => model.Notes)
-        </div>
-		</div>
-
-        <div class="clearfix">
-            @Html.LabelFor(model => model.TimeStamp)
-        
-        <div class="input">
-            @Html.EditorFor(model => model.TimeStamp, "Calendar")
-            @Html.ValidationMessageFor(model => model.TimeStamp)
-        </div>
-		</div>
-
-        <div class="clearfix">
-            @Html.LabelFor(model => model.DueDate)
-        
-        <div class="input">
-            @Html.EditorFor(model => model.DueDate, "Calendar")
-            @Html.ValidationMessageFor(model => model.DueDate)
-        </div>
-		</div>
-
-        <div class="clearfix">
-            @Html.LabelFor(model => model.Paid)
-        
-        <div class="input">
-            @Html.EditorFor(model => model.Paid)
-            @Html.ValidationMessageFor(model => model.Paid)
-        </div>
-		</div>
-
-		<div class="actions">
-            <input type="submit" class="btn primary" value="Save" />
-			@Html.ActionLink("Back to Invoices", "Index", null, new { @class = "btn" })
-        </div>
-    </fieldset>
+    <text>
+    @{Html.RenderPartial("EditOrCreateInvoicePartial", Model);}
+    </text>
 }
 </div>
 
 <div class="span14">
-  
+        <br /><br />
         <div id="my-modal" class="modal hide fade">
         <div class="modal-header">
             <a href="#" class="close">&times;</a>
