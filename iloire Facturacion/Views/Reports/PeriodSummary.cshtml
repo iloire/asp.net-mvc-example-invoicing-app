@@ -1,0 +1,61 @@
+﻿@*
+	Iván Loire - www.iloire.com
+	Please readme README file for license terms.
+
+	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
+*@
+
+@model Summary
+
+<div class="summary">
+    <p>
+    <em>
+    from: @String.Format("{0:d}", Model.From) to @String.Format("{0:d}", Model.To) 
+    </em>
+    </p>
+
+    <p>
+    <strong>NET Income:</strong> @String.Format("{0:C}", Model.NetIncome)
+    <br />
+    <strong>NET Expense:</strong> @String.Format("{0:C}", Model.NetExpense)
+    <hr />
+    <strong>Benefit:</strong> 
+    
+     @if (Model.NetBenefit > 0)
+    { 
+        <span class="positive">@String.Format("{0:C}", Model.NetBenefit)</span>
+    }
+    else { 
+        <span class="negative">@String.Format("{0:C}", Model.NetBenefit)</span>
+    }
+
+    <br />
+    <strong>VAT:</strong> @String.Format("{0:C}", Model.VATBalance)
+    <br />
+    </p>
+</div>
+
+@{
+    var chart_name = Model.GetHashCode();  
+  }
+
+<div class="chart_summary">
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+        google.load("visualization", "1", { packages: ["corechart"] });
+        google.setOnLoadCallback(drawChart);
+        function drawChart() {
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Task');
+            data.addColumn('number', 'Hours per Day');
+            data.addRows(2);
+            data.setValue(0, 0, 'Income');
+            data.setValue(0, 1, @Model.NetIncome);
+            data.setValue(1, 0, 'Expenses');
+            data.setValue(1, 1, @Model.NetExpense);
+            var chart = new google.visualization.PieChart(document.getElementById('@chart_name'));
+            chart.draw(data, { width: 350, height: 200, title: 'Income vs expenses' });
+        }
+    </script>
+    <div id="@chart_name"></div>
+</div>

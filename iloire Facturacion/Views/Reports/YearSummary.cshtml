@@ -1,0 +1,92 @@
+﻿@*
+	Iván Loire - www.iloire.com
+	Please readme README file for license terms.
+
+	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
+*@
+
+@model YearSummary
+
+<table>
+<tr>
+    <td style="background-color:#f5f5f5"></td>
+    <td><strong>Q1</strong></td>
+    <td><strong>Q2</strong></td>
+    <td><strong>Q3</strong></td>
+    <td><strong>Q4</strong></td>
+    <td><strong>TOTAL</strong></td>
+</tr>
+
+<tr>
+    <td><strong>Net Income:</strong></td>
+    <td>@String.Format("{0:C}", Model.Q1.NetIncome)</td>
+    <td>@String.Format("{0:C}", Model.Q2.NetIncome)</td>
+    <td>@String.Format("{0:C}", Model.Q3.NetIncome)</td>
+    <td>@String.Format("{0:C}", Model.Q4.NetIncome)</td>      
+    <td style="background-color:#f5f5f5">@String.Format("{0:C}", Model.Q1.NetIncome + Model.Q2.NetIncome + Model.Q3.NetIncome + Model.Q4.NetIncome)</td>    
+</tr>
+
+<tr>
+    <td><strong>Net Expense:</strong></td>
+    <td>@String.Format("{0:C}", Model.Q1.NetExpense)</td>
+    <td>@String.Format("{0:C}", Model.Q2.NetExpense)</td>
+    <td>@String.Format("{0:C}", Model.Q3.NetExpense)</td>
+    <td>@String.Format("{0:C}", Model.Q4.NetExpense)</td>
+    <td style="background-color:#f5f5f5">@String.Format("{0:C}", Model.Q1.NetExpense + Model.Q2.NetExpense + Model.Q3.NetExpense + Model.Q4.NetExpense)</td>
+</tr>
+
+<tr>
+    <td><strong>Net Benefit:</strong></td>
+    <td>
+    @if (Model.Q1.NetBenefit > 0)
+    { 
+        <span class="positive">@String.Format("{0:C}", Model.Q1.NetBenefit)</span>
+    }
+    else { 
+        <span class="negative">@String.Format("{0:C}", Model.Q1.NetBenefit)</span>
+    }
+    </td>
+  <td>
+    @if (Model.Q2.NetBenefit > 0)
+    { 
+        <span class="positive">@String.Format("{0:C}", Model.Q2.NetBenefit)</span>
+    }
+    else { 
+        <span class="negative">@String.Format("{0:C}", Model.Q2.NetBenefit)</span>
+    }
+        
+    </td>
+  <td>
+    @if (Model.Q3.NetBenefit > 0)
+    { 
+        <span class="positive">@String.Format("{0:C}", Model.Q3.NetBenefit)</span>
+    }
+    else { 
+        <span class="negative">@String.Format("{0:C}", Model.Q3.NetBenefit)</span>
+    }
+        
+    </td>
+   <td>
+    @if (Model.Q4.NetBenefit > 0)
+    { 
+        <span class="positive">@String.Format("{0:C}", Model.Q4.NetBenefit)</span>
+    }
+    else { 
+        <span class="negative">@String.Format("{0:C}", Model.Q4.NetBenefit)</span>
+    }
+        
+    </td>
+    <td style="background-color:#f5f5f5">
+        @{var total_benefit = Model.Q1.NetBenefit + Model.Q2.NetBenefit + Model.Q3.NetBenefit + Model.Q4.NetBenefit;}
+         @if (total_benefit > 0)
+        { 
+            <span class="positive">@String.Format("{0:C}", total_benefit)</span>
+        }
+        else { 
+            <span class="negative">@String.Format("{0:C}", total_benefit)</span>
+        }
+    </td>
+</tr>
+
+</table>
+
