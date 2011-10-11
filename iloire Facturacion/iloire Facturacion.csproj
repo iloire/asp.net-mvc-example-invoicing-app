@@ -72,6 +72,7 @@
     <Compile Include="Controllers\InvoiceDetailsController.cs" />
     <Compile Include="Controllers\ProviderController.cs" />
     <Compile Include="Controllers\PurchaseController.cs" />
+    <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -84,6 +85,8 @@
     <Compile Include="Models\Paging\Pager.cs" />
     <Compile Include="Models\Paging\PagingExtensions.cs" />
     <Compile Include="Models\POCO\Customer.cs" />
+    <Compile Include="Models\POCO\ModelView\YearSummary.cs" />
+    <Compile Include="Models\POCO\ModelView\Summary.cs" />
     <Compile Include="Models\POCO\Provider.cs" />
     <Compile Include="Models\POCO\InvoiceDetails.cs" />
     <Compile Include="Models\POCO\Purchase.cs" />
@@ -94,6 +97,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\bootstrap.print.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -123,6 +127,7 @@
     <Content Include="Content\themes\base\jquery.ui.theme.css" />
     <Content Include="Content\bootstrap.extra.css" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\bootstrap-dropdown.js" />
     <Content Include="Scripts\bootstrap-modal.js" />
     <Content Include="Scripts\jquery-1.5.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.5.1.js" />
@@ -160,7 +165,6 @@
     <Content Include="Views\Account\ChangePasswordSuccess.cshtml" />
     <Content Include="Views\Account\LogOn.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_LogOnPartial.cshtml" />
@@ -170,6 +174,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="App_Error\" />
+    <Folder Include="Content\images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -217,6 +222,15 @@
     <Content Include="Views\Shared\Messages\Success.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\DateTime.cshtml" />
     <Content Include="Views\Shared\_LayoutPrint.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Currency.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Number.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Decimal.cshtml" />
+    <Content Include="Views\Reports\PeriodSummary.cshtml" />
+    <Content Include="Views\Purchase\EditOrCreatePurchasePartial.cshtml" />
+    <Content Include="Views\Invoice\EditOrCreateInvoicePartial.cshtml" />
+    <Content Include="Views\Shared\SearchBoxCompany.cshtml" />
+    <Content Include="Views\Reports\YearSummary.cshtml" />
+    <Content Include="Views\Shared\SearchBoxItems.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
