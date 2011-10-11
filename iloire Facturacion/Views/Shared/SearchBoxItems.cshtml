@@ -1,0 +1,58 @@
+﻿@*
+	Iván Loire - www.iloire.com
+	Please readme README file for license terms.
+
+	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
+*@
+
+@model string
+
+<script>
+    function SetQ(q) {
+        if (q == 1) {
+            $('#from').val('1/01/@DateTime.Now.Year');
+            $('#to').val('31/03/@DateTime.Now.Year');
+        }
+        else if (q == 2) {
+            $('#from').val('1/04/@DateTime.Now.Year');
+            $('#to').val('30/06/@DateTime.Now.Year');
+        }
+        else if (q == 3) {
+            $('#from').val('1/07/@DateTime.Now.Year');
+            $('#to').val('30/09/@DateTime.Now.Year');
+        }
+        else if (q == 4) {
+            $('#from').val('1/10/@DateTime.Now.Year');
+            $('#to').val('31/12/@DateTime.Now.Year');
+        }
+    }
+</script>
+
+@using (Html.BeginForm("Search", Model, FormMethod.Get))
+{
+ <div class="searchBox">
+        <div class=clearfix>
+        Text:
+                <input name="text" id="text" type="text" value="@Request["text"]"
+              placeholder="Text to look for in invoices.." />
+            
+        </div>
+        
+        <div class=clearfix>
+        From: <input class="datefield" class="input" name="from" id="from" type="text" value="@Request["from"]"
+          placeholder="Date from.."/>
+       
+        To:  <input class="datefield" class="input" name="to" id="to" type="text" value="@Request["to"]"
+          placeholder="Date to.."/>
+
+           <input type="submit" value="Filter" class="btn small" />
+
+           <div class="setQuarter">
+           <a name="" onclick="SetQ(1)" href="#">First Quarter</a>
+           <a name="" onclick="SetQ(2)" href="#">Second Quarter</a>
+           <a name="" onclick="SetQ(3)" href="#">Third Quarter</a>
+           <a name="" onclick="SetQ(4)" href="#">Quarter Quarter</a>
+           </div>
+        </div>    
+ </div>
+}

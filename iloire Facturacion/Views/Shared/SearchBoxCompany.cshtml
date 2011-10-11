@@ -1,0 +1,45 @@
+﻿@*
+	Iván Loire - www.iloire.com
+	Please readme README file for license terms.
+
+	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
+*@
+
+@model string
+
+ <script type="text/javascript">
+     $(document).ready(function () {
+         $("ul.filtroAlfab a").click(function (e) {
+             $.ajax({ url: this.href, success: function (data) {
+                 $("#ajaxReponse").html(data);
+             }
+             });
+             return false;
+         });
+     }); 
+</script>
+
+@using (Html.BeginForm("Search", Model))
+{
+    <div class="searchBox">
+         <input name="q" id="search_Box" type="text" value="@Request["q"]"
+          placeholder="Please intro search text"/>
+          <input type="submit" value="Search" class="btn small" />
+    </div>
+}
+
+<ul class="filtroAlfab">
+@foreach (var letra in "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ")
+ {
+    if (ViewBag.LetraAlfabetica == letra.ToString())
+    {     
+        <li class="selected">@letra</li>
+    }
+    else
+    { 
+        <text>
+        <li>@Html.ActionLink(letra.ToString(), "Search", Model, new { q = letra }, null)</li>
+        </text>
+    }
+}
+</ul>
