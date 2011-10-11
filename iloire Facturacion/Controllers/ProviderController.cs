@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+	Iván Loire - www.iloire.com
+	Please readme README file for license terms.
+
+	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
+*/
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -12,17 +18,49 @@ namespace iloire_Facturacion.Controllers
     [Authorize]
     public class ProviderController : Controller
     {
-        private DBContext db = new DBContext();
+        private InvoiceDB db = new InvoiceDB();
         private const int defaultPageSize = 10;
+
+        /*CUSTOM*/
+        public ViewResultBase Search(string q, int? page)
+        {
+            IQueryable<Provider> providers = db.Providers;
+
+            if (q.Length == 1)
+            {
+                ViewBag.LetraAlfabetica = q;
+                //alfabet, first letter
+                providers = (from c in db.Providers
+                             where c.Name.StartsWith(q)
+                             select c);
+            }
+            else if (q.Length>1)
+            {
+                //normal search
+                providers = (from c in db.Providers
+                             where c.Name.IndexOf(q) > -1
+                             select c);
+
+            }
+
+            int currentPageIndex = page.HasValue ? page.Value - 1 : 0;
+            var providersListPaged = providers.OrderBy(i => i.Name).ToPagedList(currentPageIndex, defaultPageSize);
+
+            if (Request.IsAjaxRequest())
+                return PartialView("Index", providersListPaged);
+            else
+                return View("Index", providersListPaged);
+        }
+        /*END CUSTOM*/
 
         //
         // GET: /Provider/
 
         public ViewResult Index(int? page)
         {
-            var providers = db.Providers.ToList();
+            var providers = db.Providers.OrderBy(i => i.Name).ToList();
             int currentPageIndex = page.HasValue ? page.Value - 1 : 0;
-            var providersListPaged = providers.OrderBy(i => i.Name).ToPagedList(currentPageIndex, defaultPageSize);
+            var providersListPaged = providers.ToPagedList(currentPageIndex, defaultPageSize);
             return View(providersListPaged);
         }
 

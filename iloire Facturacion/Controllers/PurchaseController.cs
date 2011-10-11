@@ -1,22 +1,62 @@
-﻿using System;
+﻿/*
+	Iván Loire - www.iloire.com
+	Please readme README file for license terms.
+
+	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
+*/
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MvcPaging;
+using System.Globalization;
 
 namespace iloire_Facturacion.Controllers
 {
     [Authorize]
     public class PurchaseController : Controller
     {
-        private DBContext db = new DBContext();
+        private InvoiceDB db = new InvoiceDB();
+        private const int defaultPageSize = 10;
 
         /*CUSTOM*/
-        public PartialViewResult RecentPurchases()
+
+        public ViewResultBase Search(string text, string from, string to, int? page)
         {
-            var invoices = db.Purchases.Include(i => i.Provider).OrderByDescending(t=>t.TimeStamp).Take(10);
+            IQueryable<Purchase> expenses = db.Purchases;
+
+            if (!string.IsNullOrWhiteSpace(from))
+            {
+                DateTime fromDate = DateTime.Parse(from, CultureInfo.CurrentUICulture);
+                expenses = expenses.Where(t => t.TimeStamp >= fromDate);
+            }
+            if (!string.IsNullOrWhiteSpace(to))
+            {
+                DateTime toDate = DateTime.Parse(to, CultureInfo.CurrentUICulture);
+                expenses = expenses.Where(t => t.TimeStamp <= toDate);
+            }
+
+            if (!string.IsNullOrWhiteSpace(text))
+            {
+                expenses = expenses.Where(t => t.Notes.ToLower().IndexOf(text.ToLower()) > -1);
+            }
+
+            int currentPageIndex = page.HasValue ? page.Value - 1 : 0;
+            var expensesListPaged = expenses.OrderByDescending(i => i.TimeStamp).ToPagedList(currentPageIndex, defaultPageSize);
+
+            if (Request.IsAjaxRequest())
+                return PartialView("Index", expensesListPaged);
+            else
+                return View("Index", expensesListPaged);
+        }
+
+        public PartialViewResult RecentPurchases(int? top)
+        {
+            if (!top.HasValue) top = 10;
+            var invoices = db.Purchases.Include(i => i.Provider).OrderByDescending(t=>t.TimeStamp).Take(top.Value);
             return PartialView("PurchasesListPartial", invoices.ToList());
         }
 
@@ -30,10 +70,11 @@ namespace iloire_Facturacion.Controllers
         //
         // GET: /Purchase/
 
-        public ViewResult Index()
+        public ViewResult Index(int? page)
         {
             var purchases = db.Purchases.Include(p => p.Provider);
-            return View(purchases.ToList());
+            int currentPageIndex = page.HasValue ? page.Value - 1 : 0;
+            return View(purchases.ToList().ToPagedList(currentPageIndex, defaultPageSize));
         }
 
         //

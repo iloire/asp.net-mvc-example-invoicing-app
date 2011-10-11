@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+	Iván Loire - www.iloire.com
+	Please readme README file for license terms.
+
+	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
+*/
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -13,30 +19,21 @@ namespace iloire_Facturacion.Controllers
     public class CustomerController : Controller
     {
         private const int defaultPageSize = 10;
-        private DBContext db = new DBContext();
+        private InvoiceDB db = new InvoiceDB();
 
         /*CUSTOM*/
         public ViewResultBase Search(string q, int? page)
         {
-            IQueryable<Customer> customers;
+            IQueryable<Customer> customers=db.Customers;
 
-            if (q.Length == 0) {
-                customers = db.Customers;
-            }
-            else if (q.Length == 1)
+            if (q.Length == 1)//alphabetical search, first letter
             {
                 ViewBag.LetraAlfabetica = q;
-                //alfabet, first letter
-                customers = (from c in db.Customers
-                                 where c.Name.StartsWith(q)
-                                 select c);
+                customers =  customers.Where (c=>c.Name.StartsWith(q));
             }
-            else { 
+            else if (q.Length>1){ 
                 //normal search
-                 customers = (from c in db.Customers
-                                 where c.Name.IndexOf(q) > -1
-                                 select c);
-                
+                customers = customers.Where(c => c.Name.IndexOf(q) > -1);
             }
 
             int currentPageIndex = page.HasValue ? page.Value - 1 : 0;
@@ -56,9 +53,8 @@ namespace iloire_Facturacion.Controllers
 
         public ViewResult Index(int? page)
         {
-            //throw new Exception("ops, error");
             int currentPageIndex = page.HasValue ? page.Value - 1 : 0;
-            return View(db.Customers.ToList().ToPagedList(currentPageIndex, defaultPageSize));
+            return View(db.Customers.OrderBy(c=>c.Name).ToList().ToPagedList(currentPageIndex, defaultPageSize));
         }
 
         //

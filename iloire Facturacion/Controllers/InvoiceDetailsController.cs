@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+	Iván Loire - www.iloire.com
+	Please readme README file for license terms.
+
+	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
+*/
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -11,7 +17,7 @@ namespace iloire_Facturacion.Controllers
     [Authorize]
     public class InvoiceDetailsController : Controller
     {
-        private DBContext db = new DBContext();
+        private InvoiceDB db = new InvoiceDB();
 
         /*CUSTOM*/
         public PartialViewResult IndexByInvoice(int id)
@@ -47,6 +53,7 @@ namespace iloire_Facturacion.Controllers
         //Optional: Invoice ID
         public ActionResult Create(int? id)
         {
+            ViewBag.DefaultVAT = System.Configuration.ConfigurationManager.AppSettings["DefaultVAT"]; 
             ViewBag.InvoiceID = new SelectList(db.Invoices, "InvoiceID", "Notes");
             Invoice invoice = null;
             InvoiceDetails i = null;
@@ -62,8 +69,7 @@ namespace iloire_Facturacion.Controllers
                     i.InvoiceID = id.Value;
                     i.Invoice = invoice;
                     i.Qty = 1;
-                    i.VAT = 18;
-
+                    i.VAT = Convert.ToDecimal(System.Configuration.ConfigurationManager.AppSettings["DefaultVAT"]);
                     i.TimeStamp = DateTime.Now;
 
                     ViewBag.InvoiceID = new SelectList(db.Invoices, "InvoiceID", "Notes", id.Value);
@@ -89,9 +95,14 @@ namespace iloire_Facturacion.Controllers
             {
                 db.InvoiceDetails.Add(invoicedetails);
                 db.SaveChanges();
-                return PartialView("Index", db.InvoiceDetails.Where(i => i.InvoiceID == invoicedetails.InvoiceID));
-            }
-
+                if (Request.IsAjaxRequest())
+                {
+                    return PartialView("Index", db.InvoiceDetails.Where(i => i.InvoiceID == invoicedetails.InvoiceID));
+                }
+                else {
+                    return View("Index", db.InvoiceDetails.Where(i => i.InvoiceID == invoicedetails.InvoiceID));
+                }
+            }           
             ViewBag.InvoiceID = new SelectList(db.Invoices, "InvoiceID", "Notes", invoicedetails.InvoiceID);
             this.Response.StatusCode = 400;
             return PartialView("Create", invoicedetails);
