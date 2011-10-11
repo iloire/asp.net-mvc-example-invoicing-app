@@ -9,59 +9,19 @@
 @using MvcPaging;
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Customers";
 }
 
 <div id="ajaxReponse">
 
-<h1>List <small>of Customer</small></h1>
+<h1>List <small>of Customers</small></h1>
 
 <p>
-    @Html.ActionLink("Create New", "Create", null, new {@class="btn"})
+    @Html.ActionLink("Create new Customer", "Create", null, new {@class="btn"})
 </p>
 
- <script type="text/javascript">
-     $(document).ready(function () {
-         $("ul.filtroAlfab a").click(function (e) {
-             $.ajax({ url: this.href, success: function (data) {
-                 $("#ajaxReponse").html(data);
-             }
-             });
-             return false;
-         });
-     }); 
-</script>
+@{Html.RenderPartial("SearchBoxCompany", "Customer");}
 
-
-
-@using (Html.BeginForm("Search", "Customer"))
-{
-    <div class="clearfix">
-         <input name="q" id="search_Customer" type="text" value="@Request["q"]"
-          placeholder="Please intro search text"/>
-
-           <input type="submit" value="Search" class="btn small" />
-
-    </div>
-}
-
-
-<ul class="filtroAlfab">
-@foreach (var letra in "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ")
- {
-    if (ViewBag.LetraAlfabetica == letra.ToString())
-    {     
-    <li><strong class="miembro_seleccionado_letras">@letra</strong></li>
-    }
-    else
-    { 
-    <text>
-    <li>@Html.ActionLink(letra.ToString(), "Search", "Customer", new { q = letra }, null)</li>
-    </text>
-     
-    }
-}
-</ul>
 
 <div class="pagingContainer">
     @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
