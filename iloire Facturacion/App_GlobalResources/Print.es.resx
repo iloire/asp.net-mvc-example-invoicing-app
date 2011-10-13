@@ -154,7 +154,7 @@
     <value>IVA</value>
   </data>
   <data name="Invoice_CompanyNumber" xml:space="preserve">
-    <value>NIF</value>
+    <value>NIF/CIF</value>
   </data>
   <data name="Invoice_Email" xml:space="preserve">
     <value>Email</value>
