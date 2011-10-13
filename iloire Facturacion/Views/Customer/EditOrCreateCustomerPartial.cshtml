@@ -17,85 +17,119 @@
         }
 
         <div class="clearfix">
-            @Html.LabelFor(model => model.Name)
+            <div class="span6">
+                @Html.LabelFor(model => model.Name)
         
-        <div class="input">
-            @Html.EditorFor(model => model.Name)
-            @Html.ValidationMessageFor(model => model.Name)
+                <div class="input">
+                    @Html.EditorFor(model => model.Name)
+                    @Html.ValidationMessageFor(model => model.Name)
+                </div>
+		    </div>
+
+            <div class="span6">
+                @Html.LabelFor(model => model.CompanyNumber)
+        
+                <div class="input">
+                    @Html.EditorFor(model => model.CompanyNumber)
+                    @Html.ValidationMessageFor(model => model.CompanyNumber)
+                </div>
+		    </div>
         </div>
+
+        <div class="clearfix">
+            <div class="span6">
+                @Html.LabelFor(model => model.Address)
+        
+                <div class="input">
+                    @Html.TextAreaFor(model => model.Address)
+                    @Html.ValidationMessageFor(model => model.Address)
+                </div>
+		    </div>
+
+            <div class="span6">
+                @Html.LabelFor(model => model.CP)
+        
+                <div class="input">
+                    @Html.EditorFor(model => model.CP)
+                    @Html.ValidationMessageFor(model => model.CP)
+                </div>
+		    </div>
+        </div>
+        
+        <div class="clearfix">
+            <div class="span6">
+                @Html.LabelFor(model => model.City)
+        
+                <div class="input">
+                    @Html.EditorFor(model => model.City)
+                    @Html.ValidationMessageFor(model => model.City)
+                </div>
+            </div>
+		</div>
+
+         <div class="clearfix">
+             <div class="span6">
+                @Html.LabelFor(model => model.ContactPerson)
+        
+                <div class="input">
+                    @Html.EditorFor(model => model.ContactPerson)
+                    @Html.ValidationMessageFor(model => model.ContactPerson)
+                </div>
+            </div>
 		</div>
 
         <div class="clearfix">
-            @Html.LabelFor(model => model.CompanyNumber)
+            <div class="span6">
+                @Html.LabelFor(model => model.Phone1)
         
-        <div class="input">
-            @Html.EditorFor(model => model.CompanyNumber)
-            @Html.ValidationMessageFor(model => model.CompanyNumber)
+                <div class="input">
+                    @Html.EditorFor(model => model.Phone1)
+                    @Html.ValidationMessageFor(model => model.Phone1)
+                </div>
+            </div>
+		
+
+            <div class="span6">
+                @Html.LabelFor(model => model.Phone2)
+        
+                <div class="input">
+                    @Html.EditorFor(model => model.Phone2)
+                    @Html.ValidationMessageFor(model => model.Phone2)
+                </div>
+		    </div>
         </div>
-		</div>
 
         <div class="clearfix">
-            @Html.LabelFor(model => model.Address)
-        
-        <div class="input">
-            @Html.TextAreaFor(model => model.Address)
-            @Html.ValidationMessageFor(model => model.Address)
-        </div>
-		</div>
-
-        <div class="clearfix">
-            @Html.LabelFor(model => model.CP)
-        
-        <div class="input">
-            @Html.EditorFor(model => model.CP)
-            @Html.ValidationMessageFor(model => model.CP)
-        </div>
-		</div>
-
-        <div class="clearfix">
-            @Html.LabelFor(model => model.City)
-        
-        <div class="input">
-            @Html.EditorFor(model => model.City)
-            @Html.ValidationMessageFor(model => model.City)
-        </div>
-		</div>
-
-        <div class="clearfix">
-            @Html.LabelFor(model => model.Phone1)
-        
-        <div class="input">
-            @Html.EditorFor(model => model.Phone1)
-            @Html.ValidationMessageFor(model => model.Phone1)
-        </div>
-		</div>
-
-        <div class="clearfix">
-            @Html.LabelFor(model => model.Phone2)
-        
-        <div class="input">
-            @Html.EditorFor(model => model.Phone2)
-            @Html.ValidationMessageFor(model => model.Phone2)
-        </div>
-		</div>
-
-        <div class="clearfix">
+            <div class="span6">
             @Html.LabelFor(model => model.Fax)
         
-        <div class="input">
-            @Html.EditorFor(model => model.Fax)
-            @Html.ValidationMessageFor(model => model.Fax)
-        </div>
-		</div>
+            <div class="input">
+                @Html.EditorFor(model => model.Fax)
+                @Html.ValidationMessageFor(model => model.Fax)
+            </div>
+		    </div>
 
-        <div class="clearfix">
-            @Html.LabelFor(model => model.Email)
+            <div class="span6">
+                @Html.LabelFor(model => model.Email)
         
-        <div class="input">
-            @Html.EditorFor(model => model.Email)
-            @Html.ValidationMessageFor(model => model.Email)
+                <div class="input">
+                    @Html.EditorFor(model => model.Email)
+                    @Html.ValidationMessageFor(model => model.Email)
+                </div>
+		    </div>
         </div>
-		</div>
+
+        
+        <div class="clearfix">
+            <div class="span6">
+                @Html.LabelFor(model => model.Notes)
+        
+                <div class="input">
+                    @Html.TextAreaFor(model => model.Notes)
+                    @Html.ValidationMessageFor(model => model.Notes)
+                </div>
+		    </div>
+        </div>
 
 		<div class="actions">
             <input type="submit" class="btn primary" value="Save" />

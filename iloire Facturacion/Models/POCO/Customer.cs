@@ -23,6 +23,10 @@ public class Customer {
 
     [Required(ErrorMessage = "City required")]
     public string City { get; set; }
+    
+    [Required(ErrorMessage = "Contact person required")]
+    [DisplayName("Contact person")]
+    public string ContactPerson { get;set; }
 
     [Required(ErrorMessage = "Telephone required")]
     [DisplayName("Telephone")]
@@ -36,6 +40,8 @@ public class Customer {
     [Required(ErrorMessage = "Email required")]
     [RegularExpression(@"\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*", ErrorMessage = "Wrong email format")]
     public string Email { get; set; }
+
+    public string Notes { get;set; }
     
     public virtual ICollection<Invoice> Invoices { get; set; }
 }
