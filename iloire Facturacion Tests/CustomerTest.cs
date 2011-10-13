@@ -44,7 +44,7 @@ namespace iloire_Facturacion_Tests
 
             System.Web.Mvc.ActionResult result = cc.Create(c);
 
-            Assert.IsInstanceOf(typeof(System.Web.Mvc.RedirectToRouteResult), result);
+            Assert.IsInstanceOf(typeof(System.Web.Mvc.PartialViewResult), result);
         }
 
         [Test]
@@ -70,11 +70,11 @@ namespace iloire_Facturacion_Tests
 
             //get
             System.Web.Mvc.ActionResult resultEditionView = cc.Edit(c.CustomerID);
-            Assert.IsInstanceOf(typeof(System.Web.Mvc.ViewResult), resultEditionView);
+            Assert.IsInstanceOf(typeof(System.Web.Mvc.PartialViewResult), resultEditionView);
 
             //post
             System.Web.Mvc.ActionResult resultEdition = cc.Edit(c);
-            Assert.IsInstanceOf(typeof(System.Web.Mvc.RedirectToRouteResult), resultEdition);
+            Assert.IsInstanceOf(typeof(System.Web.Mvc.PartialViewResult), resultEdition);
         }
 
         [Test]
