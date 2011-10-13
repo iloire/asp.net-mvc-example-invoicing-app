@@ -8,107 +8,12 @@
 @model Customer
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Edit customer";
 }
 
-<div class="span7">
-@using (Html.BeginForm()) {
+@using (Html.BeginForm("Edit","Customer")) {
     @Html.ValidationSummary(true)
-    <fieldset>
-        <legend>Customer edition</legend>
-
-        @Html.HiddenFor(model => model.CustomerID)
-
-        <div class="clearfix">
-            @Html.LabelFor(model => model.Name)
-        
-        <div class="input">
-            @Html.EditorFor(model => model.Name)
-            @Html.ValidationMessageFor(model => model.Name)
-        </div>
-		</div>
-
-        <div class="clearfix">
-            @Html.LabelFor(model => model.CompanyNumber)
-        
-        <div class="input">
-            @Html.EditorFor(model => model.CompanyNumber)
-            @Html.ValidationMessageFor(model => model.CompanyNumber)
-        </div>
-		</div>
-
-        <div class="clearfix">
-            @Html.LabelFor(model => model.Address)
-        
-        <div class="input">
-            @Html.EditorFor(model => model.Address)
-            @Html.ValidationMessageFor(model => model.Address)
-        </div>
-		</div>
-
-        <div class="clearfix">
-            @Html.LabelFor(model => model.CP)
-        
-        <div class="input">
-            @Html.EditorFor(model => model.CP)
-            @Html.ValidationMessageFor(model => model.CP)
-        </div>
-		</div>
-
-        <div class="clearfix">
-            @Html.LabelFor(model => model.City)
-        
-        <div class="input">
-            @Html.EditorFor(model => model.City)
-            @Html.ValidationMessageFor(model => model.City)
-        </div>
-		</div>
-
-        <div class="clearfix">
-            @Html.LabelFor(model => model.Phone1)
-        
-        <div class="input">
-            @Html.EditorFor(model => model.Phone1)
-            @Html.ValidationMessageFor(model => model.Phone1)
-        </div>
-		</div>
-
-        <div class="clearfix">
-            @Html.LabelFor(model => model.Phone2)
-        
-        <div class="input">
-            @Html.EditorFor(model => model.Phone2)
-            @Html.ValidationMessageFor(model => model.Phone2)
-        </div>
-		</div>
-
-        <div class="clearfix">
-            @Html.LabelFor(model => model.Fax)
-        
-        <div class="input">
-            @Html.EditorFor(model => model.Fax)
-            @Html.ValidationMessageFor(model => model.Fax)
-        </div>
-		</div>
-
-        <div class="clearfix">
-            @Html.LabelFor(model => model.Email)
-        
-        <div class="input">
-            @Html.EditorFor(model => model.Email)
-            @Html.ValidationMessageFor(model => model.Email)
-        </div>
-		</div>
-
-		<div class="actions">
-            <input type="submit" class="btn primary" value="Save" />
-			@Html.ActionLink("Back to List", "Index", null, new { @class = "btn"})
-        </div>
-    </fieldset>
+   <text>
+    @{Html.RenderPartial("EditOrCreateCustomerPartial", Model);}
+    </text> 
 }
-</div>
-
-<div class="span12">
-    <h2>Last invoices from this customer</h2>
-    @{Html.RenderAction("LastInvoicesByCustomer", "Invoice", new { id = Model.CustomerID });}
-</div>

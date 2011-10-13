@@ -4,30 +4,15 @@
 
 	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
 *@
-
 @using MvcPaging;
 
-@model IPagedList<Provider>
-
-@{
-    ViewBag.Title = "Index";
-}
-
-<div id="ajaxResponse">
-
-    <h1>List <small>of Provider</small></h1>
-
-    <p>
-        @Html.ActionLink("Create New", "Create", null, new { @class = "btn" })
-    </p>
-
-    @{Html.RenderPartial("SearchBoxCompany", "Provider");}
-
-    <div class="pagingContainer">
+@model IPagedList<Customer>
+           
+<div class="pagingContainer">
         @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
-    </div>
+</div>
 
-    <table class="zebra-striped">
+<table class="zebra-striped">
         <thead>
             <th>
                 Name
@@ -35,22 +20,20 @@
             <th>
                 CompanyNumber
             </th>
-   
+       
             <th>
                 City
             </th>
             <th>
                 Phone1
             </th>
-     
             <th>
                 Email
             </th>
             <th></th>
         </thead>
 
-    @foreach (var item in Model)
-    {
+    @foreach (var item in Model) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
@@ -58,25 +41,22 @@
             <td>
                 @Html.DisplayFor(modelItem => item.CompanyNumber)
             </td>
-       
+      
             <td>
                 @Html.DisplayFor(modelItem => item.City)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Phone1)
             </td>
-      
             <td>
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ProviderID }, new { @class = "btn primary" }) 
-                @Html.ActionLink("Details", "Details", new { id = item.ProviderID }, new { @class = "btn" }) 
-                @Html.ActionLink("Delete", "Delete", new { id = item.ProviderID }, new { @class = "btn" })
+                @Html.ActionLink("Edit", "Edit", new { id = item.CustomerID }, new { idCustomer = item.CustomerID, @class = "btn primary editCustomer" }) 
+                @Html.ActionLink("Details", "Details", new { id=item.CustomerID }, new { @class = "btn"}) 
+                @Html.ActionLink("Delete", "Delete", new { id=item.CustomerID }, new { @class = "btn"})
             </td>
         </tr>
     }
 
     </table>
-
-</div>

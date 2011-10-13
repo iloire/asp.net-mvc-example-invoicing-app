@@ -5,7 +5,7 @@
  * This is a good code base to learn ASP.NET MVC3, since it covers many areas and development techniques.
  * I am using it as a personal invoicing tool for my freelancing activity, you may use it as well for this or any other purpose (it is very **easy to customize** to fit your needs) 
  * The solution has been created with **Visual Studio 2010 Express**, but you can open it with other versions of VS 2010.
- * Unit tests have been written with [NUnit](http://www.nunit.org/).
+ * Unit tests have been written with [NUnit](http://www.nunit.org/). [Moq](http://code.google.com/p/moq/) has been used for object mocking.
 
 ## Demo
 
@@ -18,11 +18,13 @@
    * **Code First**
    * **Entity Framework** and **LINQ**
    * **Razor** view engine 
+   * **Custom Membership Provider** pointing to your own database users table.
    * **Partial views** and **partial actions** (with independent OutputCache for high concurrency page rendering) 
    * **Html Helpers**
    * **Data Annotation** validation
    * **AJAX** partial rendering
    * Custom **T4 templates** for customized scaffolding
+   * **NUnit** for unit testing and **Moq for object mocking**.
  * Every major development on this invoicing app has been tagged (0.1, 0.2, etc...)
  * You can download each tag (starting with 0.1), check progress and move to the next when you understood everything that has been done.
  * Follow the change log (tag history) and enjoy!

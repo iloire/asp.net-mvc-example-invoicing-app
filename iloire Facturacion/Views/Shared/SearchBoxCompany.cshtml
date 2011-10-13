@@ -11,7 +11,7 @@
      $(document).ready(function () {
          $("ul.filtroAlfab a").click(function (e) {
              $.ajax({ url: this.href, success: function (data) {
-                 $("#ajaxReponse").html(data);
+                 $("#ajaxResponse").html(data);
              }
              });
              return false;

@@ -12,67 +12,108 @@
     ViewBag.Title = "Customers";
 }
 
-<div id="ajaxReponse">
+<div id="ajaxResponse">
 
 <h1>List <small>of Customers</small></h1>
 
+<script>
+
+    $(document).ready(function () {
+
+        function clearErrors() {
+            $('#msgErrorNewCustomer').html('');
+            $('#msgError').html('');
+        }
+
+        function writeError(control, msg) {
+            var err_msg = '<div class="alert-message error"><a class="close" href="#">×</a><p>' + msg + '</p></div>';
+            $('#' + control).html(err_msg);
+        }
+
+        function getRequest(url) {
+            $.ajax({
+                url: url,
+                context: document.body,
+                success: function (data) {
+                    $('.modal-body p.body').html(data);
+                    $(this).addClass("done");
+                    $('#my-modal').modal('show');
+                },
+                error: function (err) {
+                    writeError('msgErrorNewInvoiceDetails', err);
+                }
+            });
+        }
+
+        $('.closeModal').live('click', function () {
+            $('#my-modal').modal('hide');
+        });
+
+        $('#my-modal form').live('submit', function () {
+            clearErrors();
+
+            $.post($(this).attr('action'), $(this).serialize(), function (data, status) {
+                $('#my-modal').modal('hide');
+                $("#customerList").html(data);
+
+            }).error(function (error, status, a, b) {
+                writeError('msgError', 'Error processing request. Please check errors and try again!');
+                $('.modal-body p.body').html(error.responseText);
+
+            });
+            return false;
+        });
+
+
+
+        $('.editCustomer').live('click', function () {
+            clearErrors();
+
+            var id = $(this).attr("idCustomer");
+            var url = '@Url.Content("~/Customer/Edit")/' + id;
+
+            getRequest(url);
+
+            return false;
+        });
+
+
+        $('a.newCustomer').live('click', function () {
+            clearErrors();
+            var url = '@Url.Content("~/Customer/Create")';
+
+            getRequest(url);
+
+            return false;
+        });
+    });
+</script>
 <p>
-    @Html.ActionLink("Create new Customer", "Create", null, new {@class="btn"})
+    @Html.ActionLink("Create new Customer", "Create", null, new { @class = "btn newCustomer" })
 </p>
 
 @{Html.RenderPartial("SearchBoxCompany", "Customer");}
 
 
-<div class="pagingContainer">
-    @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
-</div>
+<div id="msgErrorNewCustomer"></div>
+     <div id="my-modal" class="modal hide fade">
+            <div class="modal-header">
+                <a href="#" class="close">&times;</a>
+                <h3>Invoice detail</h3>
+            </div>
+            <div class="modal-body">
+                <div id="msgError"></div>
+                <p class="body">
+                   
+                </p>
+            </div>
+            <div class="modal-footer">
+             
+            </div>
+    </div>
 
-<table class="zebra-striped">
-    <thead>
-        <th>
-            Name
-        </th>
-        <th>
-            CompanyNumber
-        </th>
-       
-        <th>
-            City
-        </th>
-        <th>
-            Phone1
-        </th>
-        <th>
-            Email
-        </th>
-        <th></th>
-    </thead>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CompanyNumber)
-        </td>
-      
-        <td>
-            @Html.DisplayFor(modelItem => item.City)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Phone1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CustomerID }, new { @class = "btn primary"}) 
-            @Html.ActionLink("Details", "Details", new { id=item.CustomerID }, new { @class = "btn"}) 
-            @Html.ActionLink("Delete", "Delete", new { id=item.CustomerID }, new { @class = "btn"})
-        </td>
-    </tr>
-}
-
-</table>
+    <div id="customerList">
+        @{Html.RenderPartial("CustomerListPartial", Model);}
+    </div>
 </div>

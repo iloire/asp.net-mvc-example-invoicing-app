@@ -231,6 +231,8 @@
     <Content Include="Views\Shared\SearchBoxCompany.cshtml" />
     <Content Include="Views\Reports\YearSummary.cshtml" />
     <Content Include="Views\Shared\SearchBoxItems.cshtml" />
+    <Content Include="Views\Customer\EditOrCreateCustomerPartial.cshtml" />
+    <Content Include="Views\Customer\CustomerListPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

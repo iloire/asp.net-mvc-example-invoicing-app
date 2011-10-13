@@ -54,7 +54,7 @@ namespace iloire_Facturacion.Controllers
         public ViewResult Index(int? page)
         {
             int currentPageIndex = page.HasValue ? page.Value - 1 : 0;
-            return View(db.Customers.OrderBy(c=>c.Name).ToList().ToPagedList(currentPageIndex, defaultPageSize));
+            return View(db.Customers.OrderBy(c=>c.Name).ToPagedList(currentPageIndex, defaultPageSize));
         }
 
         //
@@ -71,7 +71,7 @@ namespace iloire_Facturacion.Controllers
 
         public ActionResult Create()
         {
-            return View();
+            return PartialView();
         } 
 
         //
@@ -84,10 +84,12 @@ namespace iloire_Facturacion.Controllers
             {
                 db.Customers.Add(customer);
                 db.SaveChanges();
-                return RedirectToAction("Index");  
+                //return list of customers as it is ajax request
+                return PartialView("CustomerListPartial", db.Customers.OrderBy(c => c.Name).ToPagedList(0, defaultPageSize));
+                //return RedirectToAction("Index");  
             }
-
-            return View(customer);
+            this.Response.StatusCode = 400;
+            return PartialView(customer);
         }
         
         //
@@ -96,7 +98,7 @@ namespace iloire_Facturacion.Controllers
         public ActionResult Edit(int id)
         {
             Customer customer = db.Customers.Find(id);
-            return View(customer);
+            return PartialView(customer);
         }
 
         //
@@ -109,9 +111,12 @@ namespace iloire_Facturacion.Controllers
             {
                 db.Entry(customer).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                //return RedirectToAction("Index");
+                //return list of customers as it is ajax request
+                return PartialView("CustomerListPartial", db.Customers.OrderBy(c => c.Name).ToPagedList(0, defaultPageSize));
             }
-            return View(customer);
+            this.Response.StatusCode = 400;
+            return PartialView(customer);
         }
 
         //
