@@ -19,6 +19,7 @@ namespace iloire_Facturacion.Controllers
     [Authorize]
     public class InvoiceController : Controller
     {
+
         private InvoiceDB db = new InvoiceDB();
         private const int defaultPageSize=10;
 
@@ -107,6 +108,14 @@ namespace iloire_Facturacion.Controllers
             i.TimeStamp = DateTime.Now;
             i.DueDate = DateTime.Now.AddDays(30); //30 days after today
             i.AdvancePaymentTax = Convert.ToDecimal(System.Configuration.ConfigurationManager.AppSettings["DefaultAdvancePaymentTax"]); 
+            
+            //generate next invoice number
+            var next_invoice = (from inv in db.Invoices 
+                                orderby inv.InvoiceNumber descending
+                                select inv).FirstOrDefault();
+            if (next_invoice!=null)
+                i.InvoiceNumber = next_invoice.InvoiceNumber + 1;
+
             ViewBag.CustomerID = new SelectList(db.Customers, "CustomerID", "Name");
             return View(i);
         } 
@@ -117,14 +126,19 @@ namespace iloire_Facturacion.Controllers
         [HttpPost]
         public ActionResult Create(Invoice invoice)
         {
+            ViewBag.CustomerID = new SelectList(db.Customers, "CustomerID", "Name", invoice.CustomerID);
             if (ModelState.IsValid)
             {
+                //make sure invoice number doesn't exist
+                var invoice_exists = (from inv in db.Invoices where inv.InvoiceNumber==invoice.InvoiceNumber select inv).FirstOrDefault();
+                if (invoice_exists != null) {
+                    ModelState.AddModelError("InvoiceNumber", "Invoice with that number already exists");
+                    return View(invoice);
+                }
                 db.Invoices.Add(invoice);
                 db.SaveChanges();
                 return RedirectToAction("Edit", "Invoice", new { id = invoice.InvoiceID });  
             }
-
-            ViewBag.CustomerID = new SelectList(db.Customers, "CustomerID", "Name", invoice.CustomerID);
             return View(invoice);
         }
         
@@ -144,13 +158,13 @@ namespace iloire_Facturacion.Controllers
         [HttpPost]
         public ActionResult Edit(Invoice invoice)
         {
+            ViewBag.CustomerID = new SelectList(db.Customers, "CustomerID", "Name", invoice.CustomerID);
             if (ModelState.IsValid)
             {
                 db.Entry(invoice).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CustomerID = new SelectList(db.Customers, "CustomerID", "Name", invoice.CustomerID);
             return View(invoice);
         }
 

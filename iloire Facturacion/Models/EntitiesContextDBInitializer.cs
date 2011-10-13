@@ -46,11 +46,13 @@ public class EntitiesContextInitializer : DropCreateDatabaseIfModelChanges<Invoi
 
         #region Add some dummy random invoices
         var dummy_services = new string[] { "ASP.NET MVC3 training", ".NET training, ASP.NET MVC3 consultancy", "ASP.NET MVC3 in-house training" };
-   
+
+        int invoice_number = 1;
         for (int m= 1; m <= DateTime.Now.Month; m++)
         {
             for (int i=0;i<5;i++){
                 Invoice invoice = new Invoice();
+                invoice.InvoiceNumber = invoice_number;
                 invoice.Customer = customers[new Random(m).Next(0, customers.Count - 1)]; //random customer
                 invoice.AdvancePaymentTax = 15;
                 invoice.Name = "Consulting services, as detailed in the invoice";
@@ -59,6 +61,8 @@ public class EntitiesContextInitializer : DropCreateDatabaseIfModelChanges<Invoi
                 invoice.Notes = invoice.Name + " notes";
                 invoice.Paid = new Random().Next(0, 10)>=1; //low probability of unpaid
                 invoice.CustomerID = invoice.Customer.CustomerID;
+
+                invoice_number++;
 
                 int number_invoice_details = new Random().Next(4, 10);
                 for (int id = 0; id < number_invoice_details; id++)

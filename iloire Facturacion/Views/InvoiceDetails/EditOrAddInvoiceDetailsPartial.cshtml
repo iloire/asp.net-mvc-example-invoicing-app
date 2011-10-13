@@ -13,16 +13,7 @@
 
         @Html.HiddenFor(model => model.InvoiceDetailsID)
          @Html.Hidden("InvoiceID", Model.InvoiceID)
-       
-     @*   @Model.Invoice.InvoiceID
-        <div class="clearfix">
-            @Html.LabelFor(model => model.InvoiceID, "Invoice")
-        
-        <div class="input">
-            @Html.DropDownList("InvoiceID", String.Empty)
-            @Html.ValidationMessageFor(model => model.InvoiceID)
-        </div>
-		</div>*@
+   
 
         <div class="clearfix">
             @Html.LabelFor(model => model.Article)

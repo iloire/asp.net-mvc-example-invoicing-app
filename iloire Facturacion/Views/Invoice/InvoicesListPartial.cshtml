@@ -30,7 +30,7 @@
 
 @foreach (var item in Model) {
     <tr>
-        <td># @item.InvoiceID</td>
+        <td># @item.InvoiceNumber</td>
         <td>
          <a href="@Url.Action("Edit", "Customer", new { id=item.CustomerID})">
             @Html.DisplayFor(modelItem => item.Customer.Name)

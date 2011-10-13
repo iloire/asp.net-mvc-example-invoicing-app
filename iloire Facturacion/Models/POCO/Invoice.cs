@@ -13,6 +13,9 @@ public class Invoice
 
     public int InvoiceID { get; set; }
 
+    [DisplayName("Invoice Number")]
+    public int InvoiceNumber { get; set; }
+
     public int CustomerID { get; set; }
     public virtual Customer Customer { get; set; }
 

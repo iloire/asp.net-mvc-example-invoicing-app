@@ -46,6 +46,12 @@
 
 ## TAGS (change log):
 
+**0.14**
+
+ * Added globalization support in printing invoice. Added spanish resource file.
+ * Adding and edition customer now works with a modal popup windows using AJAX.
+ * Added InvoiceNumber field to Invoice so it can be defined and edited by the user.
+
 **0.13**
 
  * Support for **SQL Server Compact Edition** (by default). You can choose to other database provider in web.config.
