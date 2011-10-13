@@ -150,6 +150,11 @@
 </table>
 
 <table>
+
+            <tr>
+            <td colspan="5" class="invoiceFooterTitle">@Resources.Print.Invoice_SubTotal:</td>
+            <td width="200" class="invoiceFooterValue">@String.Format("{0:C}", Model.NetTotal)</td>
+        </tr>
         <tr>
             <td colspan="5" class="invoiceFooterTitle">@Resources.Print.Invoice_VAT:</td>
             <td width="200" class="invoiceFooterValue">@String.Format("{0:C}", Model.VATAmount)</td>
@@ -159,7 +164,7 @@
         {
         <tr>
             <td colspan="5" class="invoiceFooterTitle">@Resources.Print.Invoice_AdvancePaymentTax (*):</td>
-            <td class="invoiceFooterValue">@String.Format("{0:C}", Model.AdvancePaymentTaxAmount)</td>
+            <td class="invoiceFooterValue">- @String.Format("{0:C}", Model.AdvancePaymentTaxAmount)</td>
         </tr>
         }
 
