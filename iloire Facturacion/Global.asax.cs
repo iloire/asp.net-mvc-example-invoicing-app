@@ -31,7 +31,13 @@ namespace iloire_Facturacion
 
         protected void Application_Start()
         {
-           
+
+            if (System.Configuration.ConfigurationManager.AppSettings["DropDatabaseOnChange"] == "1")
+            {
+                //Set initializer to populate data on database creation
+                System.Data.Entity.Database.SetInitializer(new EntitiesContextInitializer());
+            }
+
             AreaRegistration.RegisterAllAreas();
 
             RegisterGlobalFilters(GlobalFilters.Filters);

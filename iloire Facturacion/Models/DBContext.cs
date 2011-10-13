@@ -6,8 +6,7 @@ public class InvoiceDB : DbContext {
 
     public InvoiceDB()
     {
-        //Set initializer to populate data on database creation
-        System.Data.Entity.Database.SetInitializer(new EntitiesContextInitializer());
+        
     }
 
     public DbSet<Customer> Customers {get; set;}
