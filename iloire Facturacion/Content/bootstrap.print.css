@@ -1,4 +1,5 @@
 body {
   padding: 30px !important;
-  width:900px
+  width:850px !important;
+  font-size:105% !important;
 }

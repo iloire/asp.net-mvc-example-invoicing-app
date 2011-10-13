@@ -17,15 +17,16 @@
             @Html.LabelFor(model => model.InvoiceNumber)
         
         <div class="input">
-            @if (Model.InvoiceID > 0)
+            @if (Model!=null && Model.InvoiceID > 0)
             {
                 <text>
-                    @Html.EditorFor(model => model.InvoiceNumber)
+                    @Html.DisplayFor(model => model.InvoiceNumber)
+                    
                 </text>
             }
             else { 
                  <text>
-                  @Html.LabelFor(model => model.InvoiceNumber)
+                    @Html.EditorFor(model => model.InvoiceNumber)
                 </text>
             }
             

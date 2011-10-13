@@ -123,11 +123,26 @@
   <data name="Invoice_AdvancePTComment" xml:space="preserve">
     <value>To be paid to the Tax agency in behalf of {0}</value>
   </data>
+  <data name="Invoice_CompanyNumber" xml:space="preserve">
+    <value>Company Number</value>
+  </data>
+  <data name="Invoice_Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
   <data name="Invoice_Item" xml:space="preserve">
     <value>Item</value>
   </data>
   <data name="Invoice_Number" xml:space="preserve">
-    <value>Invoice number # {0} #</value>
+    <value>Invoice number {1}# {0} #</value>
+  </data>
+  <data name="Invoice_PaymentDetails" xml:space="preserve">
+    <value>Bank wire</value>
+  </data>
+  <data name="Invoice_PaymentDetailsTitle" xml:space="preserve">
+    <value>Payment details</value>
+  </data>
+  <data name="Invoice_Phone" xml:space="preserve">
+    <value>Phone</value>
   </data>
   <data name="Invoice_Price" xml:space="preserve">
     <value>Price</value>

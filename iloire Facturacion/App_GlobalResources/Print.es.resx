@@ -127,7 +127,7 @@
     <value>Artículo</value>
   </data>
   <data name="Invoice_Number" xml:space="preserve">
-    <value>Factura nº # {0} #</value>
+    <value>Factura nº {1}# {0} #</value>
   </data>
   <data name="Invoice_Price" xml:space="preserve">
     <value>Precio</value>
@@ -152,5 +152,20 @@
   </data>
   <data name="Invoice_VAT" xml:space="preserve">
     <value>IVA</value>
+  </data>
+  <data name="Invoice_CompanyNumber" xml:space="preserve">
+    <value>NIF</value>
+  </data>
+  <data name="Invoice_Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Invoice_PaymentDetails" xml:space="preserve">
+    <value>Ingreso en cuenta corriente</value>
+  </data>
+  <data name="Invoice_PaymentDetailsTitle" xml:space="preserve">
+    <value>Forma de pago</value>
+  </data>
+  <data name="Invoice_Phone" xml:space="preserve">
+    <value>Tel</value>
   </data>
 </root>

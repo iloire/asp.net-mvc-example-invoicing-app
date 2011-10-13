@@ -18,28 +18,44 @@
  <img src="@Url.Content("~/Content/images/logo.png")" style="float:left;" />
 </td>
 <td style="text-align:right">
- <h2>@string.Format(@Resources.Print.Invoice_Number, @Model.InvoiceNumber)</h2> 
+ <h2>@string.Format(@Resources.Print.Invoice_Number, @Model.InvoiceNumber, DateTime.Now.Year)</h2> 
   @Model.TimeStamp.ToLongDateString()
 </td>
 </tr>
 </table>
 
 <div class="from">
-    <strong>
+    <blockquote>
+    <p>    <strong>
     @ViewBag.MyCompany
     </strong>
-    <br />
-    <strong>
-    NIF: @ViewBag.MyCompanyID
-    </strong>
-    <br />
+    </p>
+
+    <p>
+    
+    @Resources.Print.Invoice_CompanyNumber: <strong>@ViewBag.MyCompanyID</strong>
+    </p>
+
+    <p>
     @Html.Raw(ViewBag.MyCompanyAddress.Replace(";","<br/>"))
+    </p>
+    <hr />
+    <p>
+    @Resources.Print.Invoice_Phone: @ViewBag.MyCompanyPhone
+    </p>
+
+    <p>
+    @ViewBag.MyEmail
+    </p>
+
+    </blockquote>
 </div>
 
  <table>
  <tr>
     <td width="65%">
             <h3>@Resources.Print.Invoice_To :</h3>
+            <blockquote>
             <p>
                 <strong>
                     @Html.DisplayFor(model => model.Customer.Name)
@@ -54,6 +70,7 @@
                 @Html.DisplayFor(model => model.Customer.CP), 
                 @Html.DisplayFor(model => model.Customer.City)
             </p>	      
+            </blockquote>
     </td>
     <td>
         <h3>@Resources.Print.Invoice_Service :</h3>
@@ -147,5 +164,12 @@
 </table>
 
 <div class="invoiceFooter">
-    (* )@string.Format(@Resources.Print.Invoice_AdvancePTComment, ViewBag.MyCompany) 
+    <p>
+    (*) @string.Format(@Resources.Print.Invoice_AdvancePTComment, ViewBag.MyCompany)
+    </p>
+    <p>
+     <strong>@Resources.Print.Invoice_PaymentDetailsTitle</strong>: 
+    @Resources.Print.Invoice_PaymentDetails : @ViewBag.MyBankAccount</p>
+    
+
 </div>

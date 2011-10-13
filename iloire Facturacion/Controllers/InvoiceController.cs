@@ -94,7 +94,9 @@ namespace iloire_Facturacion.Controllers
             ViewBag.MyCompanyID = System.Configuration.ConfigurationManager.AppSettings["MyCompanyID"];
             ViewBag.MyCompanyAddress = System.Configuration.ConfigurationManager.AppSettings["MyCompanyAddress"];
             ViewBag.MyCompanyPhone = System.Configuration.ConfigurationManager.AppSettings["MyCompanyPhone"];
- 
+            ViewBag.MyEmail = System.Configuration.ConfigurationManager.AppSettings["MyEmail"];
+            ViewBag.MyBankAccount = System.Configuration.ConfigurationManager.AppSettings["MyBankAccount"];
+
             Invoice invoice = db.Invoices.Find(id);
             return View(invoice);
         }

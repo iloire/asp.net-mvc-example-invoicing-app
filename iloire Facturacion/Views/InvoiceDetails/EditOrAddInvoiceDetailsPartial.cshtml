@@ -52,16 +52,8 @@
         </div>
 		</div>
 
+        @Html.HiddenFor(model => model.TimeStamp)
  
-        <div class="clearfix">
-            @Html.LabelFor(model => model.TimeStamp)
-        
-        <div class="input">
-            @Html.EditorFor(model => model.TimeStamp) 
-            @Html.ValidationMessageFor(model => model.TimeStamp)
-        </div>
-		</div>
-
 		<div class="actions">
             <input type="submit" class="btn primary" value="Save" />
             <input type="button" class="btn closeModal" value="Close window" /> 
