@@ -18,7 +18,7 @@
  <img src="@Url.Content("~/Content/images/logo.png")" style="float:left;" />
 </td>
 <td style="text-align:right">
- <h2>Invoice number # @Model.InvoiceID # </h2> 
+ <h2>@string.Format(@Resources.Print.Invoice_Number, @Model.InvoiceID)</h2> 
   @Model.TimeStamp.ToLongDateString()
 </td>
 </tr>
@@ -39,7 +39,7 @@
  <table>
  <tr>
     <td width="65%">
-            <h3>TO:</h3>
+            <h3>@Resources.Print.Invoice_To :</h3>
             <p>
                 <strong>
                     @Html.DisplayFor(model => model.Customer.Name)
@@ -56,7 +56,7 @@
             </p>	      
     </td>
     <td>
-        <h3>Service:</h3>
+        <h3>@Resources.Print.Invoice_Service :</h3>
         @Html.DisplayFor(model => model.Notes)
     </td>
  </tr>
@@ -67,22 +67,22 @@
 <table class="zebra-striped">
     <thead>
         <th>
-            Article
+            @Resources.Print.Invoice_Item
         </th>
         <th width="40">
-            Qty
+            @Resources.Print.Invoice_Qty
         </th>
         <th width="75">
-            Price
+            @Resources.Print.Invoice_Price
         </th>
         <th width="80">
-            SubTotal
+            @Resources.Print.Invoice_SubTotal
         </th>
         <th width="80">
-            VAT
+            @Resources.Print.Invoice_VAT
         </th>
          <th width="100">
-          Total
+          @Resources.Print.Invoice_Total
         </th> 
         @if (ViewBag.Print != true){
         <th width="100"></th>
@@ -115,7 +115,7 @@
 }
     <tfoot>
         <tr>
-         <td class="invoiceFooterTitle">SUBTOTAL:</td>
+         <td class="invoiceFooterTitle">@Resources.Print.Invoice_SubTotal:</td>
             <td>@Model.InvoiceDetails.Sum(i=>i.Qty)</td>
             <td>-</td>
             <td>@String.Format("{0:C}", Model.NetTotal)</td>
@@ -128,24 +128,24 @@
 
 <table>
         <tr>
-            <td colspan="5" class="invoiceFooterTitle">VAT:</td>
+            <td colspan="5" class="invoiceFooterTitle">@Resources.Print.Invoice_VAT:</td>
             <td width="200" class="invoiceFooterValue">@String.Format("{0:C}", Model.VATAmount)</td>
         </tr>
 
         @if (Model.AdvancePaymentTaxAmount > 0)
         {
         <tr>
-            <td colspan="5" class="invoiceFooterTitle">Advanced Payment Tax (*):</td>
+            <td colspan="5" class="invoiceFooterTitle">@Resources.Print.Invoice_AdvancePaymentTax (*):</td>
             <td class="invoiceFooterValue">@String.Format("{0:C}", Model.AdvancePaymentTaxAmount)</td>
         </tr>
         }
 
          <tr>
-            <td colspan="5" class="invoiceFooterTitle">Total To Pay: </td>
+            <td colspan="5" class="invoiceFooterTitle">@Resources.Print.Invoice_TotalToPay: </td>
             <td class="invoiceFooterValueTotal">@String.Format("{0:C}", Model.TotalToPay)</td>
         </tr>
 </table>
 
 <div class="invoiceFooter">
-    (*) To be paid to the Tax agency in behalf of @ViewBag.MyCompany
+    (* )@string.Format(@Resources.Print.Invoice_AdvancePTComment, ViewBag.MyCompany) 
 </div>
