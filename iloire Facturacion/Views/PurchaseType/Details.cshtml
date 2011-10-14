@@ -1,0 +1,30 @@
+﻿@*
+	Iván Loire - www.iloire.com
+	Please readme README file for license terms.
+
+	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
+*@
+
+@model PurchaseType
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<fieldset>
+ <legend>PurchaseType details</legend>
+	<p>
+        <strong>Name: </strong>
+         @Html.DisplayFor(model => model.Name)
+    </p>
+	<p>
+        <strong>Descr: </strong>
+         @Html.DisplayFor(model => model.Descr)
+    </p>
+</fieldset>
+<p>
+
+    @Html.ActionLink("Edit", "Edit", new { id=Model.PurchaseTypeID }, new { @class = "btn"}) |
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn"})
+</p>
