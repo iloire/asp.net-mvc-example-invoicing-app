@@ -93,7 +93,9 @@ namespace iloire_Facturacion.Controllers
         {
             Purchase p = new Purchase();
             p.TimeStamp = DateTime.Now;
+            p.VAT = Convert.ToDecimal(System.Configuration.ConfigurationManager.AppSettings["DefaultVAT"]);
             ViewBag.ProviderID = new SelectList(db.Providers, "ProviderID", "Name");
+            ViewBag.PurchaseTypeID = new SelectList(db.PurchaseTypes, "PurchaseTypeID", "Name");
             return View(p);
         } 
 
@@ -111,6 +113,7 @@ namespace iloire_Facturacion.Controllers
             }
 
             ViewBag.ProviderID = new SelectList(db.Providers, "ProviderID", "Name", purchase.ProviderID);
+            ViewBag.PurchaseTypeID = new SelectList(db.PurchaseTypes, "PurchaseTypeID", "Name");
             return View(purchase);
         }
         
@@ -121,6 +124,7 @@ namespace iloire_Facturacion.Controllers
         {
             Purchase purchase = db.Purchases.Find(id);
             ViewBag.ProviderID = new SelectList(db.Providers, "ProviderID", "Name", purchase.ProviderID);
+            ViewBag.PurchaseTypeID = new SelectList(db.PurchaseTypes, "PurchaseTypeID", "Name", purchase.PurchaseTypeID);
             return View(purchase);
         }
 
@@ -137,6 +141,7 @@ namespace iloire_Facturacion.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.ProviderID = new SelectList(db.Providers, "ProviderID", "Name", purchase.ProviderID);
+            ViewBag.PurchaseTypeID = new SelectList(db.PurchaseTypes, "PurchaseTypeID", "Name", purchase.PurchaseTypeID);
             return View(purchase);
         }
 
