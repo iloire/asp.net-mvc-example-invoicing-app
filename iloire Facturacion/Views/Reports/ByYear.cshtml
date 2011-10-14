@@ -1,0 +1,31 @@
+﻿@*
+	Iván Loire - www.iloire.com
+	Please readme README file for license terms.
+
+	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
+*@
+
+@{
+    ViewBag.Title = "ByYear";
+}
+@model int
+           
+<h1>Year @Model</h1>
+@{
+    DateTime startQ1 = new DateTime(DateTime.Now.Year, 1, 1);
+    DateTime startQ2 = new DateTime(DateTime.Now.Year, 4, 1);
+    DateTime startQ3 = new DateTime(DateTime.Now.Year, 7, 1);
+    DateTime startQ4 = new DateTime(DateTime.Now.Year, 10, 1);
+}
+
+<h3>Q1</h3>
+@{Html.RenderAction("PeriodSummary", "Reports", new { fromDate = startQ1, toDate = startQ1.AddDays(-1) });}
+
+<h3>Q2</h3>
+@{Html.RenderAction("PeriodSummary", "Reports", new { fromDate = startQ2, toDate = startQ3.AddDays(-1) });}
+
+<h3>Q3</h3>
+@{Html.RenderAction("PeriodSummary", "Reports", new { fromDate = startQ3, toDate = startQ4.AddDays(-1) });}
+
+<h3>Q4</h3>
+@{Html.RenderAction("PeriodSummary", "Reports", new { fromDate = startQ4, toDate = startQ1.AddYears(1).AddDays(-1) });}

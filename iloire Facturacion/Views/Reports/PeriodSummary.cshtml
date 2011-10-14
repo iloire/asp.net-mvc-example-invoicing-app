@@ -20,18 +20,13 @@
     <strong>NET Expense:</strong> @String.Format("{0:C}", Model.NetExpense)
     <hr />
     <strong>Benefit:</strong> 
+    @{Html.RenderPartial("Money", Model.NetBenefit);}
     
-     @if (Model.NetBenefit > 0)
-    { 
-        <span class="positive">@String.Format("{0:C}", Model.NetBenefit)</span>
-    }
-    else { 
-        <span class="negative">@String.Format("{0:C}", Model.NetBenefit)</span>
-    }
-
+    <br />
+    <strong>Amount Paid:</strong> @String.Format("{0:C}", Model.AmountPaid)
     <br />
     <strong>VAT:</strong> @String.Format("{0:C}", Model.VATBalance)
-    <br />
+    
     </p>
 </div>
 

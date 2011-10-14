@@ -1,0 +1,141 @@
+﻿@*
+	Iván Loire - www.iloire.com
+	Please readme README file for license terms.
+
+	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
+*@
+
+@model QuarterSummary
+
+
+@using (Html.BeginForm("ProfitAndLoss", "Reports", null, FormMethod.Get))
+{
+    <div class="searchBox">
+          Quarter: @Html.DropDownList("quarter", new SelectList(new string[] { "1", "2", "3", "4" }, Request["quarter"]), new { @class="small"})
+          @{
+            var years = new List<int>();
+            for (int i = 0; i < 5; i++)
+            {
+                years.Add(DateTime.Now.Year - i);
+             }   
+           }
+           Year: @Html.DropDownList("year", new SelectList(years, Request["year"]), new { @class = "small" })
+          <input type="submit" value="Go" class="btn small" />
+    </div>
+}
+
+<table class="zebra-striped" cellspacing="0" cellpadding="0" width="100%">
+		<colgroup>
+			    <col style="width: 156px;">
+				<col style="width:201px">
+				<col style="width:201px">
+				<col style="width:201px">
+				<col style="width:201px">
+				<col style="width:201px">
+		</colgroup>
+		<thead>
+			<tr>
+			<th>@Model.Year</th>
+			<th>@Model.Month1.From.ToString("MMMM")</th>
+			<th>@Model.Month2.From.ToString("MMMM")</th>
+			<th>@Model.Month3.From.ToString("MMMM")</th>
+			<th>Total for Quarter</th>
+			</tr>
+		</thead>
+		<tbody>
+			<!-- INCOME -->
+			<tr class="section-title">
+			<td colspan="5"><h3>Income</h3></td>
+			</tr>
+			
+			<!-- sales -->
+			<tr>
+				<td>
+                Sales (EUR)
+                </td>
+				<td>
+                 @String.Format("{0:C}", Model.Month1.NetIncome)
+                </td>
+				<td class="ta_right">						
+                   @String.Format("{0:C}", Model.Month2.NetIncome)
+				</td>
+				<td class="ta_right">
+				 @String.Format("{0:C}", Model.Month3.NetIncome)									
+                 </td>
+				<td class="ta_right">
+				@String.Format("{0:C}", (Model.Month1.NetIncome + Model.Month2.NetIncome + Model.Month3.NetIncome))
+				</td>
+		    </tr>
+			
+			<!-- LESS EXPENSES -->
+			<tr>
+				<td colspan="5">
+					
+					
+							<h3>Expenses</h3>
+					
+					
+				</td>
+			</tr>
+			
+            @{
+                var purchaseTypes = ViewBag.PurchaseTypes as List<PurchaseType>;
+            }
+                
+                @foreach (var purchaseType in purchaseTypes)
+                { 
+                
+                <tr>
+				<td>@purchaseType.Name</td>
+					<td>
+                        @{
+                         var purchasesM1 = Model.Month1.Purchases.Where(i => i.PurchaseTypeID == purchaseType.PurchaseTypeID).Sum(p=>p.SubTotal);
+                         var purchasesM2 = Model.Month2.Purchases.Where(i => i.PurchaseTypeID == purchaseType.PurchaseTypeID).Sum(p=>p.SubTotal);
+                         var purchasesM3 = Model.Month3.Purchases.Where(i => i.PurchaseTypeID == purchaseType.PurchaseTypeID).Sum(p=>p.SubTotal);
+                         }
+                        @String.Format("{0:C}", purchasesM1)	                        
+					</td>
+					<td>
+                        @String.Format("{0:C}", purchasesM2)	                        
+					</td>
+					<td>
+                        @String.Format("{0:C}", purchasesM3)	                        
+					</td>
+					<td>
+                        <strong>
+                        @String.Format("{0:C}", purchasesM1 + purchasesM2 + purchasesM3)
+                        </strong>	                        
+					</td>
+				</tr>
+                }
+			
+			<tr>
+				<td><strong>Total Expenses</strong></td>		
+                @{
+                    var totat_purchasedM1 = Model.Month1.Purchases.Sum(p => p.SubTotal);
+                    var totat_purchasedM2 = Model.Month2.Purchases.Sum(p => p.SubTotal);
+                    var totat_purchasedM3 = Model.Month3.Purchases.Sum(p => p.SubTotal);
+                    
+                 }		
+				<td><strong>@String.Format("{0:C}", totat_purchasedM1)</strong></td>
+				<td><strong>@String.Format("{0:C}", totat_purchasedM2)</strong></td>
+				<td><strong>@String.Format("{0:C}", totat_purchasedM3)</strong></td>
+				<td><strong>@String.Format("{0:C}", totat_purchasedM1 + totat_purchasedM2 + totat_purchasedM3)</strong></td>
+			</tr>
+
+            <tr>
+				<td colspan="5">
+				    <h3>Net Profit</h3>
+				</td>
+			</tr>
+			<tr>
+			    <td></td>
+			    <td>@{Html.RenderPartial("Money", Model.Month1.NetBenefit);}</td>
+			    <td>@{Html.RenderPartial("Money", Model.Month2.NetBenefit);}</td>
+			    <td>@{Html.RenderPartial("Money", Model.Month3.NetBenefit);}</td>
+                <td>@{Html.RenderPartial("Money", Model.Month1.NetBenefit + Model.Month2.NetBenefit + Model.Month3.NetBenefit);}</td>
+			</tr>
+      
+		</tbody>
+	</table>
+
