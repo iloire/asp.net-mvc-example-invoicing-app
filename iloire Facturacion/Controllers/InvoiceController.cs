@@ -21,7 +21,7 @@ namespace iloire_Facturacion.Controllers
     {
 
         private InvoiceDB db = new InvoiceDB();
-        private const int defaultPageSize=10;
+        private int defaultPageSize = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["DefaultPaginationSize"]);
 
         /*CUSTOM*/
 
@@ -46,7 +46,7 @@ namespace iloire_Facturacion.Controllers
             }
 
             int currentPageIndex = page.HasValue ? page.Value - 1 : 0;
-            var invoicesListPaged = invoices.OrderByDescending(i => i.TimeStamp).ToPagedList(currentPageIndex, defaultPageSize);
+            var invoicesListPaged = invoices.OrderByDescending(i => i.InvoiceNumber).ToPagedList(currentPageIndex, defaultPageSize);
 
             if (Request.IsAjaxRequest())
                 return PartialView("Index", invoicesListPaged);
@@ -80,7 +80,7 @@ namespace iloire_Facturacion.Controllers
         public ViewResult Index(int? page)
         {
             int currentPageIndex = page.HasValue ? page.Value - 1 : 0;
-            var invoices = db.Invoices.Include(i => i.Customer).OrderByDescending(i=>i.TimeStamp);
+            var invoices = db.Invoices.Include(i => i.Customer).OrderByDescending(i => i.InvoiceNumber);
             return View(invoices.ToList().ToPagedList(currentPageIndex, defaultPageSize));
         }
 
@@ -118,7 +118,7 @@ namespace iloire_Facturacion.Controllers
             if (next_invoice!=null)
                 i.InvoiceNumber = next_invoice.InvoiceNumber + 1;
 
-            ViewBag.CustomerID = new SelectList(db.Customers, "CustomerID", "Name");
+            ViewBag.CustomerID = new SelectList(db.Customers.OrderBy(c=>c.Name), "CustomerID", "Name");
             return View(i);
         } 
 
@@ -128,7 +128,7 @@ namespace iloire_Facturacion.Controllers
         [HttpPost]
         public ActionResult Create(Invoice invoice)
         {
-            ViewBag.CustomerID = new SelectList(db.Customers, "CustomerID", "Name", invoice.CustomerID);
+            ViewBag.CustomerID = new SelectList(db.Customers.OrderBy(c => c.Name), "CustomerID", "Name", invoice.CustomerID);
             if (ModelState.IsValid)
             {
                 //make sure invoice number doesn't exist
@@ -150,7 +150,7 @@ namespace iloire_Facturacion.Controllers
         public ActionResult Edit(int id)
         {
             Invoice invoice = db.Invoices.Find(id);
-            ViewBag.CustomerID = new SelectList(db.Customers, "CustomerID", "Name", invoice.CustomerID);
+            ViewBag.CustomerID = new SelectList(db.Customers.OrderBy(c => c.Name), "CustomerID", "Name", invoice.CustomerID);
             return View(invoice);
         }
 
@@ -160,9 +160,21 @@ namespace iloire_Facturacion.Controllers
         [HttpPost]
         public ActionResult Edit(Invoice invoice)
         {
-            ViewBag.CustomerID = new SelectList(db.Customers, "CustomerID", "Name", invoice.CustomerID);
+            ViewBag.CustomerID = new SelectList(db.Customers.OrderBy(c => c.Name), "CustomerID", "Name", invoice.CustomerID);
             if (ModelState.IsValid)
             {
+                //make sure invoice number doesn't exist
+                var invoice_exists = (from inv in db.Invoices 
+                                      where inv.InvoiceNumber == invoice.InvoiceNumber 
+                                      && inv.InvoiceID != invoice.InvoiceID
+                                      select inv).Count();
+
+                if (invoice_exists>0)
+                {
+                    ModelState.AddModelError("InvoiceNumber", "Invoice with that number already exists");
+                    return View(invoice);
+                }                
+
                 db.Entry(invoice).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
