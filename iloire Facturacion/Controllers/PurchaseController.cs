@@ -20,7 +20,7 @@ namespace iloire_Facturacion.Controllers
     public class PurchaseController : Controller
     {
         private InvoiceDB db = new InvoiceDB();
-        private const int defaultPageSize = 10;
+        private int defaultPageSize = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["DefaultPaginationSize"]);
 
         /*CUSTOM*/
 
@@ -74,7 +74,7 @@ namespace iloire_Facturacion.Controllers
         {
             var purchases = db.Purchases.Include(p => p.Provider);
             int currentPageIndex = page.HasValue ? page.Value - 1 : 0;
-            return View(purchases.ToList().ToPagedList(currentPageIndex, defaultPageSize));
+            return View(purchases.OrderByDescending(p=>p.TimeStamp).ToPagedList(currentPageIndex, defaultPageSize));
         }
 
         //
