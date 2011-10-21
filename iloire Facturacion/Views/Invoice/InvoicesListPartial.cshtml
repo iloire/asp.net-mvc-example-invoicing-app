@@ -32,7 +32,7 @@
     <tr>
         <td># @item.InvoiceNumber</td>
         <td>
-         <a href="@Url.Action("Edit", "Customer", new { id=item.CustomerID})">
+         <a href="@Url.Action("Details", "Customer", new { id=item.CustomerID})">
             @Html.DisplayFor(modelItem => item.Customer.Name)
          </a>
         </td>

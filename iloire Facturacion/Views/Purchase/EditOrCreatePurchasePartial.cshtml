@@ -21,6 +21,15 @@
         </div>
 		</div>
 
+         <div class="clearfix">
+            @Html.LabelFor(model => model.PurchaseTypeID, "PurchaseType")
+        
+        <div class="input">
+            @Html.DropDownList("PurchaseTypeID", String.Empty)
+            @Html.ValidationMessageFor(model => model.PurchaseTypeID)
+        </div>
+		</div>
+
         <div class="clearfix">
             @Html.LabelFor(model => model.Price)
         

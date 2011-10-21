@@ -18,6 +18,9 @@
         <th>
             VAT
         </th>
+         <th>
+            Total
+        </th>
         <th>
             Provider
         </th>
@@ -40,6 +43,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.VAT)
+        </td>
+          <td>
+            @String.Format("{0:C}", item.TotalWithVAT)
         </td>
         <td>
             <a href="@Url.Action("Edit", "Provider", new { id=item.ProviderID})">

@@ -4,57 +4,12 @@
     <meta charset="utf-8" />
     <title>@ViewBag.Title</title>
     <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Site.print.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/bootstrap.print.css")" rel="stylesheet" type="text/css" />
 
     @RenderSection("Header", false)
 
-    <style>
-    table.invoiceHeader, table.invoiceHeader tr, table.invoiceHeader tr td
-    {
-        border:0; 
-     }
-     
-     div.from 
-     {
-        padding:10px;    
-        width:250px;
-     }
-     
-     div.invoiceFooter
-     {
-        margin-top:30px;
-        text-align:right;
-        font-style:italic;
-     }
-     
-     table td.invoiceFooterTitle
-     {
-        text-align:right;
-        padding-right:15px;
-        font-weight:bold;    
-     }
-     
-     table td.invoiceFooterValue
-     {
-        font-weight:bold;    
-        padding-left:15px;
-         font-size:120%;
-     }
-     
-     table td.invoiceFooterValueTotal
-     {
-         padding-left:15px;
-         font-weight:bold;  
-         font-size:120%;
-         text-decoration:underline;
-     }
-     
-     hr
-     {
-        margin: 10px 0px 10px 0px;    
-     }
-    </style>
 
 </head>
 <body>

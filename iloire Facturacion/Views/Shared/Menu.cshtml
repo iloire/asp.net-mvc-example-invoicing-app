@@ -1,4 +1,4 @@
-﻿  <nav>
+﻿  <nav class="noprint">
         <ul class="nav" id="menu">
             @if (Request.RawUrl.Contains("/Invoice"))
              {
@@ -12,6 +12,8 @@
                 </text>
              }
             @Html.ActionLink("Invoices", "Index", "Invoice")</li>
+
+            <li>@Html.ActionLink("( + )", "Create", "Invoice") </li>
             
              @if (Request.RawUrl.Contains("/Purchase"))
              {
@@ -25,6 +27,7 @@
                 </text>
              }
             @Html.ActionLink("Expenses", "Index", "Purchase")</li>
+            <li>@Html.ActionLink("( + )", "Create", "Purchase") </li>
         </ul>
         <ul class="nav" id="adminmenu">
             <li class="dropdown" data-dropdown="dropdown">
@@ -32,6 +35,17 @@
               <ul class="dropdown-menu">
                 <li><a href="@Url.Action("Index", "Provider")">Edit providers</a></li>
                 <li><a href="@Url.Action("Index", "Customer")">Edit customers</a></li>
+                <li><a href="@Url.Action("Index", "PurchaseType")">Edit expense types</a></li>
+              </ul>
+            </li>
+        </ul>
+
+         <ul class="nav" id="reportsmenu">
+            <li class="dropdown" data-dropdown="dropdown">
+              <a href="#" class="dropdown-toggle">Reports</a>
+              <ul class="dropdown-menu">
+                <li><a href="@Url.Action("ByYear", "Reports", new { id = DateTime.Now.Year})">@DateTime.Now.Year</a></li>
+                <li><a href="@Url.Action("ProfitAndLoss", "Reports")">Profit and Loss</a></li>
               </ul>
             </li>
         </ul>

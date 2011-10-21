@@ -80,7 +80,7 @@
     </td>
     <td>
         <h3>@Resources.Print.Invoice_Service :</h3>
-        @Html.DisplayFor(model => model.Notes)
+         @Html.Raw(Model.Notes.Replace(Environment.NewLine,"<br/>"))
     </td>
  </tr>
  </table>

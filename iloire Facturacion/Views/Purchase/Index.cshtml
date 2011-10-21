@@ -9,18 +9,18 @@
 @model IPagedList<Purchase>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "List of expenses";
 }
 
 <h1>List <small>of Purchase</small></h1>
 
-<p>
+<p class="noprint">
     @Html.ActionLink("Create New", "Create", null, new {@class="btn"})
 </p>
 
 @{Html.RenderPartial("SearchBoxItems", "Purchase");}
 
-<div class="pagingContainer">
+<div class="pagingContainer noprint">
     @{
         RouteValueDictionary r = new RouteValueDictionary();
         r.Add("to", Request["to"]);
@@ -34,6 +34,9 @@
     <thead>
         <th  width="25%">
             Article
+        </th>
+        <th>
+            Type
         </th>
         <th>
             Price
@@ -50,7 +53,7 @@
         <th>
             Date
         </th>
-        <th width="200"></th>
+        <th class="noprint" width="200"></th>
     </thead>
 
 @foreach (var item in Model) {
@@ -59,12 +62,15 @@
             @Html.DisplayFor(modelItem => item.Article)
         </td>
         <td>
+            @item.PurchaseType.Name
+        </td>
+        <td nowrap>
             @String.Format("{0:C}", item.Price)
         </td>
-        <td>
+        <td nowrap>
             @Html.DisplayFor(modelItem => item.VAT) %
         </td>
-        <td>
+        <td nowrap>
             @String.Format("{0:C}", item.TotalWithVAT)
         </td>
         <td>
@@ -72,10 +78,10 @@
             @Html.DisplayFor(modelItem => item.Provider.Name)
             </a>
         </td>
-        <td>
+        <td nowrap>
             @Html.DisplayFor(modelItem => item.TimeStamp)
         </td>
-        <td>
+        <td class="noprint" nowrap>
             @Html.ActionLink("Edit", "Edit", new { id=item.PurchaseID }, new { @class = "btn primary"}) 
             @Html.ActionLink("Details", "Details", new { id=item.PurchaseID }, new { @class = "btn"}) 
             @Html.ActionLink("Delete", "Delete", new { id=item.PurchaseID }, new { @class = "btn"})
@@ -85,7 +91,7 @@
 
  <tfoot>
         <tr>
-            <td colspan="3"><span class="label">TOTALS: </span></td>
+            <td colspan="4"><span class="label">TOTALS: </span></td>
             <td>@String.Format("{0:C}", Model.Sum(i => i.TotalWithVAT))</td>
             <td colspan="3"></td>
         </tr>
