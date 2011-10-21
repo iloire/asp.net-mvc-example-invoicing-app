@@ -51,6 +51,14 @@
  * Added globalization support in printing invoice. Added spanish resource file.
  * Adding and edition customer now works with a modal popup windows using AJAX.
  * Added InvoiceNumber field to Invoice so it can be defined and edited by the user.
+ * Added ContactPerson and Notes fields to Customer. Changes in customer edition modal popup
+ * Database initializer configurable from web.config
+ * Added PurchaseType (aka expense type) entity and table, in order to categorize expenses.
+ * Added Profit and Loss report.
+ * Partial view for redering money (negative balance in red)
+ * CSS style for print media for printing invoices and expenses.
+ * Many usability and formatting improvements. Changes in menu for easier access to items.
+ * Default pagination size now is stored in web.config. 
 
 **0.13**
 

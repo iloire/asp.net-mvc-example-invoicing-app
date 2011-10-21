@@ -31,7 +31,6 @@ namespace iloire_Facturacion
 
         protected void Application_Start()
         {
-
             if (System.Configuration.ConfigurationManager.AppSettings["DropDatabaseOnChange"] == "1")
             {
                 //Set initializer to populate data on database creation

@@ -77,6 +77,7 @@
     <Compile Include="Controllers\InvoiceDetailsController.cs" />
     <Compile Include="Controllers\ProviderController.cs" />
     <Compile Include="Controllers\PurchaseController.cs" />
+    <Compile Include="Controllers\PurchaseTypeController.cs" />
     <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -85,17 +86,20 @@
     <Compile Include="Models\Attributes\HandleErrorAttribute.cs" />
     <Compile Include="Models\DBContext.cs" />
     <Compile Include="Models\EntitiesContextDBInitializer.cs" />
+    <Compile Include="Models\Helper\TAXDateHelper.cs" />
     <Compile Include="Models\Paging\IPagedList.cs" />
     <Compile Include="Models\Paging\PagedList.cs" />
     <Compile Include="Models\Paging\Pager.cs" />
     <Compile Include="Models\Paging\PagingExtensions.cs" />
     <Compile Include="Models\POCO\Customer.cs" />
+    <Compile Include="Models\POCO\ModelView\QuarterSummary.cs" />
     <Compile Include="Models\POCO\ModelView\YearSummary.cs" />
     <Compile Include="Models\POCO\ModelView\Summary.cs" />
     <Compile Include="Models\POCO\Provider.cs" />
     <Compile Include="Models\POCO\InvoiceDetails.cs" />
     <Compile Include="Models\POCO\Purchase.cs" />
     <Compile Include="Models\POCO\Invoice.cs" />
+    <Compile Include="Models\POCO\PurchaseType.cs" />
     <Compile Include="Models\POCO\User.cs" />
     <Compile Include="Models\Security\InvoicingMembershipProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -103,6 +107,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.print.css" />
+    <Content Include="Content\Site.print.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -238,6 +243,14 @@
     <Content Include="Views\Shared\SearchBoxItems.cshtml" />
     <Content Include="Views\Customer\EditOrCreateCustomerPartial.cshtml" />
     <Content Include="Views\Customer\CustomerListPartial.cshtml" />
+    <Content Include="Views\Reports\ByYear.cshtml" />
+    <Content Include="Views\Reports\ProfitAndLoss.cshtml" />
+    <Content Include="Views\PurchaseType\Index.cshtml" />
+    <Content Include="Views\PurchaseType\Details.cshtml" />
+    <Content Include="Views\PurchaseType\Create.cshtml" />
+    <Content Include="Views\PurchaseType\Edit.cshtml" />
+    <Content Include="Views\PurchaseType\Delete.cshtml" />
+    <Content Include="Views\Shared\Money.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
