@@ -100,6 +100,14 @@ div.searchBox div.setQuarter a
     font-weight: bold;
     color:Green;    
 }
+
+
+table.InvoiceFooterTotals td.title
+{
+    font-weight:bold;
+    text-align:right;
+}
+
 /* Styles for validation helpers
 -----------------------------------------------------------*/
 .field-validation-error {
@@ -115,7 +123,7 @@ div.searchBox div.setQuarter a
     background-color: #ffeeee;
 }
 
-.validation-summary-errors {
+.validation-summary-errors, .validation-summary-errors ul li {
     font-weight: bold;
     color: #ff0000;
 }
