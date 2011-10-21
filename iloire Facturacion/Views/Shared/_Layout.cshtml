@@ -27,6 +27,16 @@
     <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/methods_es.js")" type="text/javascript"></script>
 
+    <!--chossen jquery dropdown-->
+     <link href="@Url.Content("~/Content/chosen.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/chosen.jquery.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("div.chzn-select select").chosen();
+            $(".chzn-select-deselect").chosen({ allow_single_deselect: true });
+        });
+    </script>
+
     @RenderSection("Header", false)
 
 </head>
