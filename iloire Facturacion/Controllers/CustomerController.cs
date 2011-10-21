@@ -18,7 +18,7 @@ namespace iloire_Facturacion.Controllers
    [Authorize]
     public class CustomerController : Controller
     {
-        private const int defaultPageSize = 10;
+        private int defaultPageSize = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["DefaultPaginationSize"]);
         private InvoiceDB db = new InvoiceDB();
 
         /*CUSTOM*/
