@@ -1,6 +1,7 @@
 ﻿using System.Data.Entity;
 using System.Collections.Generic;
 using System;
+using System.Data.Entity.Validation;
 
 public class EntitiesContextInitializer : DropCreateDatabaseIfModelChanges<InvoiceDB>
 {
@@ -19,16 +20,18 @@ public class EntitiesContextInitializer : DropCreateDatabaseIfModelChanges<Invoi
         #region let's add some dummy customer data:
         List<Customer> customers = new List<Customer>
         {
-            new Customer {Name="ACME International S.L", Address="12 Stree NY", CP="232323", CompanyNumber="3424324342", City="New York", Phone1="223-23232323", Fax="233-333333", Email="hello@hello.com"},
-            new Customer {Name="Apple Inc.", Address="1233 Street NY", CP="232323", CompanyNumber="23232323", City="NN CA", Phone1="343-23232323", Fax="233-333333", Email="apple@hello.com"},
-            new Customer {Name="Zaragoza Activa", Address="Edificio: Antigua Azucarera, Mas de las Matas, 20 Planta B", CP="50015", CompanyNumber="BBBBBB", City="Zaragoza", Phone1="343-23232323", Fax="233-333333", Email="zaragozaactiva@hello.com"},
-            new Customer {Name="Conecta S.L", Address="C/ San Flores 213", CP="50800", CompanyNumber="BBBBBB", City="Zaragoza", Phone1="343-23232323", Fax="233-333333", Email="contacta@hello.com"},
-            new Customer {Name="VitaminasDev", Address="C/ San Pedro 79 2", CP="50800", CompanyNumber="29124609", City="Zuera, Zaragoza", Phone1="654 249068", Fax="", Email="hola@vitaminasdev.com"}
+            new Customer {Name="ACME International S.L", ContactPerson="Miguel Pérez", Address="12 Stree NY", CP="232323", CompanyNumber="3424324342", City="New York", Phone1="223-23232323", Fax="233-333333", Email="hello@hello.com"},
+            new Customer {Name="Apple Inc.", ContactPerson="Juan Rodriguez", Address="1233 Street NY", CP="232323", CompanyNumber="23232323", City="NN CA", Phone1="343-23232323", Fax="233-333333", Email="apple@hello.com"},
+            new Customer {Name="Zaragoza Activa", ContactPerson="José Ángel García", Address="Edificio: Antigua Azucarera, Mas de las Matas, 20 Planta B", CP="50015", CompanyNumber="BBBBBB", City="Zaragoza", Phone1="343-23232323", Fax="233-333333", Email="zaragozaactiva@hello.com"},
+            new Customer {Name="Conecta S.L", ContactPerson="Rocío Ruíz", Address="C/ San Flores 213", CP="50800", CompanyNumber="BBBBBB", City="Zaragoza", Phone1="343-23232323", Fax="233-333333", Email="contacta@hello.com"},
+            new Customer {Name="VitaminasDev", ContactPerson="Antonio Roy", Address="C/ San Pedro 79 2", CP="50800", CompanyNumber="29124609", City="Zuera, Zaragoza", Phone1="654 249068", Fax="", Email="hola@vitaminasdev.com"}
         };
         for (int i = 0; i < 5; i++)
         {
             customers.Add(new Customer()
             {
+                ContactPerson="Contact person for " + i,
+                Notes ="Notes for "+ i,
                 Name = "Extra customer " + i,
                 Address = "Address for customer" + i,
                 City = "Zaragoza",
@@ -104,6 +107,21 @@ public class EntitiesContextInitializer : DropCreateDatabaseIfModelChanges<Invoi
         }
         #endregion
 
+        #region AddExpense types
+        var expense_cats = new string[] { "Automobile", "Contractors", "Marketing", "Meals", "Medical", "Misc", "Office supplies", "Rent", "Telephone/Communications", "Travel" };
+
+        List<PurchaseType> expenseCats = new List<PurchaseType>();
+        for (int ec = 0; ec < expense_cats.Length; ec++)
+        {
+            expenseCats.Add(new PurchaseType() { Name = expense_cats[ec], Descr = expense_cats[ec] });
+        }
+
+        foreach (PurchaseType pt in expenseCats)
+        {
+            context.PurchaseTypes.Add(pt);
+        }
+        #endregion
+
         #region randon Expenses
         var articles_dummy = new string[] { "Food expense", "Car expense", "Computer item", "Train ticket", "Plain ticket" };
         for (int m = 1; m < DateTime.Now.Month; m++)
@@ -117,6 +135,7 @@ public class EntitiesContextInitializer : DropCreateDatabaseIfModelChanges<Invoi
                     Article = articles_dummy[new Random(i).Next(0, articles_dummy.Length - 1)],
                     Price = new Random(i).Next(10, 100),
                     VAT = 18,
+                    PurchaseType = expenseCats[new Random(i).Next(0, expenseCats.Count - 1)],
                     TimeStamp = new DateTime (DateTime.Now.Year, m, new Random(i).Next(1, 28))
                 });
             }
@@ -124,6 +143,19 @@ public class EntitiesContextInitializer : DropCreateDatabaseIfModelChanges<Invoi
         #endregion
 
         // add data into context and save to db
-        context.SaveChanges();
+        try
+        {
+            context.SaveChanges();
+        }
+        catch (DbEntityValidationException dbEx) //debug errors
+        {
+            foreach (var validationErrors in dbEx.EntityValidationErrors)
+            {
+                foreach (var validationError in validationErrors.ValidationErrors)
+                {
+                    Console.Write("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
+                }
+            }
+        }
     }
 }

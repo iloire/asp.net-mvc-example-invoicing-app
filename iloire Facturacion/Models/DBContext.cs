@@ -13,6 +13,7 @@ public class InvoiceDB : DbContext {
     public DbSet<Provider> Providers { get; set; }
     public DbSet<Invoice> Invoices {get; set;}
     public DbSet<Purchase> Purchases { get; set; }
+    public DbSet<PurchaseType> PurchaseTypes { get; set; }
     public DbSet<InvoiceDetails> InvoiceDetails { get; set; }
 
     public DbSet<User> Users { get; set; }
