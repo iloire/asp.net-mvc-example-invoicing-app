@@ -72,6 +72,9 @@ namespace iloire_Facturacion.Controllers
                     i.VAT = Convert.ToDecimal(System.Configuration.ConfigurationManager.AppSettings["DefaultVAT"]);
                     i.TimeStamp = DateTime.Now;
 
+                    if (invoice.InvoiceDetails.Count == 0) { //if this is the first line, we may want to name it as the invoice.
+                        i.Article = invoice.Notes;
+                    }
                     ViewBag.InvoiceID = new SelectList(db.Invoices, "InvoiceID", "Notes", id.Value);
                 }
             }
@@ -95,14 +98,11 @@ namespace iloire_Facturacion.Controllers
             {
                 db.InvoiceDetails.Add(invoicedetails);
                 db.SaveChanges();
-                if (Request.IsAjaxRequest())
-                {
-                    return PartialView("Index", db.InvoiceDetails.Where(i => i.InvoiceID == invoicedetails.InvoiceID));
-                }
-                else {
-                    return View("Index", db.InvoiceDetails.Where(i => i.InvoiceID == invoicedetails.InvoiceID));
-                }
-            }           
+
+                ViewBag.Invoice = (from i in db.Invoices where i.InvoiceID == invoicedetails.InvoiceID select i).FirstOrDefault();
+                return PartialView("Index", db.InvoiceDetails.Where(i => i.InvoiceID == invoicedetails.InvoiceID));
+            }
+            
             ViewBag.InvoiceID = new SelectList(db.Invoices, "InvoiceID", "Notes", invoicedetails.InvoiceID);
             this.Response.StatusCode = 400;
             return PartialView("Create", invoicedetails);
@@ -128,7 +128,8 @@ namespace iloire_Facturacion.Controllers
             {
                 db.Entry(invoicedetails).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("IndexByInvoice", "InvoiceDetails", new { id = invoicedetails.InvoiceID });
+                ViewBag.Invoice = (from i in db.Invoices where i.InvoiceID == invoicedetails.InvoiceID select i).FirstOrDefault();
+                return PartialView("Index", db.InvoiceDetails.Where(i => i.InvoiceID == invoicedetails.InvoiceID));
             }       
             ViewBag.InvoiceID = new SelectList(db.Invoices, "InvoiceID", "Notes", invoicedetails.InvoiceID);
             this.Response.StatusCode = 400;
