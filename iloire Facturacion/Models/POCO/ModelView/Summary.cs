@@ -19,5 +19,7 @@ public class Summary
     public decimal NetExpense { get; set; }
     public decimal NetBenefit { get { return NetIncome - NetExpense; } }
 
+    public decimal VATReceived { get; set; }
+
     public decimal VATBalance { get; set; }
 }

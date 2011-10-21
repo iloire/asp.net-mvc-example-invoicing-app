@@ -8,9 +8,10 @@ public class Customer {
     public int CustomerID {get;set;}
 
     [Required (ErrorMessage="Name required")]
+    [DisplayName("Name")]
     public string Name { get; set; }
 
-    [DisplayName("Company Number")]
+    [DisplayName("C.ID")]
     [Required(ErrorMessage = "Field required")]
     public string CompanyNumber { get; set; }
 

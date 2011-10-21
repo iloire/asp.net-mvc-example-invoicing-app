@@ -11,20 +11,20 @@ public class Provider {
     public string Name { get; set; }
 
     [DisplayName("Company Number")]
-    [Required]
+    //[Required]
     public string CompanyNumber { get; set; }
 
-    [Required]
+    //[Required]
     public string Address { get; set; }
 
-    [Required]
+    //[Required]
     [DisplayName("Zip Code")]
     public string CP { get; set; }
     
-    [Required]
+    //[Required]
     public string City { get; set; }
 
-    [Required]
+    //[Required]
     [DisplayName("Telephone")]
     public string Phone1 { get; set; }
 
@@ -33,7 +33,7 @@ public class Provider {
 
     public string Fax { get; set; }
 
-    [Required]
+    //[Required]
     [RegularExpression(@"\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*", ErrorMessage = "Wrong email format")]
     public string Email { get; set; }
     

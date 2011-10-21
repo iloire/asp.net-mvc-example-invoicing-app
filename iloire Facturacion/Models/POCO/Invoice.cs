@@ -32,7 +32,7 @@ public class Invoice
     public DateTime DueDate { get; set; }
 
     [DisplayName("Advance Payment Tax")]
-    [Range(0.01, 100.0, ErrorMessage = "Value must be a % between 0.01 and 100")]
+    [Range(0.00, 100.0, ErrorMessage = "Value must be a % between 0 and 100")]
     public decimal AdvancePaymentTax { get; set; } 
 
     public bool Paid { get; set; }
