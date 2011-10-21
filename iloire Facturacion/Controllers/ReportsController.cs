@@ -5,9 +5,7 @@
 	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
 */
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace iloire_Facturacion.Controllers
@@ -15,16 +13,12 @@ namespace iloire_Facturacion.Controllers
     [Authorize]
     public class ReportsController : Controller
     {
-        DateTime startQ1 = new DateTime(DateTime.Now.Year, 1, 1);
-        DateTime startQ2 = new DateTime(DateTime.Now.Year, 4, 1);
-        DateTime startQ3 = new DateTime(DateTime.Now.Year, 7, 1);
-        DateTime startQ4 = new DateTime(DateTime.Now.Year, 10, 1);
-
         private InvoiceDB db = new InvoiceDB();
       
         private Summary GetSummary(DateTime fromDate, DateTime toDate)
         {
             Summary s = new Summary();
+
             s.From = fromDate;
             s.To = toDate;
 
@@ -36,8 +30,13 @@ namespace iloire_Facturacion.Controllers
                              where p.TimeStamp >= fromDate && p.TimeStamp <= toDate
                              select p).ToList();
 
+
             s.NetExpense = s.Purchases.Sum(i => i.SubTotal);
             s.NetIncome = s.Invoices.Sum(i => i.NetTotal);
+
+            s.VATReceived = s.Invoices.Sum(i => i.VATAmount);
+
+            s.AmountPaid = s.Invoices.Where(i => i.Paid).Sum(i => i.TotalToPay);
 
             s.VATBalance = s.Invoices.Sum(i => i.VATAmount) - s.Purchases.Sum(p => p.VATAmount);
 
@@ -47,6 +46,40 @@ namespace iloire_Facturacion.Controllers
         //
         // GET: /Reports/
 
+        public ActionResult ProfitAndLoss(int? quarter, int? year) {
+            DateTime start, end;
+
+            if (!year.HasValue || !quarter.HasValue)
+            {
+                int q, y;
+                TaxDateHelper.CalculateQuarter(DateTime.Now, out q, out y, out start, out end);
+                quarter = q;
+                year = y;
+            }
+            else {
+                start = TaxDateHelper.GetStartDate(quarter.Value, year.Value);
+                end = TaxDateHelper.GetEndDate(quarter.Value, year.Value);
+            }
+
+            ViewBag.PurchaseTypes = (from p in db.PurchaseTypes
+                               select p).ToList();
+
+            QuarterSummary quarter_Summary = new QuarterSummary()
+            {
+                Year = year.Value,
+                Month1 = GetSummary(start, start.AddMonths(1).AddDays(-1)),
+                Month2 = GetSummary(start.AddMonths(1), start.AddMonths(2).AddDays(-1)),
+                Month3 = GetSummary(start.AddMonths(2), end)
+            };
+
+            ViewBag.Year = year.Value;
+            ViewBag.Quarter = quarter.Value;
+            
+            
+            return View(quarter_Summary);
+        }
+        
+        
         public ActionResult PeriodSummary(DateTime fromDate, DateTime toDate)
         {
             return PartialView("PeriodSummary", GetSummary(fromDate, toDate));
@@ -63,42 +96,34 @@ namespace iloire_Facturacion.Controllers
         [OutputCache(Duration=60)]
         public ActionResult ThisYearSummary()
         {
+            int year = DateTime.Now.Year;
             YearSummary y=new YearSummary();
-            y.Q1 = GetSummary(startQ1,startQ2.AddDays(-1));
-            y.Q2 = GetSummary(startQ2,startQ3.AddDays(-1));
-            y.Q3 = GetSummary(startQ3,startQ4.AddDays(-1));
-            y.Q4 = GetSummary(startQ4,startQ1.AddYears(1).AddDays(-1));
+            y.Q1 = GetSummary(TaxDateHelper.GetStartDate(1, year), TaxDateHelper.GetStartDate(2, year).AddDays(-1));
+            y.Q2 = GetSummary(TaxDateHelper.GetStartDate(2, year), TaxDateHelper.GetStartDate(3, year).AddDays(-1));
+            y.Q3 = GetSummary(TaxDateHelper.GetStartDate(3, year), TaxDateHelper.GetStartDate(4, year).AddDays(-1));
+            y.Q4 = GetSummary(TaxDateHelper.GetStartDate(4, year), TaxDateHelper.GetStartDate(1, year).AddYears(1).AddDays(-1));
 
 
             return PartialView("YearSummary", y);
         }
 
+ 
         [OutputCache(Duration = 60)]
         public ActionResult ThisQuarterSummary()
         {
+            int quarter=0;
+            int year=0;
             DateTime start;
             DateTime end;
-
-            if (DateTime.Now < startQ2) {
-                start = startQ1;
-                end = startQ2.AddDays(-1);
-            }
-            else if (DateTime.Now < startQ3) {
-                start = startQ2;
-                end = startQ3.AddDays(-1);
-            }
-            else if (DateTime.Now < startQ4)
-            {
-                start = startQ3;
-                end = startQ4.AddDays(-1);
-            }
-            else { 
-                start = startQ4;
-                end = new DateTime(DateTime.Now.Year, 12, 31);
-            }
+            
+            TaxDateHelper.CalculateQuarter(DateTime.Now, out quarter, out year, out start, out end);
 
             return PeriodSummary(start, end);
         }
 
+
+        public ActionResult ByYear(int id) {
+            return View(id);    
+        }
     }
 }
