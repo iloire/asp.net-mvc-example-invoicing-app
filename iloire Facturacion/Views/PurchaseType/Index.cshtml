@@ -8,10 +8,10 @@
 @model IEnumerable<PurchaseType>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "List of Expense Types";
 }
 
-<h1>List <small>of PurchaseType</small></h1>
+<h1>List <small>of Expense Types</small></h1>
 
 <p>
     @Html.ActionLink("Create New", "Create", null, new {@class="btn"})
@@ -24,7 +24,7 @@
         <th>
             Descr
         </th>
-        <th></th>
+        <th width="150"></th>
     </thead>
 
 @foreach (var item in Model) {
@@ -35,9 +35,8 @@
         <td>
             @Html.DisplayFor(modelItem => item.Descr)
         </td>
-        <td>
+        <td nowrap>
             @Html.ActionLink("Edit", "Edit", new { id=item.PurchaseTypeID }, new { @class = "btn primary"}) 
-  @*          @Html.ActionLink("Details", "Details", new { id=item.PurchaseTypeID }, new { @class = "btn"}) |*@
             @Html.ActionLink("Delete", "Delete", new { id=item.PurchaseTypeID }, new { @class = "btn"})
         </td>
     </tr>

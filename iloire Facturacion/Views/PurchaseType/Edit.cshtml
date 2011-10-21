@@ -8,7 +8,7 @@
 @model PurchaseType
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Edit Expense Type";
 }
 
 
@@ -18,7 +18,7 @@
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
     <fieldset>
-        <legend>PurchaseType edition</legend>
+        <legend>Expense Type Edition</legend>
 
         @Html.HiddenFor(model => model.PurchaseTypeID)
 
