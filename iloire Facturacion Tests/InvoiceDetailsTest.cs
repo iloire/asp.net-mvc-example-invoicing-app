@@ -77,9 +77,9 @@ namespace iloire_Facturacion_Tests
 
             //post
             System.Web.Mvc.ActionResult resultAdd = idc.Create(id);
-            Assert.IsInstanceOf(typeof(System.Web.Mvc.ViewResult), resultAdd);
+            Assert.IsInstanceOf(typeof(System.Web.Mvc.PartialViewResult), resultAdd);
 
-            Assert.AreEqual(((System.Web.Mvc.ViewResult)resultAdd).ViewName, "Index");
+            Assert.AreEqual(((System.Web.Mvc.PartialViewResult)resultAdd).ViewName, "Index");
         }
 
         [Test]
@@ -95,7 +95,7 @@ namespace iloire_Facturacion_Tests
             id.Price= 9999;
 
             System.Web.Mvc.ActionResult resultEdition = idc.Edit(id);
-            Assert.IsInstanceOf(typeof(System.Web.Mvc.RedirectToRouteResult), resultEdition);
+            Assert.IsInstanceOf(typeof(System.Web.Mvc.PartialViewResult), resultEdition);
         }
 
 

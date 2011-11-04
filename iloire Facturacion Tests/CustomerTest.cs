@@ -13,7 +13,7 @@ namespace iloire_Facturacion_Tests
     {
         [TestFixtureSetUp]
         public void TestSetup() {
-            
+            System.Data.Entity.Database.SetInitializer(new EntitiesContextInitializer());
         }
 
         [Test]
@@ -41,6 +41,8 @@ namespace iloire_Facturacion_Tests
             c.Name = "Company name dummy";
             c.Phone1 = "3423423423";
             c.Phone2 = "234234232";
+            c.Notes = "A customer!";
+            c.ContactPerson = "Mr customer";       
 
             System.Web.Mvc.ActionResult result = cc.Create(c);
 

@@ -51,7 +51,7 @@ namespace iloire_Facturacion_Tests
          
             System.Web.Mvc.ActionResult resultAdd = ic.Create(i);
 
-            Assert.IsInstanceOf(typeof(System.Web.Mvc.RedirectToRouteResult), resultAdd);
+            Assert.IsInstanceOf(typeof(System.Web.Mvc.ViewResult), resultAdd);
         }
 
         [Test]
