@@ -46,6 +46,11 @@
 
 ## TAGS (change log):
 
+**0.15**
+
+ * Added missing DLLS in Elmah and Moq packages (will work in restoring packages from config file instead of commiting binaries)
+ * Added Chosen js plugin for dropdowns (cool stuff!) http://harvesthq.github.com/chosen/
+
 **0.14**
 
  * Added globalization support in printing invoice. Added spanish resource file.
