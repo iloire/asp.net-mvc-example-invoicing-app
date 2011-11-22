@@ -7,14 +7,13 @@
  * The solution has been created with **Visual Studio 2010 Express**, but you can open it with other versions of VS 2010.
  * Unit tests have been written with [NUnit](http://www.nunit.org/). [Moq](http://code.google.com/p/moq/) has been used for object mocking.
 
-## Demo
+## Online Demo
 
 [Check the online demo here](http://www.vitaminasdev.com/invoicing)
 
 ## How to best use this code:
 
- * This application is meant to show **how to create an ASP.NET MVC application from scratch.**
- * This application show how to use some of the cool features of ASP.NET MVC3 like:
+ * This application shows **how to create an ASP.NET MVC application from scratch.** and how to use some of the cool features of ASP.NET MVC3 like:
    * **Code First**
    * **Entity Framework** and **LINQ**
    * **Razor** view engine 
@@ -35,7 +34,7 @@
 
 ![Invoice Details](https://github.com/iloire/ASP.NET-MVC-ACME-Invoicing--App/raw/master/screenshots/detail_invoice01.png)
 
-![Printed Invoice(https://github.com/iloire/ASP.NET-MVC-ACME-Invoicing--App/raw/master/screenshots/printed_invoice01.png)
+![Printed Invoice](https://github.com/iloire/ASP.NET-MVC-ACME-Invoicing--App/raw/master/screenshots/printed_invoice01.png)
 
 ![Invoice list](https://github.com/iloire/ASP.NET-MVC-ACME-Invoicing--App/raw/master/screenshots/list_invoice01.png)
 
@@ -163,9 +162,18 @@
  * Use code first for creating database
  * Scaffolding basic CRUD operations
 
+
+## The Author
+
+Ivan Loire
+I make clients happy for a living while developing software, so contact me if you need custom modifications on this app, or help in other ASP.NET MVC project.
+I'm currently located in Spain.
+
+Contact: [www.iloire.com](http://www.iloire.com/)
+
 ## LICENSE
 
-Copyright (c) 2011 Iván Loire Mallén
+Copyright (c) 2011 Iván Loire Mallén -  www.iloire.com
 
 Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation
