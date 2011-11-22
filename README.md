@@ -30,15 +30,27 @@
 
 ## Screenshots
 
+### Home
+
 ![Home](https://github.com/iloire/ASP.NET-MVC-ACME-Invoicing--App/raw/master/screenshots/home01.png)
+
+### Invoice Details
 
 ![Invoice Details](https://github.com/iloire/ASP.NET-MVC-ACME-Invoicing--App/raw/master/screenshots/detail_invoice01.png)
 
+### Invoice (printed output)
+
 ![Printed Invoice](https://github.com/iloire/ASP.NET-MVC-ACME-Invoicing--App/raw/master/screenshots/printed_invoice01.png)
+
+### Invoice list
 
 ![Invoice list](https://github.com/iloire/ASP.NET-MVC-ACME-Invoicing--App/raw/master/screenshots/list_invoice01.png)
 
+### Customer list
+
 ![Customer list](https://github.com/iloire/ASP.NET-MVC-ACME-Invoicing--App/raw/master/screenshots/list_customer01.png)
+
+### Project unit tests
 
 ![Unit testing](https://github.com/iloire/ASP.NET-MVC-ACME-Invoicing--App/raw/master/screenshots/unit_testing01.png)
 
