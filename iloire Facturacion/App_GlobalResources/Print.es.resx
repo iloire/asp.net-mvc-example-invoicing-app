@@ -168,4 +168,7 @@
   <data name="Invoice_Phone" xml:space="preserve">
     <value>Tel</value>
   </data>
+  <data name="Proposal" xml:space="preserve">
+    <value>Propuesta</value>
+  </data>
 </root>

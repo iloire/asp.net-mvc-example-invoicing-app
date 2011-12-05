@@ -168,4 +168,7 @@
   <data name="Invoice_VAT" xml:space="preserve">
     <value>VAT</value>
   </data>
+  <data name="Proposal" xml:space="preserve">
+    <value>Proposal</value>
+  </data>
 </root>

@@ -25,28 +25,36 @@ namespace iloire_Facturacion.Controllers
 
         /*CUSTOM*/
 
-        public ViewResultBase Search(string text, string from, string to, int? page)
+        public ViewResultBase Search(string text, string from, string to, int? page, bool? proposal = false)
         {
-            IQueryable<Invoice> invoices = db.Invoices;
+            IQueryable<Invoice> invoicesQuery = db.Invoices;
 
             if (!string.IsNullOrWhiteSpace(from))
             {
                 DateTime fromDate = DateTime.Parse(from, CultureInfo.CurrentUICulture);
-                invoices = invoices.Where(t => t.TimeStamp >= fromDate);
+                invoicesQuery = invoicesQuery.Where(t => t.TimeStamp >= fromDate);
             }
             if (!string.IsNullOrWhiteSpace(to)) 
             {
                 DateTime toDate = DateTime.Parse(to, CultureInfo.CurrentUICulture);
-                invoices = invoices.Where(t => t.TimeStamp <= toDate);
+                invoicesQuery = invoicesQuery.Where(t => t.TimeStamp <= toDate);
             }
 
             if (!string.IsNullOrWhiteSpace(text))
             {
-                invoices = invoices.Where(t => t.Notes.ToLower().IndexOf(text.ToLower())>-1);
+                invoicesQuery = invoicesQuery.Where(t => t.Notes.ToLower().IndexOf(text.ToLower())>-1);
             }
 
+            ViewBag.IsProposal = proposal;
+
             int currentPageIndex = page.HasValue ? page.Value - 1 : 0;
-            var invoicesListPaged = invoices.OrderByDescending(i => i.InvoiceNumber).ToPagedList(currentPageIndex, defaultPageSize);
+
+            List<Invoice> invoices = invoicesQuery.OrderByDescending(i => i.InvoiceNumber).ToList(); //make the query
+            
+            if (proposal == true)
+                invoices = invoices.Where(i => i.IsProposal).ToList(); //once the data is in memory, i can filter by IsProposal
+
+            var invoicesListPaged = invoices.ToPagedList(currentPageIndex, defaultPageSize);
 
             if (Request.IsAjaxRequest())
                 return PartialView("Index", invoicesListPaged);
@@ -77,17 +85,21 @@ namespace iloire_Facturacion.Controllers
         //
         // GET: /Invoice/
 
-        public ViewResult Index(int? page)
+        public ViewResult Index(int? page, bool? proposal = false)
         {
             int currentPageIndex = page.HasValue ? page.Value - 1 : 0;
-            var invoices = db.Invoices.Include(i => i.Customer).OrderByDescending(i => i.InvoiceNumber);
-            return View(invoices.ToList().ToPagedList(currentPageIndex, defaultPageSize));
+            var invoices = db.Invoices.Include(i => i.Customer);
+            ViewBag.IsProposal = proposal;
+            if (proposal == true)
+                return View(invoices.ToList().Where(i => i.IsProposal).OrderByDescending(i => i.InvoiceNumber).ToPagedList(currentPageIndex, defaultPageSize));
+            else
+                return View(invoices.OrderByDescending(i => i.InvoiceNumber).ToPagedList(currentPageIndex, defaultPageSize));            
         }
 
         //
         // GET: /Invoice/Details/5
 
-        public ViewResult Print(int id)
+        public ViewResult Print(int id, bool? proposal = false)
         {
             ViewBag.Print = true;
             ViewBag.MyCompany = System.Configuration.ConfigurationManager.AppSettings["MyCompanyName"];
@@ -98,26 +110,32 @@ namespace iloire_Facturacion.Controllers
             ViewBag.MyBankAccount = System.Configuration.ConfigurationManager.AppSettings["MyBankAccount"];
 
             Invoice invoice = db.Invoices.Find(id);
-            return View(invoice);
+            if (proposal == true)
+                return View("PrintProposal", invoice);
+            else
+                return View(invoice);
         }
 
         //
         // GET: /Invoice/Create
 
-        public ActionResult Create()
+        public ActionResult Create(bool? proposal=false)
         {
             Invoice i = new Invoice();
             i.TimeStamp = DateTime.Now;
             i.DueDate = DateTime.Now.AddDays(30); //30 days after today
-            i.AdvancePaymentTax = Convert.ToDecimal(System.Configuration.ConfigurationManager.AppSettings["DefaultAdvancePaymentTax"]); 
-            
-            //generate next invoice number
-            var next_invoice = (from inv in db.Invoices 
-                                orderby inv.InvoiceNumber descending
-                                select inv).FirstOrDefault();
-            if (next_invoice!=null)
-                i.InvoiceNumber = next_invoice.InvoiceNumber + 1;
+            i.AdvancePaymentTax = Convert.ToDecimal(System.Configuration.ConfigurationManager.AppSettings["DefaultAdvancePaymentTax"]);
 
+            if (!proposal == true)
+            {
+                //generate next invoice number
+                var next_invoice = (from inv in db.Invoices
+                                    orderby inv.InvoiceNumber descending
+                                    select inv).FirstOrDefault();
+                if (next_invoice != null)
+                    i.InvoiceNumber = next_invoice.InvoiceNumber + 1;
+            }
+            ViewBag.IsProposal = proposal;
             ViewBag.CustomerID = new SelectList(db.Customers.OrderBy(c=>c.Name), "CustomerID", "Name");
             return View(i);
         } 
@@ -126,16 +144,22 @@ namespace iloire_Facturacion.Controllers
         // POST: /Invoice/Create
 
         [HttpPost]
-        public ActionResult Create(Invoice invoice)
+        public ActionResult Create(Invoice invoice, bool? proposal = false)
         {
             ViewBag.CustomerID = new SelectList(db.Customers.OrderBy(c => c.Name), "CustomerID", "Name", invoice.CustomerID);
+            ViewBag.IsProposal = proposal;
+
             if (ModelState.IsValid)
             {
                 //make sure invoice number doesn't exist
-                var invoice_exists = (from inv in db.Invoices where inv.InvoiceNumber==invoice.InvoiceNumber select inv).FirstOrDefault();
-                if (invoice_exists != null) {
-                    ModelState.AddModelError("InvoiceNumber", "Invoice with that number already exists");
-                    return View(invoice);
+                if (proposal == false)
+                {
+                    var invoice_exists = (from inv in db.Invoices where inv.InvoiceNumber == invoice.InvoiceNumber select inv).FirstOrDefault();
+                    if (invoice_exists != null)
+                    {
+                        ModelState.AddModelError("InvoiceNumber", "Invoice with that number already exists");
+                        return View(invoice);
+                    }
                 }
                 db.Invoices.Add(invoice);
                 db.SaveChanges();
@@ -146,11 +170,22 @@ namespace iloire_Facturacion.Controllers
         
         //
         // GET: /Invoice/Edit/5
- 
-        public ActionResult Edit(int id)
+
+        public ActionResult Edit(int id, bool? proposal = false, bool? makeinvoice=false)
         {
             Invoice invoice = db.Invoices.Find(id);
             ViewBag.CustomerID = new SelectList(db.Customers.OrderBy(c => c.Name), "CustomerID", "Name", invoice.CustomerID);
+            ViewBag.IsProposal = proposal;
+
+            if (makeinvoice == true) { 
+                //we want to make invoice from this proposal
+                //generate next invoice number
+                var next_invoice = (from inv in db.Invoices
+                                    orderby inv.InvoiceNumber descending
+                                    select inv).FirstOrDefault();
+                if (next_invoice != null)
+                    invoice.InvoiceNumber = next_invoice.InvoiceNumber + 1;
+            }
             return View(invoice);
         }
 
@@ -158,22 +193,26 @@ namespace iloire_Facturacion.Controllers
         // POST: /Invoice/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(Invoice invoice)
+        public ActionResult Edit(Invoice invoice, bool? proposal = false)
         {
             ViewBag.CustomerID = new SelectList(db.Customers.OrderBy(c => c.Name), "CustomerID", "Name", invoice.CustomerID);
+            ViewBag.IsProposal = proposal;
             if (ModelState.IsValid)
             {
-                //make sure invoice number doesn't exist
-                var invoice_exists = (from inv in db.Invoices 
-                                      where inv.InvoiceNumber == invoice.InvoiceNumber 
-                                      && inv.InvoiceID != invoice.InvoiceID
-                                      select inv).Count();
-
-                if (invoice_exists>0)
+                if (proposal == false)
                 {
-                    ModelState.AddModelError("InvoiceNumber", "Invoice with that number already exists");
-                    return View(invoice);
-                }                
+                    //make sure invoice number doesn't exist
+                    var invoice_exists = (from inv in db.Invoices
+                                          where inv.InvoiceNumber == invoice.InvoiceNumber
+                                          && inv.InvoiceID != invoice.InvoiceID
+                                          select inv).Count();
+
+                    if (invoice_exists > 0)
+                    {
+                        ModelState.AddModelError("InvoiceNumber", "Invoice with that number already exists");
+                        return View(invoice);
+                    }
+                }
 
                 db.Entry(invoice).State = EntityState.Modified;
                 db.SaveChanges();
@@ -184,9 +223,10 @@ namespace iloire_Facturacion.Controllers
 
         //
         // GET: /Invoice/Delete/5
- 
-        public ActionResult Delete(int id)
+
+        public ActionResult Delete(int id, bool? proposal = false)
         {
+            ViewBag.IsProposal = proposal;
             Invoice invoice = db.Invoices.Find(id);
             return View(invoice);
         }
@@ -195,8 +235,9 @@ namespace iloire_Facturacion.Controllers
         // POST: /Invoice/Delete/5
 
         [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
-        {            
+        public ActionResult DeleteConfirmed(int id, bool? proposal = false)
+        {
+            ViewBag.IsProposal = proposal;
             Invoice invoice = db.Invoices.Find(id);
             db.Invoices.Remove(invoice);
             db.SaveChanges();

@@ -11,6 +11,11 @@
     ViewBag.Title = "Edit";
 }
 
+@{
+    var entityname = ViewBag.IsProposal ? "Proposal" : "Invoice";
+}
+
+
 @section Header{
   <script type="text/javascript">
 
@@ -120,7 +125,7 @@
         <div id="my-modal" class="modal hide fade">
         <div class="modal-header">
             <a href="#" class="close">&times;</a>
-            <h3>Invoice detail</h3>
+            <h3>@entityname detail</h3>
         </div>
         <div class="modal-body">
             <div id="msgError"></div>
@@ -134,11 +139,11 @@
         </div>
 
      <p>
-         <a href="@Url.Action("Create", "InvoiceDetails", new { id = Model.InvoiceID })" idInvoice="@Model.InvoiceID" class="btn newDetailInvoice">Create new invoice details</a>
+         <a href="@Url.Action("Create", "InvoiceDetails", new { id = Model.InvoiceID })" idInvoice="@Model.InvoiceID" class="btn newDetailInvoice">Create new @entityname details</a>
      </p>
      <div id="msgErrorNewInvoiceDetails"></div>
 
     <div id="invoiceDetailsList">
-        @{Html.RenderAction("IndexByInvoice", "InvoiceDetails", new {id = Model.InvoiceID});}
+        @{Html.RenderAction("IndexByInvoice", "InvoiceDetails", new { id = Model.InvoiceID, proposal = ViewBag.IsProposal});}
     </div>
 </div>

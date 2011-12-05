@@ -92,25 +92,28 @@
             <td colspan="5" class="title">@Resources.Print.Invoice_SubTotal:</td>
             <td width="200" class="value">@String.Format("{0:C}", Model.Sum(i=>i.Total))</td>
         </tr>
+        @if ((ViewBag.IsProposal!=null) && !ViewBag.IsProposal)
+        {
         <tr>
             <td colspan="5" class="title">@Resources.Print.Invoice_VAT:</td>
-            <td width="200" class="value">@String.Format("{0:C}", Model.Sum(i=>i.VAT))</td>
+            <td width="200" class="value">@String.Format("{0:C}", Model.Sum(i => i.VAT))</td>
         </tr>
 
-        @if (ViewBag.Invoice != null) 
+        if (ViewBag.Invoice != null)
         {
-            var invoice=ViewBag.Invoice as Invoice;
-        
-             if (invoice.AdvancePaymentTaxAmount > 0)
-             { 
+            var invoice = ViewBag.Invoice as Invoice;
+
+            if (invoice.AdvancePaymentTaxAmount > 0)
+            { 
         <tr>
             <td colspan="5" class="title">@Resources.Print.Invoice_AdvancePaymentTax (*):</td>
             <td class="value">- @String.Format("{0:C}", invoice.AdvancePaymentTaxAmount)</td>
         </tr>
-             }
+            }
          <tr>
             <td colspan="5" class="title">@Resources.Print.Invoice_TotalToPay: </td>
             <td class="value">@String.Format("{0:C}", invoice.TotalToPay)</td>
         </tr>
+        }
         }
 </table>

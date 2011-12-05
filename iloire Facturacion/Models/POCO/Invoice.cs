@@ -16,6 +16,12 @@ public class Invoice
     [DisplayName("Invoice Number")]
     public int InvoiceNumber { get; set; }
 
+    public bool IsProposal {
+        get {
+            return (this.InvoiceNumber == null || this.InvoiceNumber == 0);
+        }
+    }
+
     public int CustomerID { get; set; }
     public virtual Customer Customer { get; set; }
 

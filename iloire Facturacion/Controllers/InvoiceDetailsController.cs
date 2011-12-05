@@ -23,6 +23,9 @@ namespace iloire_Facturacion.Controllers
         public PartialViewResult IndexByInvoice(int id)
         {
             ViewBag.InvoiceID = id;
+            var invoice = db.Invoices.Where(i => i.InvoiceID == id).FirstOrDefault();
+            ViewBag.Invoice = invoice;
+            ViewBag.IsProposal = invoice.IsProposal;
             var invoicedetails = db.InvoiceDetails.Include(i => i.Invoice).Where(i=>i.InvoiceID==id);
             return PartialView("Index", invoicedetails.ToList());
         }
@@ -99,7 +102,10 @@ namespace iloire_Facturacion.Controllers
                 db.InvoiceDetails.Add(invoicedetails);
                 db.SaveChanges();
 
-                ViewBag.Invoice = (from i in db.Invoices where i.InvoiceID == invoicedetails.InvoiceID select i).FirstOrDefault();
+                var invoice = (from i in db.Invoices where i.InvoiceID == invoicedetails.InvoiceID select i).FirstOrDefault();
+                ViewBag.Invoice = invoice;
+                ViewBag.IsProposal = invoice.IsProposal;
+
                 return PartialView("Index", db.InvoiceDetails.Where(i => i.InvoiceID == invoicedetails.InvoiceID));
             }
             
@@ -128,7 +134,9 @@ namespace iloire_Facturacion.Controllers
             {
                 db.Entry(invoicedetails).State = EntityState.Modified;
                 db.SaveChanges();
-                ViewBag.Invoice = (from i in db.Invoices where i.InvoiceID == invoicedetails.InvoiceID select i).FirstOrDefault();
+                var invoice = (from i in db.Invoices where i.InvoiceID == invoicedetails.InvoiceID select i).FirstOrDefault();
+                ViewBag.Invoice = invoice;
+                ViewBag.IsProposal = invoice.IsProposal;
                 return PartialView("Index", db.InvoiceDetails.Where(i => i.InvoiceID == invoicedetails.InvoiceID));
             }       
             ViewBag.InvoiceID = new SelectList(db.Invoices, "InvoiceID", "Notes", invoicedetails.InvoiceID);

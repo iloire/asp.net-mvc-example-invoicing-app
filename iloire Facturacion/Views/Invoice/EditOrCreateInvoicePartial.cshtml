@@ -7,6 +7,9 @@
 
 @model Invoice
 
+@{
+    var entityname = ViewBag.IsProposal ? "Proposal" : "Invoice";
+}
 
 <script>
     $(document).ready(function () {
@@ -16,31 +19,35 @@
     });
 </script>
   <fieldset>
-        <legend>Invoice edition</legend>
+        <legend>@entityname edition</legend>
 
         @Html.HiddenFor(model => model.InvoiceID)
 
+        @if (!ViewBag.IsProposal)
+        {
          <div class="clearfix">
             @Html.LabelFor(model => model.InvoiceNumber)
         
             <div class="input">
-                @if (Model!=null && Model.InvoiceID > 0)
+                @if (Model != null && Model.InvoiceID > 0)
                 {
                     <text>
-                        @Html.TextBoxFor(model => model.InvoiceNumber, new { @class="small disabled", disabled=true})
-                        @Html.HiddenFor(model=>model.InvoiceNumber)
+                        @Html.TextBoxFor(model => model.InvoiceNumber, new { @class = "small disabled", disabled = true })
+                        @Html.HiddenFor(model => model.InvoiceNumber)
                         <a id="editInvoiceNumber" href="#">change invoice id (I know what I am doing)</a>
                     </text>
                 }
-                else { 
+                else
+                { 
                      <text>
-                        @Html.TextBoxFor(model => model.InvoiceNumber, new { @class = "small"})
+                        @Html.TextBoxFor(model => model.InvoiceNumber, new { @class = "small" })
                     </text>
                 }
             
                 @Html.ValidationMessageFor(model => model.InvoiceNumber)
             </div>
 		</div>
+        }
 
 
         <div class="clearfix">
@@ -101,10 +108,10 @@
             <input type="submit" class="btn primary" value="Save" />
                @if (Model != null && Model.InvoiceID > 0)
                {   <text>
-                @Html.ActionLink("Delete", "Delete", new { id = Model.InvoiceID }, new { @class = "btn" })
+                @Html.ActionLink("Delete", "Delete", new { id = Model.InvoiceID, proposal = ViewBag.IsProposal }, new { @class = "btn" })
                 </text>
                }
-            @Html.ActionLink("Print", "Print", "Invoice", new { id=Model.InvoiceID }, new { target="_blank", @class = "btn" })
+            @Html.ActionLink("Print", "Print", "Invoice", new { id = Model.InvoiceID, proposal = ViewBag.IsProposal }, new { target = "_blank", @class = "btn" })
 			@*@Html.ActionLink("Back to Invoices", "Index", null, new { @class = "btn" })*@
         </div>
     </fieldset>

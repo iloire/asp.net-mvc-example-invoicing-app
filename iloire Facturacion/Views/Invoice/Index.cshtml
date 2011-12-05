@@ -12,7 +12,11 @@
     ViewBag.Title = "List of Invoices";
 }
 
-<h1>List <small>of Invoice</small></h1>
+@{
+    var entityname = ViewBag.IsProposal ? "Proposals" : "Invoices";
+}
+
+<h1>List <small>of @entityname</small></h1>
 
 <p class="noprint">
     @Html.ActionLink("Create New", "Create", null, new { @class = "btn" })
@@ -99,9 +103,13 @@
             }
         </td>
         <td class="noprint" nowrap>
-            @Html.ActionLink("Edit", "Edit", new { id = item.InvoiceID }, new { @class = "btn primary" }) 
-            @Html.ActionLink("Print", "Print", new { id = item.InvoiceID }, new { target = "_blank", @class = "btn" }) 
-            @Html.ActionLink("Delete", "Delete", new { id = item.InvoiceID }, new { @class = "btn" })
+            @Html.ActionLink("Edit", "Edit", new { id = item.InvoiceID, proposal = ViewBag.IsProposal }, new { @class = "btn primary" }) 
+            @Html.ActionLink("Print", "Print", new { id = item.InvoiceID, proposal = ViewBag.IsProposal }, new { target = "_blank", @class = "btn" }) 
+            @Html.ActionLink("Delete", "Delete", new { id = item.InvoiceID, proposal = ViewBag.IsProposal }, new { @class = "btn" })
+            
+            @if (ViewBag.IsProposal) {                
+                { @Html.ActionLink("Make invoice", "Edit", new { id = item.InvoiceID, proposal = false, makeinvoice=true }, new { @class = "btn" }); }
+            }
         </td>
     </tr>
 }

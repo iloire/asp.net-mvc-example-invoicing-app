@@ -70,6 +70,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Print.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_GlobalResources\Print.es.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Print.es.resx</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -254,6 +259,7 @@
     <Content Include="Views\PurchaseType\Edit.cshtml" />
     <Content Include="Views\PurchaseType\Delete.cshtml" />
     <Content Include="Views\Shared\Money.cshtml" />
+    <Content Include="Views\Invoice\PrintProposal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -267,6 +273,7 @@
   <ItemGroup>
     <Content Include="App_GlobalResources\Print.es.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Print.es.designer.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
@@ -286,7 +293,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>50471</DevelopmentServerPort>
+          <DevelopmentServerPort>8947</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
