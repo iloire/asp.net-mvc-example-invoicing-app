@@ -28,13 +28,13 @@
     }
 </script>
 
-@using (Html.BeginForm("Search", Model, FormMethod.Get))
+@using (Html.BeginForm("Search", Model, new {proposal=ViewBag.IsProposal},  FormMethod.Get))
 {
  <div class="searchBox noprint">
         <div class=clearfix>
         Text:
                 <input name="text" id="text" type="text" value="@Request["text"]"
-              placeholder="Text to look for in invoices.." />
+              placeholder="Text to look for ..." />
             
         </div>
         

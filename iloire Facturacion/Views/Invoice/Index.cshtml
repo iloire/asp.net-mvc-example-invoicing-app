@@ -22,7 +22,7 @@
     @Html.ActionLink("[+] Create New ", "Create", new { proposal = ViewBag.IsProposal }, new { @class = "btn primary" })
 </p>
 
-@{Html.RenderPartial("SearchBoxItems", "Invoice");}
+@{Html.RenderPartial("SearchBoxItems", ViewBag.IsProposal ? "Proposal" : "Invoice");}
 
 <div class="pagingContainer noprint">
     @{
