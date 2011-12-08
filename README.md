@@ -57,6 +57,13 @@
 
 ## TAGS (change log):
 
+**0.16**
+
+ * Added "proposals". Proposals are invoices that don't have an invoice number yet. They become an invoice once the client approves it.
+ * CSS improvements: added primary style to "create" buttons. Added nowrap html attribute to edit buttons td.
+ * Added http://harvesthq.github.com/chosen/ jquery plugin to some extra dropdown menus in editor screens.
+ * Added some help messages in invoices and proposals
+
 **0.15**
 
  * Added missing DLLS in Elmah and Moq packages (will work in restoring packages from config file instead of commiting binaries)
