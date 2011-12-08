@@ -24,7 +24,7 @@
          <div class="clearfix">
             @Html.LabelFor(model => model.PurchaseTypeID, "PurchaseType")
         
-        <div class="input">
+        <div class="input chzn-select">
             @Html.DropDownList("PurchaseTypeID", String.Empty)
             @Html.ValidationMessageFor(model => model.PurchaseTypeID)
         </div>
@@ -51,7 +51,7 @@
         <div class="clearfix">
             @Html.LabelFor(model => model.ProviderID, "Provider")
         
-        <div class="input">
+        <div class="input chzn-select">
             @Html.DropDownList("ProviderID", String.Empty)
             @Html.ValidationMessageFor(model => model.ProviderID)
         </div>

@@ -18,7 +18,7 @@
     <h1>List <small>of Provider</small></h1>
 
     <p>
-        @Html.ActionLink("Create New", "Create", null, new { @class = "btn" })
+        @Html.ActionLink("[+] Create New", "Create", null, new { @class = "btn primary" })
     </p>
 
     @{Html.RenderPartial("SearchBoxCompany", "Provider");}
@@ -69,7 +69,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
-            <td>
+            <td nowrap>
                 @Html.ActionLink("Edit", "Edit", new { id = item.ProviderID }, new { @class = "btn primary" }) 
                 @Html.ActionLink("Details", "Details", new { id = item.ProviderID }, new { @class = "btn" }) 
                 @Html.ActionLink("Delete", "Delete", new { id = item.ProviderID }, new { @class = "btn" })

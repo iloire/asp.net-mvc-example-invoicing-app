@@ -11,6 +11,24 @@
     ViewBag.Title = "Create";
 }
 
+
+<div class="alert-message block-message warning">
+@if (ViewBag.IsProposal)
+{
+  <p><strong>You are creating a new proposal</strong></p>
+  <p> 
+    Once the client approves it, you can click on "Make invoice" to add it to your invoices.
+  </p>
+}
+else
+{
+  <p><strong>You are creating a new Invoice</strong></p>
+  <p> 
+    A new invoice number will be created by using the last invoice number generated (and incrementing that number by 'one')
+  </p>
+}
+</div>
+
 @using (Html.BeginForm())
 {
     @Html.ValidationSummary(true)

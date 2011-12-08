@@ -19,7 +19,7 @@
 <h1>List <small>of @entityname</small></h1>
 
 <p class="noprint">
-    @Html.ActionLink("Create New", "Create", null, new { @class = "btn" })
+    @Html.ActionLink("[+] Create New ", "Create", new { proposal = ViewBag.IsProposal }, new { @class = "btn primary" })
 </p>
 
 @{Html.RenderPartial("SearchBoxItems", "Invoice");}
