@@ -91,7 +91,7 @@ namespace iloire_Facturacion.Controllers
             var invoices = db.Invoices.Include(i => i.Customer);
             ViewBag.IsProposal = proposal;
             if (proposal == true)
-                return View(invoices.ToList().Where(i => i.IsProposal).OrderByDescending(i => i.InvoiceNumber).ToPagedList(currentPageIndex, defaultPageSize));
+                return View(invoices.OrderByDescending(i => i.TimeStamp).ToList().Where(i => i.IsProposal).ToPagedList(currentPageIndex, defaultPageSize));
             else
                 return View(invoices.OrderByDescending(i => i.InvoiceNumber).ToPagedList(currentPageIndex, defaultPageSize));            
         }
@@ -163,7 +163,7 @@ namespace iloire_Facturacion.Controllers
                 }
                 db.Invoices.Add(invoice);
                 db.SaveChanges();
-                return RedirectToAction("Edit", "Invoice", new { id = invoice.InvoiceID });  
+                return RedirectToAction("Edit", "Invoice", new { id = invoice.InvoiceID, proposal = proposal });  
             }
             return View(invoice);
         }
@@ -216,7 +216,7 @@ namespace iloire_Facturacion.Controllers
 
                 db.Entry(invoice).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { proposal = proposal });
             }
             return View(invoice);
         }
@@ -241,7 +241,7 @@ namespace iloire_Facturacion.Controllers
             Invoice invoice = db.Invoices.Find(id);
             db.Invoices.Remove(invoice);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { proposal = proposal });
         }
 
         protected override void Dispose(bool disposing)
