@@ -184,7 +184,8 @@
 
 ## The Author
 
-Ivan Loire
+Ivan Loire, [ASP.NET MVC Freelance](http://www.aspnetfreelance.com)
+
 I make clients happy for a living while developing software, so contact me if you need custom modifications on this app, or help in other ASP.NET MVC project.
 I'm currently located in Spain.
 
