@@ -88,12 +88,12 @@ namespace iloire_Facturacion.Controllers
         public ViewResult Index(int? page, bool? proposal = false)
         {
             int currentPageIndex = page.HasValue ? page.Value - 1 : 0;
-            var invoices = db.Invoices.Include(i => i.Customer);
+            var invoices = db.Invoices.Include(i => i.InvoiceDetails).Include(i => i.Customer);
             ViewBag.IsProposal = proposal;
             if (proposal == true)
                 return View(invoices.OrderByDescending(i => i.TimeStamp).ToList().Where(i => i.IsProposal).ToPagedList(currentPageIndex, defaultPageSize));
             else
-                return View(invoices.OrderByDescending(i => i.InvoiceNumber).ToPagedList(currentPageIndex, defaultPageSize));            
+                return View(invoices.OrderByDescending(i => i.InvoiceNumber).ToList().Where(i => !i.IsProposal).ToPagedList(currentPageIndex, defaultPageSize));            
         }
 
         //
@@ -171,21 +171,44 @@ namespace iloire_Facturacion.Controllers
         //
         // GET: /Invoice/Edit/5
 
-        public ActionResult Edit(int id, bool? proposal = false, bool? makeinvoice=false)
+        public ActionResult Edit(int id, bool? proposal = false, bool? makeinvoice = false, bool? makeproposal = false)
         {
             Invoice invoice = db.Invoices.Find(id);
             ViewBag.CustomerID = new SelectList(db.Customers.OrderBy(c => c.Name), "CustomerID", "Name", invoice.CustomerID);
-            ViewBag.IsProposal = proposal;
 
-            if (makeinvoice == true) { 
+            if (makeinvoice == true)
+            {
                 //we want to make invoice from this proposal
                 //generate next invoice number
                 var next_invoice = (from inv in db.Invoices
                                     orderby inv.InvoiceNumber descending
                                     select inv).FirstOrDefault();
                 if (next_invoice != null)
-                    invoice.InvoiceNumber = next_invoice.InvoiceNumber + 1;
+                    invoice.InvoiceNumber = next_invoice.InvoiceNumber + 1; //assign next available invoice number 
+
+                ViewBag.Warning = "The current item is going to be converted on Invoice. A new InvoiceNumber has been pre-assigned. Click on 'Save' to continue.";
+                ViewBag.ShowMakeInvoice = ViewBag.ShowMakeProposal = false;
             }
+            else if (makeproposal == true)
+            {
+                invoice.InvoiceNumber = 0; //reset invoice number                
+                ViewBag.Warning = "The current item is going to be converted on Proposal. You will lose InvoiceNumber. If that's what you want click on 'Save'";
+                ViewBag.ShowMakeInvoice = ViewBag.ShowMakeProposal = false;
+            }
+            else
+            {
+                if (!invoice.IsProposal && proposal == true)
+                {
+                    //item is invoice, redirect to proper route (hack)
+                    return RedirectToAction("Edit", new { id = id, proposal = false, makeinvoice = false });
+                }
+
+                ViewBag.ShowMakeInvoice = invoice.IsProposal;
+                ViewBag.ShowMakeProposal = !invoice.IsProposal;
+            }
+
+            ViewBag.IsProposal = invoice.IsProposal;
+
             return View(invoice);
         }
 
