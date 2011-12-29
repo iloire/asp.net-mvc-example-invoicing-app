@@ -28,6 +28,30 @@
  * You can download each tag (starting with 0.1), check progress and move to the next when you understood everything that has been done.
  * Follow the change log (tag history) and enjoy!
 
+## Installation
+
+ * Download the code and open with Visual Studio 2010 Express or above.
+ * NuGet packages are included. If you have any problem please follow [this instructions](http://stackoverflow.com/questions/6876732/how-do-i-get-nuget-to-install-update-all-the-packages-in-the-packages-config)
+ * By default the project is using SQL Server Compact database. You can easily change it to use SQL Server Express or above by modifying web.config file (connectionStrings section).
+ * By using Code First and EF 4.1 the database will be recreated when you first run the project.
+
+### Altering connectionStrings section 
+
+Based on convention, EF will look for a connection strign named as the DBContext (in this case "InvoiceDB"), and will use it, so feel free to set the data provider you want:
+
+   <connectionStrings>
+     <!-- 
+         By default (convention over configuration, the connection string with the same name as your DBContext will be used 
+         You can select then wherever you will use SQL CE, SQL Serer Express Edition, etc, here. 
+     -->
+     <add name="InvoiceDB" connectionString="Data Source=|DataDirectory|InvoiceDB.sdf" providerName="System.Data.SqlServerCe.4.0" />
+     
+     <!--
+     <add name="InvoiceDB" connectionString="Data Source=.\SQLEXPRESS; Integrated Security=True; MultipleActiveResultSets=True" providerName="System.Data.SqlClient" />
+     <add name="InvoiceDB" connectionString="metadata=res://*;provider=System.Data.SqlClient;provider connection string=&quot;Data Source=mssql2005a.active-ns.com;Initial Catalog=xxxxxxxxxx.org;user id=xxxxxxxxxxxx;password=xxxxxxxxxxx;MultipleActiveResultSets=True&quot;" providerName="System.Data.EntityClient" />
+     -->
+   </connectionStrings>
+
 ## Screenshots
 
 ### Home
@@ -57,12 +81,19 @@
 
 ## TAGS (change log):
 
+**0.17**
+
+ * Bug fixing in proposals.
+ * Bug fixing tablesorter to handle decimals.
+ * Added ProposalDetails field.
+ * Other minor improvements.
+
 **0.16**
 
  * Added "proposals". Proposals are invoices that don't have an invoice number yet. They become an invoice once the client approves it.
  * CSS improvements: added primary style to "create" buttons. Added nowrap html attribute to edit buttons td.
  * Added http://harvesthq.github.com/chosen/ jquery plugin to some extra dropdown menus in editor screens.
- * Added some help messages in invoices and proposals
+ * Added some help messages in invoices and proposals.
 
 **0.15**
 
@@ -74,7 +105,7 @@
  * Added globalization support in printing invoice. Added spanish resource file.
  * Adding and edition customer now works with a modal popup windows using AJAX.
  * Added InvoiceNumber field to Invoice so it can be defined and edited by the user.
- * Added ContactPerson and Notes fields to Customer. Changes in customer edition modal popup
+ * Added ContactPerson and Notes fields to Customer. Changes in customer edition modal popup.
  * Database initializer configurable from web.config
  * Added PurchaseType (aka expense type) entity and table, in order to categorize expenses.
  * Added Profit and Loss report.
