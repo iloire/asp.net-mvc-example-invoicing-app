@@ -81,7 +81,7 @@ Based on convention, EF will look for a connection strign named as the DBContext
 **0.17**
 
  * Bug fixing in proposals.
- * Bug fixing tablesorter to handle decimals.
+ * Config tablesorter to handle decimals.
  * Added ProposalDetails field.
  * Other minor improvements.
 
