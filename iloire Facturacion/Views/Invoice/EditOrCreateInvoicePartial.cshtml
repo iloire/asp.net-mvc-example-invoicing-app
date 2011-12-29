@@ -68,6 +68,17 @@
             </div>
 		</div>
 
+        @*@if (Model.IsProposal) { *@
+          <div class="clearfix">
+            @Html.LabelFor(model => model.ProposalDetails)
+        
+            <div class="input">
+                @Html.TextAreaFor(model => model.ProposalDetails, new { @class="proposalDetails"})
+                @Html.ValidationMessageFor(model => model.ProposalDetails)
+            </div>
+		   </div>
+        @*}*@
+
         <div class="clearfix">
             @Html.LabelFor(model => model.TimeStamp)
         
@@ -112,6 +123,18 @@
                 </text>
                }
             @Html.ActionLink("Print", "Print", "Invoice", new { id = Model.InvoiceID, proposal = ViewBag.IsProposal }, new { target = "_blank", @class = "btn" })
-			@*@Html.ActionLink("Back to Invoices", "Index", null, new { @class = "btn" })*@
+
+            @if (!Model.IsProposal)
+            {  //even if this is an invoice, we let be printed with proposal format
+                @Html.ActionLink("Print as proposal", "Print", "Invoice", new { id = Model.InvoiceID, proposal = true }, new { target = "_blank", @class = "btn" })
+            }
+            
+            @if (ViewBag.ShowMakeInvoice == true) { 
+                @Html.ActionLink("Make invoice", "Edit", "Invoice", new { id = Model.InvoiceID, makeinvoice = true }, new { @class = "btn" })
+            }
+
+            @if (ViewBag.ShowMakeProposal == true) { 
+                @Html.ActionLink("Make proposal", "Edit", "Invoice", new { id = Model.InvoiceID, makeproposal = true }, new { @class = "btn" })
+            }
         </div>
     </fieldset>

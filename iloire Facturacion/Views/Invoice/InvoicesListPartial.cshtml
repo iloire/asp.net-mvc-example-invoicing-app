@@ -37,16 +37,16 @@
          </a>
         </td>
         <td>
-            <a href="@Url.Action("Edit", "Invoice", new { id=item.InvoiceID })">
+            <a href="@Url.Action("Edit", "Invoice", new { id = item.InvoiceID, proposal = ViewBag.IsProposal })">
                 @Html.DisplayFor(modelItem => item.Notes)
             </a>
         </td>
-         <td>
+         <td nowrap="nowrap">
             @String.Format("{0:C}", item.TotalToPay)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.DueDate)
-              @if (item.DueDate < DateTime.Now)
+              @if ((!item.Paid) && (!item.IsProposal) && item.DueDate < DateTime.Now)
              {
                  <span class="label important">OVERDUE</span>
              }
@@ -57,7 +57,7 @@
   <tfoot>
         <tr>
             <td colspan=3><span class="label">TOTALS: </span></td>
-            <td>@String.Format("{0:C}", Model.Sum(i => i.TotalToPay))</td>
+            <td nowrap="nowrap">@String.Format("{0:C}", Model.Sum(i => i.TotalToPay))</td>
             <td></td>
         </tr>
     </tfoot>

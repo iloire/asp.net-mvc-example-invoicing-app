@@ -16,6 +16,17 @@
     var entityname = ViewBag.IsProposal ? "Proposals" : "Invoices";
 }
 
+@section Header{
+<script>
+    var sorter_options = {
+        headers: {
+            4: { sorter: 'decimal' },
+            5: { sorter: 'decimal' }
+        }
+    };
+</script>
+}
+
 <h1>List <small>of @entityname</small></h1>
 
 <p class="noprint">
@@ -92,14 +103,16 @@
         </td>*@
         <td nowrap>
             @String.Format("{0:C}", item.TotalToPay)
-
-            @if (!item.Paid)
+            @if (!item.IsProposal)
             {
+                if (!item.Paid)
+                {
              <span class="label important">UNPAID</span>
-            }
-            else
-            {
+                }
+                else
+                {
             <span class="label success">PAID</span>  
+                }
             }
         </td>
         <td class="noprint" nowrap>

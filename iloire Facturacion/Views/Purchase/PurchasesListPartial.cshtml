@@ -38,13 +38,13 @@
                 @Html.DisplayFor(modelItem => item.Article)
             </a>
         </td>
-        <td>
+        <td nowrap="nowrap">
             @String.Format("{0:C}", item.Price)
         </td>
-        <td>
+        <td nowrap="nowrap">
             @Html.DisplayFor(modelItem => item.VAT)
         </td>
-          <td>
+        <td nowrap="nowrap">
             @String.Format("{0:C}", item.TotalWithVAT)
         </td>
         <td>
@@ -67,7 +67,7 @@
  <tfoot>
         <tr>
             <td><span class="label">TOTALS: </span></td>
-            <td>@String.Format("{0:C}", Model.Sum(i => i.TotalWithVAT))</td>
+            <td nowrap="nowrap">@String.Format("{0:C}", Model.Sum(i => i.TotalWithVAT))</td>
             <td colspan="4"></td>
         </tr>
     </tfoot>

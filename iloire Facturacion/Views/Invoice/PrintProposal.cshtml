@@ -8,7 +8,7 @@
 @model Invoice
 
 @{
-    ViewBag.Title = DateTime.Now.Year + "#" + Model.InvoiceNumber + " " + Model.Name + " " + Model.Customer.Name;
+    ViewBag.Title = DateTime.Now.Year + " " + Model.Name + " " + Model.Customer.Name;
     Layout = "~/Views/Shared/_LayoutPrint.cshtml";
 }
 
@@ -79,15 +79,23 @@
             </blockquote>
     </td>
     <td>
-        <h3>@Resources.Print.Invoice_Service :</h3>
+        <h3>@Resources.Print.Proposal :</h3>
          @Html.Raw(Model.Notes.Replace(Environment.NewLine,"<br/>"))
     </td>
  </tr>
+
+ <tr>
+     <td colspan="2">
+        <h3>@Resources.Print.ProposalDetails :</h3>
+        @Html.Raw(Model.ProposalDetails.Replace(Environment.NewLine, "<br/>"))
+     </td> 
+     </tr>
  </table>
    
 
+<h3><h3>@Resources.Print.Quote :</h3>
 
-<table class="zebra-striped">
+<table class="zebra-striped proposal">
     <thead>
         <th>
             @Resources.Print.Invoice_Item
@@ -99,14 +107,8 @@
             @Resources.Print.Invoice_Price
         </th>
         <th width="80">
-            @Resources.Print.Invoice_SubTotal
+            @Resources.Print.Invoice_Total
         </th>
-        <th width="80">
-            @Resources.Print.Invoice_VAT
-        </th>
-         <th width="100">
-          @Resources.Print.Invoice_Total
-        </th> 
         @if (ViewBag.Print != true){
         <th width="100"></th>
         }
@@ -128,44 +130,18 @@
          <td>
             @String.Format("{0:C}", item.Total)
         </td>
-         <td>
-            @String.Format("{0:C}", item.VATAmount)
-        </td>
-         <td>
-            @String.Format("{0:C}", item.TotalPlusVAT)
-        </td>
     </tr>
 }
     <tfoot>
         <tr>
-         <td class="invoiceFooterTitle">@Resources.Print.Invoice_SubTotal:</td>
-            <td>@Model.InvoiceDetails.Sum(i=>i.Qty)</td>
-            <td>-</td>
-            <td>@String.Format("{0:C}", Model.NetTotal)</td>
-            <td>@String.Format("{0:C}", Model.VATAmount)</td>
-            <td>@String.Format("{0:C}", Model.TotalWithVAT)</td>
-           
+         <td class="invoiceFooterTitle">@Resources.Print.Proposal_Total :</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td nowrap="nowrap">@String.Format("{0:C}", Model.NetTotal) (*)</td>
         </tr>
     </tfoot>
 </table>
 
-<table>
-
-        <tr>
-            <td colspan="5" class="invoiceFooterTitle">@Resources.Print.Invoice_SubTotal:</td>
-            <td width="200" class="invoiceFooterValue">@String.Format("{0:C}", Model.NetTotal)</td>
-        </tr>
-        <tr>
-            <td colspan="5" class="invoiceFooterTitle">@Resources.Print.Invoice_VAT:</td>
-            <td width="200" class="invoiceFooterValue">@String.Format("{0:C}", Model.VATAmount)</td>
-        </tr>    
-
-         <tr>
-            <td colspan="5" class="invoiceFooterTitle">@Resources.Print.Invoice_TotalToPay: </td>
-            <td class="invoiceFooterValueTotal">@String.Format("{0:C}", Model.TotalToPay)</td>
-        </tr>
-</table>
-
 <div class="invoiceFooter">
-
+    (*) @Resources.Print.VAT_Not_Included
 </div>

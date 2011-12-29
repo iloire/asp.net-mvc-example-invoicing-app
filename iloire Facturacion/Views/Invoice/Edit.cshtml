@@ -19,6 +19,16 @@
 @section Header{
   <script type="text/javascript">
 
+        var sorter_options = {
+            headers: {
+                1: { sorter: 'decimal' },
+                2: { sorter: 'decimal' },
+                3: { sorter: 'decimal' },
+                4: { sorter: 'decimal' },
+                5: { sorter: 'decimal' }
+            }
+        };
+
       function clearErrors() {
           $('#msgErrorNewInvoiceDetails').html('');
           $('#msgError').html('');
@@ -109,7 +119,7 @@
     </script>
 }
 
-<div class="span7">
+<div class="span11">
 
 @using (Html.BeginForm())
 {
@@ -120,7 +130,7 @@
 }
 </div>
 
-<div class="span14">
+<div class="span10">
         <br /><br />
         <div id="my-modal" class="modal hide fade">
         <div class="modal-header">

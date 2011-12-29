@@ -12,6 +12,17 @@
     ViewBag.Title = "List of expenses";
 }
 
+@section Header{
+<script>
+    var sorter_options = {
+        headers: {
+            2: { sorter: 'decimal' },
+            4: { sorter: 'decimal' }
+        }
+    };
+</script>
+}
+
 <h1>List <small>of Purchase</small></h1>
 
 <p class="noprint">
