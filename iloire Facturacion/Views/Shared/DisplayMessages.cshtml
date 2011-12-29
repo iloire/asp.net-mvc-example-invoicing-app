@@ -1,0 +1,26 @@
+﻿@*
+	Iván Loire - www.iloire.com
+	Please readme README file for license terms.
+
+	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
+*@
+
+@if (!string.IsNullOrWhiteSpace(ViewBag.Error)) { 
+<div class="alert-message error">
+    @ViewBag.Error
+</div>
+}
+
+@if (!string.IsNullOrWhiteSpace(ViewBag.Warning))
+{ 
+<div class="alert-message warning">
+    @ViewBag.Warning
+</div>
+}
+
+@if (!string.IsNullOrWhiteSpace(ViewBag.Success))
+{ 
+<div class="alert-message success">
+    @ViewBag.Success
+</div>
+}
