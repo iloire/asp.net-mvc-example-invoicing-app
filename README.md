@@ -1,5 +1,5 @@
 ﻿
-## What is this?
+# ASP.NET MVC3 Invoicing Application
 
  * This is a **sample invoicing application** used for **ASP.NET MVC3 training purposes**. 
  * This is a good code base to learn ASP.NET MVC3, since it covers many areas and development techniques.
@@ -39,18 +39,15 @@
 
 Based on convention, EF will look for a connection strign named as the DBContext (in this case "InvoiceDB"), and will use it, so feel free to set the data provider you want:
 
-   <connectionStrings>
      <!-- 
          By default (convention over configuration, the connection string with the same name as your DBContext will be used 
          You can select then wherever you will use SQL CE, SQL Serer Express Edition, etc, here. 
      -->
      <add name="InvoiceDB" connectionString="Data Source=|DataDirectory|InvoiceDB.sdf" providerName="System.Data.SqlServerCe.4.0" />
-     
      <!--
      <add name="InvoiceDB" connectionString="Data Source=.\SQLEXPRESS; Integrated Security=True; MultipleActiveResultSets=True" providerName="System.Data.SqlClient" />
      <add name="InvoiceDB" connectionString="metadata=res://*;provider=System.Data.SqlClient;provider connection string=&quot;Data Source=mssql2005a.active-ns.com;Initial Catalog=xxxxxxxxxx.org;user id=xxxxxxxxxxxx;password=xxxxxxxxxxx;MultipleActiveResultSets=True&quot;" providerName="System.Data.EntityClient" />
      -->
-   </connectionStrings>
 
 ## Screenshots
 
