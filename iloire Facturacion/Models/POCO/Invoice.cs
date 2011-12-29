@@ -31,6 +31,9 @@ public class Invoice
     [Required]
     public string Notes { get; set; }
 
+    [DisplayName("Proposal Details")]
+    public string ProposalDetails { get; set; }
+
     [DisplayName("Created")]
     public DateTime TimeStamp { get; set; }
 
