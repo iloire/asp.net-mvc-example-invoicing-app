@@ -221,5 +221,41 @@ namespace Resources {
                 return ResourceManager.GetString("Proposal", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Proposal Details.
+        /// </summary>
+        internal static string ProposalDetails {
+            get {
+                return ResourceManager.GetString("ProposalDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Total.
+        /// </summary>
+        internal static string Proposal_Total {
+            get {
+                return ResourceManager.GetString("Proposal_Total", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Quote.
+        /// </summary>
+        internal static string Quote {
+            get {
+                return ResourceManager.GetString("Quote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a VAT is not included.
+        /// </summary>
+        internal static string VAT_Not_Included {
+            get {
+                return ResourceManager.GetString("VAT_Not_Included", resourceCulture);
+            }
+        }
     }
 }

@@ -171,4 +171,16 @@
   <data name="Proposal" xml:space="preserve">
     <value>Proposal</value>
   </data>
+  <data name="ProposalDetails" xml:space="preserve">
+    <value>Proposal Details</value>
+  </data>
+  <data name="Proposal_Total" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="Quote" xml:space="preserve">
+    <value>Quote</value>
+  </data>
+  <data name="VAT_Not_Included" xml:space="preserve">
+    <value>VAT is not included</value>
+  </data>
 </root>
