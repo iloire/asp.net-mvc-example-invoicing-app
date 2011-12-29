@@ -101,6 +101,18 @@ div.searchBox div.setQuarter a
     color:Green;    
 }
 
+textarea.proposalDetails
+{
+    height:400px;
+    width:500px;
+}
+
+table.proposal tfoot tr td
+{
+    border-top:3px solid #f2f2f2;
+    font-weight:bold;
+    font-size:1.1em;
+}
 
 table.InvoiceFooterTotals td.title
 {
