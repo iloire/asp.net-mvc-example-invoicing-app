@@ -24,7 +24,7 @@ namespace iloire_Facturacion.Controllers
 
             s.Invoices = (from i in db.Invoices
                             where i.TimeStamp >= fromDate && i.TimeStamp <= toDate
-                            select i).ToList();
+                            select i).ToList().Where(i=>!i.IsProposal).ToList();
 
             s.Purchases = (from p in db.Purchases
                              where p.TimeStamp >= fromDate && p.TimeStamp <= toDate
