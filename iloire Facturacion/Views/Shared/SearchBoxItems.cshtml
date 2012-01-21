@@ -8,22 +8,23 @@
 @model string
 
 <script>
-    function SetQ(q) {
+    function SetQ(q, year) {
+        var startd, end;
         if (q == 1) {
-            $('#from').val('1/01/@DateTime.Now.Year');
-            $('#to').val('31/03/@DateTime.Now.Year');
+            $('#from').val('1/01/' + year);
+            $('#to').val('31/03/' + year);
         }
         else if (q == 2) {
-            $('#from').val('1/04/@DateTime.Now.Year');
-            $('#to').val('30/06/@DateTime.Now.Year');
+            $('#from').val('1/04/'+year);
+            $('#to').val('30/06/'+ year);
         }
         else if (q == 3) {
-            $('#from').val('1/07/@DateTime.Now.Year');
-            $('#to').val('30/09/@DateTime.Now.Year');
+            $('#from').val('1/07/' + year);
+            $('#to').val('30/09/' + year);
         }
         else if (q == 4) {
-            $('#from').val('1/10/@DateTime.Now.Year');
-            $('#to').val('31/12/@DateTime.Now.Year');
+            $('#from').val('1/10/' + year);
+            $('#to').val('31/12/' + year);
         }
     }
 </script>
@@ -48,10 +49,22 @@
            <input type="submit" value="Filter" class="btn small" />
 
            <div class="setQuarter">
-           <a name="" onclick="SetQ(1)" href="#">First Quarter</a>
-           <a name="" onclick="SetQ(2)" href="#">Second Quarter</a>
-           <a name="" onclick="SetQ(3)" href="#">Third Quarter</a>
-           <a name="" onclick="SetQ(4)" href="#">Quarter Quarter</a>
+                <div>
+                   @{var year=DateTime.Now.Year-1;}
+                   <strong>@year:</strong>               
+                   <a name="" onclick="SetQ(1, @year)" href="#">1Q</a>
+                   <a name="" onclick="SetQ(2, @year)" href="#">2Q</a>
+                   <a name="" onclick="SetQ(3, @year)" href="#">3Q</a>
+                   <a name="" onclick="SetQ(4, @year)" href="#">4Q</a>
+               </div>
+               <div>
+                   @{year = DateTime.Now.Year;}
+                   <strong>@year:</strong>
+                   <a name="" onclick="SetQ(1, @year)" href="#">1Q</a>
+                   <a name="" onclick="SetQ(2, @year)" href="#">2Q</a>
+                   <a name="" onclick="SetQ(3, @year)" href="#">3Q</a>
+                   <a name="" onclick="SetQ(4, @year)" href="#">4Q</a>
+               </div>
            </div>
         </div>    
  </div>

@@ -3,8 +3,8 @@
 }
 
 <p align="right" style="float:right">
-    @Html.ActionLink("Create new Invoice", "Create","Invoice", null, new { @class = "btn" })
-    @Html.ActionLink("Create new expense", "Create","Purchase", null, new { @class = "btn" })
+    @Html.ActionLink("Create new Invoice", "Create","Invoice", null, new { @class = "btn primary" })
+    @Html.ActionLink("Create new expense", "Create", "Purchase", null, new { @class = "btn primary" })
 </p>
 
 <h2>Dashboard</h2>
@@ -30,7 +30,10 @@
     </td>
     <td>
         <h3>This year</h3>
-        @{Html.RenderAction("ThisYearSummary", "Reports");}
+        @{Html.RenderAction("YearSummary", "Reports", new {id=DateTime.Now.Year});}
+
+        <h3>Last year</h3>
+        @{Html.RenderAction("YearSummary", "Reports", new { id = DateTime.Now.Year-1 });}
     </td>
 </tr>
 </table>

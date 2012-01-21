@@ -9,7 +9,7 @@
 
 <table>
 <tr>
-    <td style="background-color:#f5f5f5"></td>
+    <td width="100" style="background-color:#f5f5f5"></td>
     <td><strong>Q1</strong></td>
     <td><strong>Q2</strong></td>
     <td><strong>Q3</strong></td>
@@ -28,11 +28,11 @@
 
 <tr>
     <td><strong>Net Expense:</strong></td>
-    <td>@String.Format("{0:C}", Model.Q1.NetExpense)</td>
-    <td>@String.Format("{0:C}", Model.Q2.NetExpense)</td>
-    <td>@String.Format("{0:C}", Model.Q3.NetExpense)</td>
-    <td>@String.Format("{0:C}", Model.Q4.NetExpense)</td>
-    <td style="background-color:#f5f5f5">@String.Format("{0:C}", Model.Q1.NetExpense + Model.Q2.NetExpense + Model.Q3.NetExpense + Model.Q4.NetExpense)</td>
+    <td><span class=expense>@String.Format("{0:C}", Model.Q1.NetExpense)</span></td>
+    <td><span class=expense>@String.Format("{0:C}", Model.Q2.NetExpense)</span></td>
+    <td><span class=expense>@String.Format("{0:C}", Model.Q3.NetExpense)</span></td>
+    <td><span class=expense>@String.Format("{0:C}", Model.Q4.NetExpense)</span></td>
+    <td style="background-color:#f5f5f5"><span class=expense>@String.Format("{0:C}", Model.Q1.NetExpense + Model.Q2.NetExpense + Model.Q3.NetExpense + Model.Q4.NetExpense)</span></td>
 </tr>
 
 <tr>

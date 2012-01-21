@@ -58,6 +58,7 @@
               <a href="#" class="dropdown-toggle">Reports</a>
               <ul class="dropdown-menu">
                 <li><a href="@Url.Action("ByYear", "Reports", new { id = DateTime.Now.Year})">@DateTime.Now.Year</a></li>
+                <li><a href="@Url.Action("ByYear", "Reports", new { id = DateTime.Now.Year-1})">@(DateTime.Now.Year-1)</a></li>
                 <li><a href="@Url.Action("ProfitAndLoss", "Reports")">Profit and Loss</a></li>
               </ul>
             </li>

@@ -17,7 +17,7 @@
     <p>
     <strong>NET Income:</strong> @String.Format("{0:C}", Model.NetIncome)
     <br />
-    <strong>NET Expense:</strong> @String.Format("{0:C}", Model.NetExpense)
+    <strong>NET Expense:</strong><span class=expense> @String.Format("{0:C}", Model.NetExpense)</span>
     <hr />
     <strong>Benefit:</strong> 
     @{Html.RenderPartial("Money", Model.NetBenefit);}

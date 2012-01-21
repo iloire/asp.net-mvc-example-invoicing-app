@@ -76,9 +76,15 @@ div.searchBox div.setQuarter
     margin:5px 0px 0px 30px;   
 }                
 
+div.searchBox div.setQuarter div
+{
+    padding:4px;
+}
+
 div.searchBox div.setQuarter a
 {
     color:Gray; 
+    font-size:120%;
     text-decoration:underline;
 }
 
@@ -144,3 +150,14 @@ table.InvoiceFooterTotals td.title
     display: none;
 }
 
+h4 {
+    line-height: 20px !important;
+}
+
+td.total 
+{
+    font-weight:bold;
+    background-color:#f5f5f5 !important;
+}
+
+.expense{color:red}

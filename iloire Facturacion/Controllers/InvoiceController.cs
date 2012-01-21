@@ -27,17 +27,19 @@ namespace iloire_Facturacion.Controllers
 
         public ViewResultBase Search(string text, string from, string to, int? page, bool? proposal = false)
         {
-            IQueryable<Invoice> invoicesQuery = db.Invoices;
+            IQueryable<Invoice> invoicesQuery = db.Invoices.Include(i => i.InvoiceDetails).Include(i => i.Customer);
 
             if (!string.IsNullOrWhiteSpace(from))
             {
-                DateTime fromDate = DateTime.Parse(from, CultureInfo.CurrentUICulture);
-                invoicesQuery = invoicesQuery.Where(t => t.TimeStamp >= fromDate);
+                DateTime fromDate;
+                if (DateTime.TryParse(from, CultureInfo.CurrentUICulture,  DateTimeStyles.AssumeUniversal, out fromDate))
+                    invoicesQuery = invoicesQuery.Where(t => t.TimeStamp >= fromDate);
             }
             if (!string.IsNullOrWhiteSpace(to)) 
             {
-                DateTime toDate = DateTime.Parse(to, CultureInfo.CurrentUICulture);
-                invoicesQuery = invoicesQuery.Where(t => t.TimeStamp <= toDate);
+                DateTime toDate;
+                if (DateTime.TryParse(to, CultureInfo.CurrentUICulture, DateTimeStyles.AssumeUniversal, out toDate))
+                    invoicesQuery = invoicesQuery.Where(t => t.TimeStamp <= toDate);
             }
 
             if (!string.IsNullOrWhiteSpace(text))
@@ -50,7 +52,10 @@ namespace iloire_Facturacion.Controllers
             int currentPageIndex = page.HasValue ? page.Value - 1 : 0;
 
             List<Invoice> invoices = invoicesQuery.OrderByDescending(i => i.InvoiceNumber).ToList(); //make the query
-            
+
+            ViewBag.NetTotal = invoices.Sum(i => i.NetTotal);
+            ViewBag.TotalWithVAT = invoices.Sum(i => i.TotalWithVAT);
+
             if (proposal == true)
                 invoices = invoices.Where(i => i.IsProposal).ToList(); //once the data is in memory, i can filter by IsProposal
 
@@ -88,12 +93,16 @@ namespace iloire_Facturacion.Controllers
         public ViewResult Index(int? page, bool? proposal = false)
         {
             int currentPageIndex = page.HasValue ? page.Value - 1 : 0;
-            var invoices = db.Invoices.Include(i => i.InvoiceDetails).Include(i => i.Customer);
+            var invoices = db.Invoices.Include(i => i.InvoiceDetails).Include(i => i.Customer).ToList();
             ViewBag.IsProposal = proposal;
+            
+            ViewBag.NetTotal = invoices.Sum(i => i.NetTotal);
+            ViewBag.TotalWithVAT = invoices.Sum(i => i.TotalWithVAT);
+
             if (proposal == true)
-                return View(invoices.OrderByDescending(i => i.TimeStamp).ToList().Where(i => i.IsProposal).ToPagedList(currentPageIndex, defaultPageSize));
+                return View(invoices.OrderByDescending(i => i.TimeStamp).Where(i => i.IsProposal).ToPagedList(currentPageIndex, defaultPageSize));
             else
-                return View(invoices.OrderByDescending(i => i.InvoiceNumber).ToList().Where(i => !i.IsProposal).ToPagedList(currentPageIndex, defaultPageSize));            
+                return View(invoices.OrderByDescending(i => i.InvoiceNumber).Where(i => !i.IsProposal).ToPagedList(currentPageIndex, defaultPageSize));            
         }
 
         //

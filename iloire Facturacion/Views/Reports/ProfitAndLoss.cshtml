@@ -45,7 +45,7 @@
 		<tbody>
 			<!-- INCOME -->
 			<tr class="section-title">
-			<td colspan="5"><h3>Income</h3></td>
+			<td colspan="5"><h4>Income</h4></td>
 			</tr>
 			
 			<!-- sales -->
@@ -62,7 +62,7 @@
 				<td class="ta_right">
 				 @String.Format("{0:C}", Model.Month3.NetIncome)									
                  </td>
-				<td class="ta_right">
+				<td class="ta_right total">
 				@String.Format("{0:C}", (Model.Month1.NetIncome + Model.Month2.NetIncome + Model.Month3.NetIncome))
 				</td>
 		    </tr>
@@ -79,14 +79,14 @@
 				<td class="ta_right">
 				 @String.Format("{0:C}", Model.Month3.VATReceived)									
                  </td>
-				<td class="ta_right">
+				<td class="ta_right total">
 				@String.Format("{0:C}", (Model.Month1.VATReceived + Model.Month2.VATReceived + Model.Month3.VATReceived))
 				</td>
 		    </tr>
 			<!-- LESS EXPENSES -->
 			<tr>
 				<td colspan="5">
-					<h3>Expenses</h3>
+					<h4>Expenses</h4>
 				</td>
 			</tr>
 			
@@ -113,7 +113,7 @@
 					<td>
                         @String.Format("{0:C}", purchasesM3)	                        
 					</td>
-					<td>
+					<td class=total>
                         <strong>
                         @String.Format("{0:C}", purchasesM1 + purchasesM2 + purchasesM3)
                         </strong>	                        
@@ -145,12 +145,12 @@
 				<td><strong>@String.Format("{0:C}", vat_purchasedM1)</strong></td>
 				<td><strong>@String.Format("{0:C}", vat_purchasedM3)</strong></td>
 				<td><strong>@String.Format("{0:C}", vat_purchasedM3)</strong></td>
-				<td><strong>@String.Format("{0:C}", vat_purchasedM1 + vat_purchasedM2 + vat_purchasedM3)</strong></td>
+				<td class=total><strong>@String.Format("{0:C}", vat_purchasedM1 + vat_purchasedM2 + vat_purchasedM3)</strong></td>
 			</tr>
 
             <tr>
 				<td colspan="5">
-				    <h3>Net Profit</h3>
+				    <h4>Net Profit</h4>
 				</td>
 			</tr>
 			<tr>
@@ -158,12 +158,12 @@
 			    <td>@{Html.RenderPartial("Money", Model.Month1.NetBenefit);}</td>
 			    <td>@{Html.RenderPartial("Money", Model.Month2.NetBenefit);}</td>
 			    <td>@{Html.RenderPartial("Money", Model.Month3.NetBenefit);}</td>
-                <td>@{Html.RenderPartial("Money", Model.Month1.NetBenefit + Model.Month2.NetBenefit + Model.Month3.NetBenefit);}</td>
+                <td class=total>@{Html.RenderPartial("Money", Model.Month1.NetBenefit + Model.Month2.NetBenefit + Model.Month3.NetBenefit);}</td>
 			</tr>
       
             <tr>
 				<td colspan="5">
-				    <h3>VAT Balance</h3>
+				    <h4>VAT Balance</h4>
 				</td>
 			</tr>
 			<tr>
@@ -171,7 +171,7 @@
 			    <td>@{Html.RenderPartial("Money", -Model.Month1.VATBalance);}</td>
 			    <td>@{Html.RenderPartial("Money", -Model.Month2.VATBalance);}</td>
 			    <td>@{Html.RenderPartial("Money", -Model.Month3.VATBalance);}</td>
-                <td>@{Html.RenderPartial("Money", -Model.Month1.VATBalance - Model.Month2.VATBalance - Model.Month3.VATBalance);}</td>
+                <td class=total>@{Html.RenderPartial("Money", -Model.Month1.VATBalance - Model.Month2.VATBalance - Model.Month3.VATBalance);}</td>
 			</tr>
 		</tbody>
 	</table>

@@ -72,7 +72,7 @@ namespace iloire_Facturacion.Controllers
 
         public ViewResult Index(int? page)
         {
-            var purchases = db.Purchases.Include(p => p.Provider);
+            var purchases = db.Purchases.Include(p => p.Provider).Include(p => p.PurchaseType);
             int currentPageIndex = page.HasValue ? page.Value - 1 : 0;
             return View(purchases.OrderByDescending(p=>p.TimeStamp).ToPagedList(currentPageIndex, defaultPageSize));
         }

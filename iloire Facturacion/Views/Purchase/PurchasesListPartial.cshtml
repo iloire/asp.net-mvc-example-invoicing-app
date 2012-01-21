@@ -23,12 +23,10 @@
         </th>
         <th>
             Provider
-        </th>
-      
+        </th>      
         <th with="80">
             Date
         </th>
-        @*<th></th>*@
     </thead>
 
 @foreach (var item in Model) {
@@ -55,20 +53,16 @@
         <td>
             @Html.DisplayFor(modelItem => item.TimeStamp)
         </td>
-     @*   <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.PurchaseID }, new { @class = "btn primary"})
-           
-            @Html.ActionLink("Details", "Details", new { id=item.PurchaseID }, new { @class = "btn"}) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.PurchaseID }, new { @class = "btn"})
-        </td>*@
     </tr>
 }
 
  <tfoot>
         <tr>
             <td><span class="label">TOTALS: </span></td>
+            <td nowrap="nowrap">@String.Format("{0:C}", Model.Sum(i => i.SubTotal))</td>
+            <td></td>
             <td nowrap="nowrap">@String.Format("{0:C}", Model.Sum(i => i.TotalWithVAT))</td>
-            <td colspan="4"></td>
+            <td colspan="2"></td>
         </tr>
     </tfoot>
 

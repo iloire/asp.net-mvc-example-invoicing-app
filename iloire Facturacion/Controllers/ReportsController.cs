@@ -93,21 +93,19 @@ namespace iloire_Facturacion.Controllers
                 );
         }
 
-        [OutputCache(Duration=60)]
-        public ActionResult ThisYearSummary()
+        //[OutputCache(Duration=60)]
+        public ActionResult YearSummary(int id)
         {
-            int year = DateTime.Now.Year;
             YearSummary y=new YearSummary();
-            y.Q1 = GetSummary(TaxDateHelper.GetStartDate(1, year), TaxDateHelper.GetStartDate(2, year).AddDays(-1));
-            y.Q2 = GetSummary(TaxDateHelper.GetStartDate(2, year), TaxDateHelper.GetStartDate(3, year).AddDays(-1));
-            y.Q3 = GetSummary(TaxDateHelper.GetStartDate(3, year), TaxDateHelper.GetStartDate(4, year).AddDays(-1));
-            y.Q4 = GetSummary(TaxDateHelper.GetStartDate(4, year), TaxDateHelper.GetStartDate(1, year).AddYears(1).AddDays(-1));
+            y.Q1 = GetSummary(TaxDateHelper.GetStartDate(1, id), TaxDateHelper.GetStartDate(2, id).AddDays(-1));
+            y.Q2 = GetSummary(TaxDateHelper.GetStartDate(2, id), TaxDateHelper.GetStartDate(3, id).AddDays(-1));
+            y.Q3 = GetSummary(TaxDateHelper.GetStartDate(3, id), TaxDateHelper.GetStartDate(4, id).AddDays(-1));
+            y.Q4 = GetSummary(TaxDateHelper.GetStartDate(4, id), TaxDateHelper.GetStartDate(1, id).AddYears(1).AddDays(-1));
 
 
             return PartialView("YearSummary", y);
         }
-
- 
+        
         [OutputCache(Duration = 60)]
         public ActionResult ThisQuarterSummary()
         {
