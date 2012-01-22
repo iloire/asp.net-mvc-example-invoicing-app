@@ -16,10 +16,14 @@ public class Summary
 
     public decimal AmountPaid { get; set; }
     public decimal NetIncome { get; set; }
+    public decimal GrossIncome { get; set; }
+    
     public decimal NetExpense { get; set; }
+    public decimal GrossExpense { get; set; }
     public decimal NetBenefit { get { return NetIncome - NetExpense; } }
 
     public decimal VATReceived { get; set; }
+    public decimal VATPaid { get; set; }
 
     public decimal VATBalance { get; set; }
 }

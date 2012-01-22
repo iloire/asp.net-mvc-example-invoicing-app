@@ -1,0 +1,27 @@
+﻿@*
+	Iván Loire - www.iloire.com
+	Please readme README file for license terms.
+
+	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
+*@
+
+@model QuarterSummary
+
+
+@using (Html.BeginForm("QuarterDetails", "Reports", null, FormMethod.Get))
+{
+    <div class="searchBox">   
+          Quarter: @Html.DropDownList("quarter", new SelectList(new string[] { "1", "2", "3", "4" }, ViewBag.Quarter), new { @class="small"})
+          @{
+            var years = new List<int>();
+            for (int i = 0; i < 5; i++)
+            {
+                years.Add(DateTime.Now.Year - i);
+             }   
+           }
+           Year: @Html.DropDownList("year", new SelectList(years, ViewBag.Year), new { @class = "small" })
+          <input type="submit" value="Go" class="btn small" />
+    </div>
+}
+
+@{Html.RenderAction("QuarterDetailsPartial", Model);}

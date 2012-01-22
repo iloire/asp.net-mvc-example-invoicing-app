@@ -119,8 +119,9 @@
     </script>
 }
 
-<div class="span11">
-
+<table class="noborder">
+<tr>
+<td>
 @using (Html.BeginForm())
 {
     @Html.ValidationSummary(true)
@@ -128,9 +129,10 @@
     @{Html.RenderPartial("EditOrCreateInvoicePartial", Model);}
     </text>
 }
-</div>
+</td>
 
-<div class="span10">
+<td>
+
         <br /><br />
         <div id="my-modal" class="modal hide fade">
         <div class="modal-header">
@@ -156,4 +158,6 @@
     <div id="invoiceDetailsList">
         @{Html.RenderAction("IndexByInvoice", "InvoiceDetails", new { id = Model.InvoiceID, proposal = ViewBag.IsProposal});}
     </div>
-</div>
+</td>
+</tr>
+</table>

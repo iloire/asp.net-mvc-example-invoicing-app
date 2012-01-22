@@ -26,6 +26,10 @@ namespace iloire_Facturacion.Controllers
 
         public ViewResultBase Search(string text, string from, string to, int? page)
         {
+            Session["purchaseText"] = text;
+            Session["purchaseFrom"] = from;
+            Session ["purchaseTo"] = to;
+
             IQueryable<Purchase> expenses = db.Purchases;
 
             if (!string.IsNullOrWhiteSpace(from))
@@ -41,7 +45,7 @@ namespace iloire_Facturacion.Controllers
 
             if (!string.IsNullOrWhiteSpace(text))
             {
-                expenses = expenses.Where(t => t.Notes.ToLower().IndexOf(text.ToLower()) > -1);
+                expenses = expenses.Where(t => (t.Notes.ToLower().IndexOf(text.ToLower()) > -1) || (t.Article.ToLower().IndexOf(text.ToLower()) > -1));
             }
 
             int currentPageIndex = page.HasValue ? page.Value - 1 : 0;
@@ -69,9 +73,23 @@ namespace iloire_Facturacion.Controllers
 
         //
         // GET: /Purchase/
-
-        public ViewResult Index(int? page)
+        
+        public ActionResult Index(int? page, string filter)
         {
+            #region remember filter stuff
+            if (filter == "clear")
+            {
+                Session["purchaseText"] = null;
+                Session["purchaseFrom"] = null;
+                Session["purchaseTo"] = null;
+            }
+            else {
+                if ((Session["purchaseText"] != null) || (Session["purchaseFrom"] != null) || (Session["purchaseTo"] != null)) {                    
+                    return RedirectToAction("Search", new { text = Session["purchaseText"], from = Session["purchaseFrom"], to = Session["purchaseTo"] });
+                }
+            }
+            #endregion
+
             var purchases = db.Purchases.Include(p => p.Provider).Include(p => p.PurchaseType);
             int currentPageIndex = page.HasValue ? page.Value - 1 : 0;
             return View(purchases.OrderByDescending(p=>p.TimeStamp).ToPagedList(currentPageIndex, defaultPageSize));

@@ -7,32 +7,10 @@
 
 @model Summary
 
-<div class="summary">
-    <p>
-    <em>
-    from: @String.Format("{0:d}", Model.From) to @String.Format("{0:d}", Model.To) 
-    </em>
-    </p>
-
-    <p>
-    <strong>NET Income:</strong> @String.Format("{0:C}", Model.NetIncome)
-    <br />
-    <strong>NET Expense:</strong><span class=expense> @String.Format("{0:C}", Model.NetExpense)</span>
-    <hr />
-    <strong>Benefit:</strong> 
-    @{Html.RenderPartial("Money", Model.NetBenefit);}
-    
-    <br />
-    <strong>Amount Paid:</strong> @String.Format("{0:C}", Model.AmountPaid)
-    <br />
-    <strong>VAT:</strong> @String.Format("{0:C}", Model.VATBalance)
-    
-    </p>
-</div>
 
 @{
     var chart_name = Model.GetHashCode();  
-  }
+    }
 
 <div class="chart_summary">
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
@@ -49,8 +27,38 @@
             data.setValue(1, 0, 'Expenses');
             data.setValue(1, 1, @Model.NetExpense);
             var chart = new google.visualization.PieChart(document.getElementById('@chart_name'));
-            chart.draw(data, { width: 350, height: 200, title: 'Income vs expenses' });
+            chart.draw(data, { width: 350, height: 150, title: 'Income vs expenses' });
         }
     </script>
     <div id="@chart_name"></div>
 </div>
+
+<div class="summary">
+    <h4>
+    @String.Format("{0:d}", Model.From)  -  @String.Format("{0:d}", Model.To)         
+    </h4>
+
+    <p>
+        <strong>NET Income:</strong> <span class="income big">@String.Format("{0:C}", Model.NetIncome)</span>
+        +
+        <strong>VAT received:</strong> <span class="income big">@String.Format("{0:C}", Model.VATReceived)</span>
+        =
+        <strong>Gross Income:</strong> <span class="income big">@String.Format("{0:C}", Model.GrossIncome) </span>
+        <br />
+        <strong>NET Expense:</strong><span class="expense big"> @String.Format("{0:C}", Model.NetExpense)</span>
+        +
+        <strong>VAT Paid:</strong> <span class="expense big">@String.Format("{0:C}", Model.VATPaid)</span>
+        =
+        <strong>Total Paid:</strong> <span class="expense big">@String.Format("{0:C}", Model.GrossExpense)</span>
+        <hr />
+        <strong>Benefit:</strong> 
+        <span class=expense>
+        @{Html.RenderPartial("Money", Model.NetBenefit);}
+        </span>    
+        <br />
+        <strong>VAT Balance:</strong> @String.Format("{0:C}", Model.VATBalance)
+    
+    </p>
+</div>
+
+

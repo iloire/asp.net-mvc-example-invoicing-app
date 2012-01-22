@@ -22,16 +22,17 @@ namespace iloire_Facturacion
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+        "Invoice", // Nombre de ruta
+        "Invoice/{action}/{id}", // URL con parámetros
+        new { controller = "Invoice", action = "Index", id = UrlParameter.Optional, proposal = false } // Valores predeterminados de parámetro
+        );
+
+            routes.MapRoute(
               "Proposal", // Nombre de ruta
               "Proposal/{action}/{id}", // URL con parámetros
               new { controller = "Invoice", action = "Index", id = UrlParameter.Optional, proposal=true } // Valores predeterminados de parámetro
           );
-
-            routes.MapRoute(
-            "Invoice", // Nombre de ruta
-            "Invoice/{action}/{id}", // URL con parámetros
-            new { controller = "Invoice", action = "Index", id = UrlParameter.Optional, proposal = false } // Valores predeterminados de parámetro
-            );
+        
 
             routes.MapRoute(
                 "Default", // Nombre de ruta

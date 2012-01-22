@@ -260,7 +260,7 @@
     <Content Include="Views\Customer\EditOrCreateCustomerPartial.cshtml" />
     <Content Include="Views\Customer\CustomerListPartial.cshtml" />
     <Content Include="Views\Reports\ByYear.cshtml" />
-    <Content Include="Views\Reports\ProfitAndLoss.cshtml" />
+    <Content Include="Views\Reports\QuarterDetails.cshtml" />
     <Content Include="Views\PurchaseType\Index.cshtml" />
     <Content Include="Views\PurchaseType\Details.cshtml" />
     <Content Include="Views\PurchaseType\Create.cshtml" />
@@ -269,6 +269,7 @@
     <Content Include="Views\Shared\Money.cshtml" />
     <Content Include="Views\Invoice\PrintProposal.cshtml" />
     <Content Include="Views\Shared\DisplayMessages.cshtml" />
+    <Content Include="Views\Reports\QuarterDetailsPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -283,6 +284,7 @@
     <Content Include="App_GlobalResources\Print.es.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>Print.es.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

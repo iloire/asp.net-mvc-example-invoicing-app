@@ -27,6 +27,10 @@ namespace iloire_Facturacion.Controllers
 
         public ViewResultBase Search(string text, string from, string to, int? page, bool? proposal = false)
         {
+            Session["invoiceText"] = text;
+            Session["invoiceFrom"] = from;
+            Session["invoiceTo"] = to;
+
             IQueryable<Invoice> invoicesQuery = db.Invoices.Include(i => i.InvoiceDetails).Include(i => i.Customer);
 
             if (!string.IsNullOrWhiteSpace(from))
@@ -44,7 +48,7 @@ namespace iloire_Facturacion.Controllers
 
             if (!string.IsNullOrWhiteSpace(text))
             {
-                invoicesQuery = invoicesQuery.Where(t => t.Notes.ToLower().IndexOf(text.ToLower())>-1);
+                invoicesQuery = invoicesQuery.Where(t => (t.Notes.ToLower().IndexOf(text.ToLower()) > -1) || (t.Name.ToLower().IndexOf(text.ToLower()) > -1));
             }
 
             ViewBag.IsProposal = proposal;
@@ -90,8 +94,25 @@ namespace iloire_Facturacion.Controllers
         //
         // GET: /Invoice/
 
-        public ViewResult Index(int? page, bool? proposal = false)
+        public ActionResult Index(string filter, int? page, bool? proposal = false)
         {
+            #region remember filter stuff
+            if (filter == "clear")
+            {
+                Session["invoiceText"] = null;
+                Session["invoiceFrom"] = null;
+                Session["invoiceTo"] = null;
+            }
+            else
+            {
+                if ((Session["invoiceText"] != null) || (Session["invoiceFrom"] != null) || (Session["invoiceTo"] != null))
+                {
+                    return RedirectToAction("Search", new { text = Session["invoiceText"], from = Session["invoiceFrom"], to = Session["invoiceTo"] });
+                }
+            }
+            #endregion
+
+
             int currentPageIndex = page.HasValue ? page.Value - 1 : 0;
             var invoices = db.Invoices.Include(i => i.InvoiceDetails).Include(i => i.Customer).ToList();
             ViewBag.IsProposal = proposal;

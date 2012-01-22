@@ -20,17 +20,34 @@
     DateTime startQ4 = new DateTime(Model, 10, 1);
 }
 
-<h3>Q1</h3>
-@{Html.RenderAction("PeriodSummary", "Reports", new { fromDate = startQ1, toDate = startQ2.AddDays(-1) });}
 
-<h3>Q2</h3>
-@{Html.RenderAction("PeriodSummary", "Reports", new { fromDate = startQ2, toDate = startQ3.AddDays(-1) });}
-
-<h3>Q3</h3>
-@{Html.RenderAction("PeriodSummary", "Reports", new { fromDate = startQ3, toDate = startQ4.AddDays(-1) });}
-
-<h3>Q4</h3>
-@{Html.RenderAction("PeriodSummary", "Reports", new { fromDate = startQ4, toDate = startQ1.AddYears(1).AddDays(-1) });}
-
-<h2>Balance</h2>
+<h2>@Model Year balance</h2>
+<div class="periodSummary alert-message warning">
 @{Html.RenderAction("PeriodSummary", "Reports", new { fromDate = startQ1, toDate = startQ1.AddYears(1).AddDays(-1) });}
+</div>
+
+
+<div class="periodSummary">
+<h2>Q1</h2>
+@{Html.RenderAction("PeriodSummary", "Reports", new { fromDate = startQ1, toDate = startQ2.AddDays(-1) });}
+@{Html.RenderAction("QuarterDetailsPartial", "Reports", new { quarter = 1, year = Model});}
+</div>
+
+
+<div class="periodSummary">
+<h2>Q2</h2>
+@{Html.RenderAction("PeriodSummary", "Reports", new { fromDate = startQ2, toDate = startQ3.AddDays(-1) });}
+@{Html.RenderAction("QuarterDetailsPartial", "Reports", new { quarter = 2, year = Model });}
+</div>
+
+<div class="periodSummary">
+<h2>Q3</h2>
+@{Html.RenderAction("PeriodSummary", "Reports", new { fromDate = startQ3, toDate = startQ4.AddDays(-1) });}
+@{Html.RenderAction("QuarterDetailsPartial", "Reports", new { quarter = 3, year = Model });}
+</div>
+
+<div class="periodSummary">
+<h2>Q4</h2>
+@{Html.RenderAction("PeriodSummary", "Reports", new { fromDate = startQ4, toDate = startQ1.AddYears(1).AddDays(-1) });}
+@{Html.RenderAction("QuarterDetailsPartial", "Reports", new { quarter = 4, year = Model });}
+</div>

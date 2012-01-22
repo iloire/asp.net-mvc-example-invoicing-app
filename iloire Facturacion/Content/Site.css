@@ -88,11 +88,41 @@ div.searchBox div.setQuarter a
     text-decoration:underline;
 }
 
-.summary
+.periodSummary
 {
-    padding:10px;
-    float:left;
-    margin-right:30px;    
+    clear:both;    
+    border:3px solid #f2f2f2;
+    padding:15px 10px 10px 15px;
+    -webkit-border-radius:0 3px 3px 0;
+    -moz-border-radius:0 3px 3px 0;
+    border-radius:0 3px 3px 0;     
+    margin-bottom:20px;           
+
+}
+
+.periodSummary .chart_summary
+{
+    float:right;
+}
+.periodSummary .summary
+{
+    margin:10px 0px 10px 0px;
+    padding:10px;        
+}
+
+.periodSummary .summary .big
+{
+    font-size:130%;
+    font-weight:bold;    
+}
+
+.periodSummary .summary hr
+{
+    margin: 5px;    
+}
+.periodSummary .summary h4
+{
+    margin-bottom:15px;
 }
 
 .negative 
@@ -110,7 +140,7 @@ div.searchBox div.setQuarter a
 textarea.proposalDetails
 {
     height:400px;
-    width:500px;
+    min-width:400px;
 }
 
 table.proposal tfoot tr td
@@ -151,7 +181,7 @@ table.InvoiceFooterTotals td.title
 }
 
 h4 {
-    line-height: 20px !important;
+    line-height: 20px !important;    
 }
 
 td.total 
@@ -161,3 +191,6 @@ td.total
 }
 
 .expense{color:red}
+.income{color:green}
+
+.noborder{border:0}

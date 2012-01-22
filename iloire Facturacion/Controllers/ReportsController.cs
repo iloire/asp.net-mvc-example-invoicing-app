@@ -22,7 +22,7 @@ namespace iloire_Facturacion.Controllers
             s.From = fromDate;
             s.To = toDate;
 
-            s.Invoices = (from i in db.Invoices
+            s.Invoices = (from i in db.Invoices.Include("InvoiceDetails")
                             where i.TimeStamp >= fromDate && i.TimeStamp <= toDate
                             select i).ToList().Where(i=>!i.IsProposal).ToList();
 
@@ -32,13 +32,16 @@ namespace iloire_Facturacion.Controllers
 
 
             s.NetExpense = s.Purchases.Sum(i => i.SubTotal);
+            s.GrossExpense = s.Purchases.Sum(i => i.TotalWithVAT);
+            
             s.NetIncome = s.Invoices.Sum(i => i.NetTotal);
+            s.GrossIncome = s.Invoices.Sum(i=>i.TotalWithVAT);
 
             s.VATReceived = s.Invoices.Sum(i => i.VATAmount);
+            s.VATPaid = s.Purchases.Sum(i => i.VAT);
+            s.VATBalance = s.Invoices.Sum(i => i.VATAmount) - s.Purchases.Sum(p => p.VATAmount);
 
             s.AmountPaid = s.Invoices.Where(i => i.Paid).Sum(i => i.TotalToPay);
-
-            s.VATBalance = s.Invoices.Sum(i => i.VATAmount) - s.Purchases.Sum(p => p.VATAmount);
 
             return s;
         }
@@ -46,7 +49,12 @@ namespace iloire_Facturacion.Controllers
         //
         // GET: /Reports/
 
-        public ActionResult ProfitAndLoss(int? quarter, int? year) {
+        public ActionResult QuarterDetails(int? quarter, int? year) {
+            return View();
+        }
+
+
+        public ActionResult QuarterDetailsPartial (int? quarter, int? year) {
             DateTime start, end;
 
             if (!year.HasValue || !quarter.HasValue)
@@ -74,9 +82,8 @@ namespace iloire_Facturacion.Controllers
 
             ViewBag.Year = year.Value;
             ViewBag.Quarter = quarter.Value;
-            
-            
-            return View(quarter_Summary);
+
+            return PartialView("QuarterDetailsPartial", quarter_Summary);
         }
         
         
@@ -93,7 +100,7 @@ namespace iloire_Facturacion.Controllers
                 );
         }
 
-        //[OutputCache(Duration=60)]
+        [OutputCache(Duration=60)]
         public ActionResult YearSummary(int id)
         {
             YearSummary y=new YearSummary();
@@ -115,6 +122,19 @@ namespace iloire_Facturacion.Controllers
             DateTime end;
             
             TaxDateHelper.CalculateQuarter(DateTime.Now, out quarter, out year, out start, out end);
+
+            return PeriodSummary(start, end);
+        }
+
+        [OutputCache(Duration = 60)]
+        public ActionResult QuarterSummary(DateTime date)
+        {
+            int quarter = 0;
+            int year = 0;
+            DateTime start;
+            DateTime end;
+
+            TaxDateHelper.CalculateQuarter(date, out quarter, out year, out start, out end);
 
             return PeriodSummary(start, end);
         }

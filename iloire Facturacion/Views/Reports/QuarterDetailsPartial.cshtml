@@ -8,22 +8,6 @@
 @model QuarterSummary
 
 
-@using (Html.BeginForm("ProfitAndLoss", "Reports", null, FormMethod.Get))
-{
-    <div class="searchBox">   
-          Quarter: @Html.DropDownList("quarter", new SelectList(new string[] { "1", "2", "3", "4" }, ViewBag.Quarter), new { @class="small"})
-          @{
-            var years = new List<int>();
-            for (int i = 0; i < 5; i++)
-            {
-                years.Add(DateTime.Now.Year - i);
-             }   
-           }
-           Year: @Html.DropDownList("year", new SelectList(years, ViewBag.Year), new { @class = "small" })
-          <input type="submit" value="Go" class="btn small" />
-    </div>
-}
-
 <table class="zebra-striped" cellspacing="0" cellpadding="0" width="100%">
 		<colgroup>
 			    <col style="width: 156px;">
@@ -51,19 +35,19 @@
 			<!-- sales -->
 			<tr>
 				<td>
-                Net Income from sales (EUR)
+                @Html.ActionLink("Net Incom from sales (EUR)", "Search", "Invoice", new { from = Model.Month1.From.ToShortDateString(), to = Model.Month3.From.AddMonths(1).AddDays(-1).ToShortDateString()}, null)                
                 </td>
 				<td>
-                 @String.Format("{0:C}", Model.Month1.NetIncome)
+                @Html.ActionLink(String.Format("{0:C}", Model.Month1.NetIncome), "Search", "Invoice", new { from = Model.Month1.From.ToShortDateString(), to = Model.Month1.From.AddMonths(1).AddDays(-1).ToShortDateString()}, null)                
                 </td>
 				<td class="ta_right">						
-                   @String.Format("{0:C}", Model.Month2.NetIncome)
+                @Html.ActionLink(String.Format("{0:C}", Model.Month2.NetIncome), "Search", "Invoice", new { from = Model.Month2.From.ToShortDateString(), to = Model.Month2.From.AddMonths(1).AddDays(-1).ToShortDateString()}, null)                
 				</td>
 				<td class="ta_right">
-				 @String.Format("{0:C}", Model.Month3.NetIncome)									
+                @Html.ActionLink(String.Format("{0:C}", Model.Month3.NetIncome), "Search", "Invoice", new { from = Model.Month3.From.ToShortDateString(), to = Model.Month3.From.AddMonths(1).AddDays(-1).ToShortDateString()}, null)
                  </td>
 				<td class="ta_right total">
-				@String.Format("{0:C}", (Model.Month1.NetIncome + Model.Month2.NetIncome + Model.Month3.NetIncome))
+				@Html.ActionLink(String.Format("{0:C}", (Model.Month1.NetIncome + Model.Month2.NetIncome + Model.Month3.NetIncome)), "Search", "Invoice", new { from = Model.Month1.From.ToShortDateString(), to = Model.Month3.From.AddMonths(1).AddDays(-1).ToShortDateString() }, null)                
 				</td>
 		    </tr>
             <tr>
@@ -114,6 +98,7 @@
                         @String.Format("{0:C}", purchasesM3)	                        
 					</td>
 					<td class=total>
+
                         <strong>
                         @String.Format("{0:C}", purchasesM1 + purchasesM2 + purchasesM3)
                         </strong>	                        
@@ -129,10 +114,22 @@
                     var totat_purchasedM3 = Model.Month3.Purchases.Sum(p => p.SubTotal);
                     
                  }		
-				<td><strong>@String.Format("{0:C}", totat_purchasedM1)</strong></td>
-				<td><strong>@String.Format("{0:C}", totat_purchasedM2)</strong></td>
-				<td><strong>@String.Format("{0:C}", totat_purchasedM3)</strong></td>
-				<td><strong>@String.Format("{0:C}", totat_purchasedM1 + totat_purchasedM2 + totat_purchasedM3)</strong></td>
+				<td>
+                <strong>
+                    @Html.ActionLink(String.Format("{0:C}", totat_purchasedM1), "Search", "Purchase", new { from = Model.Month1.From.ToShortDateString(), to = Model.Month1.From.AddMonths(1).AddDays(-1).ToShortDateString() }, null)                
+                </strong>
+                </td>
+				<td><strong>
+                    @Html.ActionLink(String.Format("{0:C}", totat_purchasedM2), "Search", "Purchase", new { from = Model.Month2.From.ToShortDateString(), to = Model.Month2.From.AddMonths(1).AddDays(-1).ToShortDateString() }, null)                                                        
+                </strong></td>
+				<td><strong>
+                    @Html.ActionLink(String.Format("{0:C}", totat_purchasedM3), "Search", "Purchase", new { from = Model.Month3.From.ToShortDateString(), to = Model.Month3.From.AddMonths(1).AddDays(-1).ToShortDateString() }, null)                                                        
+                </strong></td>
+				<td>
+                    <strong>
+                    @Html.ActionLink(String.Format("{0:C}", totat_purchasedM1 + totat_purchasedM2 + totat_purchasedM3), "Search", "Purchase", new { from = Model.Month1.From.ToShortDateString(), to = Model.Month3.From.AddMonths(1).AddDays(-1).ToShortDateString() }, null)                
+                   </strong>
+                </td>
 			</tr>
             <tr>
 				<td><strong>VAT from Expenses</strong></td>		

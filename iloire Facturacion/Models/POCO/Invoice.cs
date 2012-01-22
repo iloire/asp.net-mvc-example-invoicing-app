@@ -55,6 +55,9 @@ public class Invoice
         }
     }
 
+    /// <summary>
+    /// Total before TAX
+    /// </summary>
     public decimal NetTotal
     {
         get {
@@ -76,6 +79,9 @@ public class Invoice
         }
     }
 
+    /// <summary>
+    /// Total with tax
+    /// </summary>
     public decimal TotalWithVAT
     {
         get
@@ -87,6 +93,9 @@ public class Invoice
         }
     }
 
+    /// <summary>
+    /// Total with VAT minus advanced tax payment 
+    /// </summary>
     public decimal TotalToPay {
         get {
             return TotalWithVAT - AdvancePaymentTaxAmount;

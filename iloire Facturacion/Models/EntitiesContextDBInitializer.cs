@@ -59,7 +59,7 @@ public class EntitiesContextInitializer : DropCreateDatabaseIfModelChanges<Invoi
                 invoice.Customer = customers[new Random(m).Next(0, customers.Count - 1)]; //random customer
                 invoice.AdvancePaymentTax = 15;
                 invoice.Name = "Consulting services, as detailed in the invoice";
-                invoice.TimeStamp = new DateTime(2011, m, new Random().Next(1, 28)); //random date (this month)
+                invoice.TimeStamp = new DateTime(DateTime.Now.Year, m, new Random().Next(1, 28)); //random date (this month)
                 invoice.DueDate = invoice.TimeStamp.AddDays(90);
                 invoice.Notes = invoice.Name + " notes";
                 invoice.Paid = new Random().Next(0, 10)>=1; //low probability of unpaid
