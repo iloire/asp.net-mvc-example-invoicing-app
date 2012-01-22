@@ -121,7 +121,7 @@
 
 <table class="noborder">
 <tr>
-<td>
+<td width="40%">
 @using (Html.BeginForm())
 {
     @Html.ValidationSummary(true)
@@ -131,25 +131,7 @@
 }
 </td>
 
-<td>
-
-        <br /><br />
-        <div id="my-modal" class="modal hide fade">
-        <div class="modal-header">
-            <a href="#" class="close">&times;</a>
-            <h3>@entityname detail</h3>
-        </div>
-        <div class="modal-body">
-            <div id="msgError"></div>
-            <p class="body">
-                   
-            </p>
-        </div>
-        <div class="modal-footer">
-             
-        </div>
-        </div>
-
+<td width="60%">
      <p>
          <a href="@Url.Action("Create", "InvoiceDetails", new { id = Model.InvoiceID })" idInvoice="@Model.InvoiceID" class="btn newDetailInvoice">Create new @entityname details</a>
      </p>
@@ -161,3 +143,21 @@
 </td>
 </tr>
 </table>
+
+
+<div id="my-modal" class="modal hide fade">
+<div class="modal-header">
+    <a href="#" class="close">&times;</a>
+    <h3>@entityname detail</h3>
+</div>
+<div class="modal-body">
+    <div id="msgError"></div>
+    <p class="body">
+                   
+    </p>
+</div>
+<div class="modal-footer">
+             
+</div>
+</div>
+
