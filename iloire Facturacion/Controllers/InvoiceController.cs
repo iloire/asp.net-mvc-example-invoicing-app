@@ -107,7 +107,7 @@ namespace iloire_Facturacion.Controllers
             {
                 if ((Session["invoiceText"] != null) || (Session["invoiceFrom"] != null) || (Session["invoiceTo"] != null))
                 {
-                    return RedirectToAction("Search", new { text = Session["invoiceText"], from = Session["invoiceFrom"], to = Session["invoiceTo"] });
+                    return RedirectToAction("Search", new { text = Session["invoiceText"], from = Session["invoiceFrom"], to = Session["invoiceTo"], proposal=proposal });
                 }
             }
             #endregion
