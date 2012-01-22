@@ -78,6 +78,14 @@ Based on convention, EF will look for a connection strign named as the DBContext
 
 ## TAGS (change log):
 
+**0.18**
+
+ * Config tablesorter to handle datetime
+ * Improved reports
+ * CSS Styles
+ * Other general improvements and fixes
+
+
 **0.17**
 
  * Bug fixing in proposals.
