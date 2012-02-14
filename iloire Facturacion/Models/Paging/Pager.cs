@@ -27,21 +27,6 @@ namespace MvcPaging
 			this.ajaxOptions = ajaxOptions;
 		}
 
-
-        /*
-         * using twitter bootstrap css style:
-         <div class="pagination">
-  <ul>
-    <li class="prev disabled"><a href="#">&larr; Previous</a></li>
-    <li class="active"><a href="#">1</a></li>
-    <li><a href="#">2</a></li>
-    <li><a href="#">3</a></li>
-    <li><a href="#">4</a></li>
-    <li><a href="#">5</a></li>
-    <li class="next"><a href="#">Next &rarr;</a></li>
-  </ul>
-</div>
-         */
         public HtmlString RenderHtml()
 		{
 			var pageCount = (int)Math.Ceiling(totalItemCount / (double)pageSize);
@@ -123,8 +108,7 @@ namespace MvcPaging
                     sb.Append("<li>");
 					sb.Append(GeneratePageLink(i.ToString(), i));
                     sb.Append("</li>");
-				}
-                sb.Append("</li>");
+				}                
 			}
 			if (end < (pageCount - 3))
 			{
