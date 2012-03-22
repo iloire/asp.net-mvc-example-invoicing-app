@@ -10,10 +10,10 @@
 <table>
 <tr>
     <td width="100" style="background-color:#f5f5f5"></td>
-    <td><strong>Q1</strong></td>
-    <td><strong>Q2</strong></td>
-    <td><strong>Q3</strong></td>
-    <td><strong>Q4</strong></td>
+    <td><strong>@Html.ActionLink("Q1", "QuarterDetails", "Reports", new { quarter = 1, year = Model.Q1.Year }, null)</strong></td>
+    <td><strong>@Html.ActionLink("Q2", "QuarterDetails", "Reports", new { quarter = 2, year = Model.Q2.Year }, null)</strong></td>
+    <td><strong>@Html.ActionLink("Q3", "QuarterDetails", "Reports", new { quarter = 3, year = Model.Q3.Year }, null)</strong></td>
+    <td><strong>@Html.ActionLink("Q4", "QuarterDetails", "Reports", new { quarter = 4, year = Model.Q4.Year }, null)</strong></td>
     <td><strong>TOTAL</strong></td>
 </tr>
 
