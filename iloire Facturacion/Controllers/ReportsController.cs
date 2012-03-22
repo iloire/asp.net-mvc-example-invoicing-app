@@ -105,9 +105,16 @@ namespace iloire_Facturacion.Controllers
         {
             YearSummary y=new YearSummary();
             y.Q1 = GetSummary(TaxDateHelper.GetStartDate(1, id), TaxDateHelper.GetStartDate(2, id).AddDays(-1));
+            y.Q1.Year = id;
+            
             y.Q2 = GetSummary(TaxDateHelper.GetStartDate(2, id), TaxDateHelper.GetStartDate(3, id).AddDays(-1));
+            y.Q2.Year = id;
+            
             y.Q3 = GetSummary(TaxDateHelper.GetStartDate(3, id), TaxDateHelper.GetStartDate(4, id).AddDays(-1));
+            y.Q3.Year = id;
+            
             y.Q4 = GetSummary(TaxDateHelper.GetStartDate(4, id), TaxDateHelper.GetStartDate(1, id).AddYears(1).AddDays(-1));
+            y.Q4.Year = id;
 
 
             return PartialView("YearSummary", y);
