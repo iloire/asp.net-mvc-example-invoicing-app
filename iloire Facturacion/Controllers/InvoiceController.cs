@@ -73,13 +73,13 @@ namespace iloire_Facturacion.Controllers
 
         public PartialViewResult UnPaidInvoices()
         {
-            var invoices = db.Invoices.Include(i => i.Customer).Where(i => i.Paid == false && i.DueDate >= DateTime.Now).OrderBy(i => i.DueDate);
+            var invoices = db.Invoices.Include(i => i.Customer).Where(i => i.Paid == false && i.DueDate >= DateTime.Now && i.InvoiceNumber> 0).OrderBy(i => i.DueDate);
             return PartialView("InvoicesListPartial", invoices.ToList());
         }
 
         public PartialViewResult OverDueInvoices()
         {
-            var invoices = db.Invoices.Include(i => i.Customer).Where(i => i.Paid == false && i.DueDate<DateTime.Now).OrderBy(i => i.DueDate);
+            var invoices = db.Invoices.Include(i => i.Customer).Where(i => i.Paid == false && i.DueDate < DateTime.Now && i.InvoiceNumber > 0).OrderBy(i => i.DueDate);
             return PartialView("InvoicesListPartial", invoices.ToList());
         }
 
