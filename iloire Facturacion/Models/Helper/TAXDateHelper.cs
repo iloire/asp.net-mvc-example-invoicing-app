@@ -36,7 +36,7 @@ public class TaxDateHelper {
     public  static void CalculateQuarter(DateTime date, out int quarter, out int year, out DateTime start, out DateTime end)
     {
         year=date.Year;
-        if (date < GetStartDate(1,year)){
+        if (date < GetStartDate(2,year)){
             quarter = 1;
 
             start = GetStartDate(1,year);
