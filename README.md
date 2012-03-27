@@ -78,6 +78,15 @@ Based on convention, EF will look for a connection strign named as the DBContext
 
 ## TAGS (change log):
 
+**0.19**
+
+ * Bug fixing
+ * Added CLEditor WYSIWYG to proposal details
+ * Added AdvancePaymentTax to purchases
+ * Sorting by name (default)
+ * Change print languaje by parameter (Invoice/Print?lan=es-ES)
+ * Update to jQuery 1.7.2
+
 **0.18**
 
  * Config tablesorter to handle datetime
