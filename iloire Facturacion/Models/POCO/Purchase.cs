@@ -26,7 +26,11 @@ public class Purchase
     public int PurchaseTypeID { get; set; }
     [DisplayName("Expense category")]
     public virtual PurchaseType PurchaseType { get; set; }
-   
+
+    [DisplayName("Advance Payment Tax")]
+    [Range(0.00, 100.0, ErrorMessage = "Value must be a % between 0 and 100")]
+    public decimal AdvancePaymentTax { get; set; } 
+
     #region Calculated fields
     public decimal SubTotal
     {

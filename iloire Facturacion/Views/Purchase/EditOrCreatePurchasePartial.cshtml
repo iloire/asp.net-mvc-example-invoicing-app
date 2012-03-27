@@ -57,6 +57,15 @@
         </div>
 		</div>
 
+         <div class="clearfix">
+            @Html.LabelFor(model => model.AdvancePaymentTax)
+        
+            <div class="input">
+                @Html.EditorFor(model => model.AdvancePaymentTax) %
+                @Html.ValidationMessageFor(model => model.AdvancePaymentTax)
+            </div>
+		</div>
+
         <div class="clearfix">
             @Html.LabelFor(model => model.Notes)
         
