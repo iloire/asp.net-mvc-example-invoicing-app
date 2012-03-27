@@ -13,6 +13,9 @@
 
 <script>
     $(document).ready(function () {
+
+        $(".proposalDetails").cleditor()[0].focus();
+
         $('#editInvoiceNumber').live('click',function () {
             $('#InvoiceNumber').attr('disabled', '');
         });

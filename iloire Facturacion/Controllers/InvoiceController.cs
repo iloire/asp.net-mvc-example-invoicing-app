@@ -189,6 +189,7 @@ namespace iloire_Facturacion.Controllers
         // POST: /Invoice/Create
 
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult Create(Invoice invoice, bool? proposal = false)
         {
             ViewBag.CustomerID = new SelectList(db.Customers.OrderBy(c => c.Name), "CustomerID", "Name", invoice.CustomerID);
@@ -261,6 +262,7 @@ namespace iloire_Facturacion.Controllers
         // POST: /Invoice/Edit/5
 
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult Edit(Invoice invoice, bool? proposal = false)
         {
             ViewBag.CustomerID = new SelectList(db.Customers.OrderBy(c => c.Name), "CustomerID", "Name", invoice.CustomerID);
