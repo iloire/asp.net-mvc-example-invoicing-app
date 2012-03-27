@@ -56,11 +56,14 @@
 	
 </fieldset>
 <p>
-    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn"})
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn primary"})
 </p>
 </div>
 
 <div class="span12">
-    <h2>Last invoices from this customer</h2>
+    <h2>Last invoices</h2>
     @{Html.RenderAction("LastInvoicesByCustomer", "Invoice", new { id = Model.CustomerID });}
+    
+    <h2>Last proposals</h2>
+    @{Html.RenderAction("LastProposalsByCustomer", "Invoice", new { id = Model.CustomerID });}
 </div>

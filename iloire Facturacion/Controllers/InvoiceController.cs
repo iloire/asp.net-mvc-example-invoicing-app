@@ -83,9 +83,16 @@ namespace iloire_Facturacion.Controllers
             return PartialView("InvoicesListPartial", invoices.ToList());
         }
 
+        
         public PartialViewResult LastInvoicesByCustomer(int id)
         {
-            var invoices = db.Invoices.Include(i => i.Customer).Where(i => i.CustomerID == id).OrderByDescending(i=>i.TimeStamp);
+            var invoices = db.Invoices.Include(i => i.Customer).Where(i => i.CustomerID == id && i.InvoiceNumber > 0).OrderByDescending(i => i.TimeStamp);
+            return PartialView("InvoicesListPartial", invoices.ToList());  
+        }
+
+        public PartialViewResult LastProposalsByCustomer(int id)
+        {
+            var invoices = db.Invoices.Include(i => i.Customer).Where(i => i.CustomerID == id && i.InvoiceNumber == 0).OrderByDescending(i=>i.TimeStamp);
             return PartialView("InvoicesListPartial", invoices.ToList());  
         }
 
