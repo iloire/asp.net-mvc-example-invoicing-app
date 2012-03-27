@@ -131,6 +131,21 @@ namespace iloire_Facturacion.Controllers
 
         public ViewResult Print(int id, bool? proposal = false)
         {
+            if (Request["lan"] != null)
+            {
+                //valid culture name?
+                CultureInfo[] cultures = System.Globalization.CultureInfo.GetCultures
+                         (CultureTypes.SpecificCultures);
+
+                var selectCulture = from p in cultures
+                                    where p.Name == Request["lan"]
+                                    select p;
+                
+                if (selectCulture.Count() == 1)
+                    System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo(Request["lan"]);
+            }
+
+
             ViewBag.Print = true;
             ViewBag.MyCompany = System.Configuration.ConfigurationManager.AppSettings["MyCompanyName"];
             ViewBag.MyCompanyID = System.Configuration.ConfigurationManager.AppSettings["MyCompanyID"];

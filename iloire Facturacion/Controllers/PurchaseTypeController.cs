@@ -17,7 +17,7 @@ namespace iloire_Facturacion.Controllers
 
         public ViewResult Index()
         {
-            return View(db.PurchaseTypes.ToList());
+            return View(db.PurchaseTypes.OrderBy(p=>p.Name).ToList());
         }
 
         //
