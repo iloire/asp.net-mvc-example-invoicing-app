@@ -57,11 +57,13 @@ namespace iloire_Facturacion.Controllers
 
             List<Invoice> invoices = invoicesQuery.OrderByDescending(i => i.InvoiceNumber).ToList(); //make the query
 
+            if (proposal == true)//once the data is in memory, i can filter by IsProposal
+                invoices = invoices.Where(i => i.IsProposal).ToList(); 
+            else
+                invoices = invoices.Where(i => !i.IsProposal).ToList();
+
             ViewBag.NetTotal = invoices.Sum(i => i.NetTotal);
             ViewBag.TotalWithVAT = invoices.Sum(i => i.TotalWithVAT);
-
-            if (proposal == true)
-                invoices = invoices.Where(i => i.IsProposal).ToList(); //once the data is in memory, i can filter by IsProposal
 
             var invoicesListPaged = invoices.ToPagedList(currentPageIndex, defaultPageSize);
 
