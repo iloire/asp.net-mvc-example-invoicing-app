@@ -79,6 +79,11 @@ namespace iloire_Facturacion.Controllers
             return PartialView("InvoicesListPartial", invoices.ToList());
         }
 
+        public PartialViewResult LatestProposals() {
+            var invoices = db.Invoices.Include(i => i.Customer).Where(i => i.InvoiceNumber == 0).OrderByDescending(i => i.TimeStamp);
+            return PartialView("InvoicesListPartial", invoices.ToList());  
+        }
+
         public PartialViewResult OverDueInvoices()
         {
             var invoices = db.Invoices.Include(i => i.Customer).Where(i => i.Paid == false && i.DueDate < DateTime.Now && i.InvoiceNumber > 0).OrderBy(i => i.DueDate);
@@ -238,10 +243,14 @@ namespace iloire_Facturacion.Controllers
                 var next_invoice = (from inv in db.Invoices
                                     orderby inv.InvoiceNumber descending
                                     select inv).FirstOrDefault();
+                
                 if (next_invoice != null)
                     invoice.InvoiceNumber = next_invoice.InvoiceNumber + 1; //assign next available invoice number 
 
-                ViewBag.Warning = "The current item is going to be converted on Invoice. A new InvoiceNumber has been pre-assigned. Click on 'Save' to continue.";
+                invoice.TimeStamp = DateTime.Now;
+                invoice.DueDate = DateTime.Now.AddDays(30);
+
+                ViewBag.Warning = "The current item is going to be converted on Invoice. A new InvoiceNumber has been pre-assigned. The dates will be modified accordingly. Click on 'Save' to continue.";
                 ViewBag.ShowMakeInvoice = ViewBag.ShowMakeProposal = false;
             }
             else if (makeproposal == true)
