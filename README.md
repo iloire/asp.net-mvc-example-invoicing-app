@@ -78,6 +78,11 @@ Based on convention, EF will look for a connection strign named as the DBContext
 
 ## TAGS (change log):
 
+**0.20** 19/04/2012
+
+ * Bug fixing
+ * General styling
+
 **0.19**
 
  * Bug fixing
