@@ -71,12 +71,21 @@ Based on convention, EF will look for a connection strign named as the DBContext
 
 ![Customer list](https://github.com/iloire/ASP.NET-MVC-ACME-Invoicing--App/raw/master/screenshots/list_customer01.png)
 
+### Edit Customer
+
+![Customer list](https://github.com/iloire/ASP.NET-MVC-ACME-Invoicing--App/raw/master/screenshots/edit_customer01.png)
+
 ### Project unit tests
 
 ![Unit testing](https://github.com/iloire/ASP.NET-MVC-ACME-Invoicing--App/raw/master/screenshots/unit_testing01.png)
 
 
 ## TAGS (change log):
+
+**0.20** 19/04/2012
+
+ * Bug fixing
+ * General styling
 
 **0.19**
 
