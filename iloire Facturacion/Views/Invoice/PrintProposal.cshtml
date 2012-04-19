@@ -8,7 +8,7 @@
 @model Invoice
 
 @{
-    ViewBag.Title = DateTime.Now.Year + " " + Model.Name + " " + Model.Customer.Name;
+    ViewBag.Title = DateTime.Now.Year + " " + Model.Name + Model.Notes + " - " + Model.Customer.Name;
     Layout = "~/Views/Shared/_LayoutPrint.cshtml";
 }
 
