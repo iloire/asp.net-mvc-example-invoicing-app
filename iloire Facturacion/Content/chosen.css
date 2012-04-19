@@ -4,7 +4,7 @@
   position: relative;
   display: inline-block;
   zoom: 1;
-  *display: inline;
+  *display: inline; 
 }
 .chzn-container .chzn-drop {
   background: #fff;
@@ -234,7 +234,7 @@
 }
 .chzn-container .chzn-results li {
   display: none;
-  line-height: 80%;
+  line-height: normal;
   padding: 7px 7px 8px;
   margin: 0;
   list-style: none;

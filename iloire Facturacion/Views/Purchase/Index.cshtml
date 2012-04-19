@@ -76,6 +76,10 @@
         </td>
         <td>
             @item.PurchaseType.Name
+
+            @if (!string.IsNullOrWhiteSpace(item.Notes)) { 
+                <span class="label">Notes in this expense</span>
+            }
         </td>
         <td nowrap>
             @String.Format("{0:C}", item.Price)
