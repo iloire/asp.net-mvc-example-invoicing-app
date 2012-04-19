@@ -88,6 +88,12 @@ div.searchBox div.setQuarter a
     text-decoration:underline;
 }
 
+/*dashboard*/
+
+table.dashboard table th, table td {
+    padding: 6px 6px 6px 6px !important;
+}
+
 .periodSummary
 {
     clear:both;    
@@ -141,6 +147,12 @@ textarea.proposalDetails
 {
     height:400px;
     min-width:400px;
+}
+
+textarea.proposalNotes
+{
+    height:100px;
+    min-width:450px;
 }
 
 table.proposal tfoot tr td
