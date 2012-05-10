@@ -45,7 +45,10 @@ namespace iloire_Facturacion.Controllers
 
             if (!string.IsNullOrWhiteSpace(text))
             {
-                expenses = expenses.Where(t => (t.Notes.ToLower().IndexOf(text.ToLower()) > -1) || (t.Article.ToLower().IndexOf(text.ToLower()) > -1));
+                expenses = expenses.Where(t => (t.Notes.ToLower().IndexOf(text.ToLower()) > -1) 
+                    || (t.Article.ToLower().IndexOf(text.ToLower()) > -1)
+                    || (t.Provider.Name.ToLower().IndexOf(text.ToLower()) > -1)
+                    );
             }
 
             int currentPageIndex = page.HasValue ? page.Value - 1 : 0;
