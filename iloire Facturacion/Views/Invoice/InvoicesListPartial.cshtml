@@ -49,10 +49,17 @@
             @Html.DisplayFor(modelItem => item.TimeStamp)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DueDate)
-              @if ((!item.Paid) && (!item.IsProposal) && item.DueDate < DateTime.Now)
+             @if ((!item.Paid) && (!item.IsProposal) && item.DueDate < DateTime.Now)
              {
-                 <span class="label important">OVERDUE</span>
+                 <span class="label important">@Html.DisplayFor(modelItem => item.DueDate)</span>
+             }
+             else if ((!item.Paid) && (!item.IsProposal) && item.DueDate < DateTime.Now.AddDays(5))
+             {
+                <span class="label warning">@Html.DisplayFor(modelItem => item.DueDate)</span>
+             }
+             else
+             { 
+                @Html.DisplayFor(modelItem => item.DueDate)
              }
         </td>
     </tr>
