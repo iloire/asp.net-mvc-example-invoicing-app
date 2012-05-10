@@ -95,6 +95,7 @@
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Attributes\HandleErrorAttribute.cs" />
+    <Compile Include="Models\Helper\TextHelper.cs" />
     <Compile Include="Models\DBContext.cs" />
     <Compile Include="Models\EntitiesContextDBInitializer.cs" />
     <Compile Include="Models\Helper\TAXDateHelper.cs" />
