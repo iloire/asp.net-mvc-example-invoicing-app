@@ -88,7 +88,7 @@
             </a>
         </td>
          <td>
-            @Html.DisplayFor(modelItem => item.Notes)
+            @Html.Truncate(item.Notes, 100)
         </td>
         <td nowrap>
             @Html.DisplayFor(modelItem => item.TimeStamp)

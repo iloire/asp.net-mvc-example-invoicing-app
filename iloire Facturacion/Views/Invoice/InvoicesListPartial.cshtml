@@ -37,8 +37,8 @@
          </a>
         </td>
         <td>
-            <a href="@Url.Action("Edit", "Invoice", new { id = item.InvoiceID, proposal = ViewBag.IsProposal })">
-                @Html.DisplayFor(modelItem => item.Notes)
+            <a href="@Url.Action("Edit", "Invoice", new { id = item.InvoiceID, proposal = ViewBag.IsProposal })">                
+                @Html.Truncate(item.Notes, 100)
             </a>
         </td>
          <td nowrap="nowrap" align="right"   style="align:text-right">
