@@ -11,6 +11,19 @@
     ViewBag.Title = "Details";
 }
 
+@section Header{
+<script>
+    var sorter_options = {
+        headers: {
+            1: { sorter: 'decimal' },
+            2: { sorter: 'decimal' },
+            3: { sorter: 'decimal' },
+            5: { sorter: 'datetime' }
+
+        }
+    };
+</script>
+}
 <div class="span7">
 <fieldset>
  <legend>Provider details</legend>
@@ -53,7 +66,7 @@
 </fieldset>
 <p>
 
-    @Html.ActionLink("Edit", "Edit", new { id=Model.ProviderID }, new { @class = "btn"}) |
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ProviderID }, new { @class = "btn"})
     @Html.ActionLink("Back to List", "Index", null, new { @class = "btn"})
 </p>
 </div>
