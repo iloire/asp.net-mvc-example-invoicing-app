@@ -31,46 +31,49 @@ namespace iloire_Facturacion.Controllers
             Session["invoiceFrom"] = from;
             Session["invoiceTo"] = to;
 
-            IQueryable<Invoice> invoicesQuery = db.Invoices.Include(i => i.InvoiceDetails).Include(i => i.Customer);
+            var invoices = db.Invoices.Include(i => i.InvoiceDetails).Include(i => i.Customer);
 
             if (!string.IsNullOrWhiteSpace(from))
             {
                 DateTime fromDate;
                 if (DateTime.TryParse(from, CultureInfo.CurrentUICulture,  DateTimeStyles.AssumeUniversal, out fromDate))
-                    invoicesQuery = invoicesQuery.Where(t => t.TimeStamp >= fromDate);
+                    invoices = invoices.Where(t => t.TimeStamp >= fromDate);
             }
             if (!string.IsNullOrWhiteSpace(to)) 
             {
                 DateTime toDate;
                 if (DateTime.TryParse(to, CultureInfo.CurrentUICulture, DateTimeStyles.AssumeUniversal, out toDate))
-                    invoicesQuery = invoicesQuery.Where(t => t.TimeStamp <= toDate);
+                    invoices = invoices.Where(t => t.TimeStamp <= toDate);
             }
 
             if (!string.IsNullOrWhiteSpace(text))
             {
-                invoicesQuery = invoicesQuery.Where(t => (t.Notes.ToLower().IndexOf(text.ToLower()) > -1) || (t.Name.ToLower().IndexOf(text.ToLower()) > -1));
+                invoices = invoices.Where(t => (t.Notes.ToLower().IndexOf(text.ToLower()) > -1) 
+                    || (t.Name.ToLower().IndexOf(text.ToLower()) > -1)
+                    || (t.Customer.Name.ToLower().IndexOf(text.ToLower()) > -1)
+                );
             }
 
             ViewBag.IsProposal = proposal;
 
             int currentPageIndex = page.HasValue ? page.Value - 1 : 0;
 
-            List<Invoice> invoices = invoicesQuery.OrderByDescending(i => i.InvoiceNumber).ToList(); //make the query
+            IPagedList<Invoice> invoices_paged = null;
 
             if (proposal == true)//once the data is in memory, i can filter by IsProposal
-                invoices = invoices.Where(i => i.IsProposal).ToList(); 
+                invoices = invoices.Where(i => i.InvoiceNumber == 0);  //we can not use  Where(i => i.IsProposal) from within the LINQ db context                
             else
-                invoices = invoices.Where(i => !i.IsProposal).ToList();
+                invoices = invoices.Where(i => i.InvoiceNumber > 0); //we can not use  Where(i => i.IsProposal) from within the LINQ db context                     
 
-            ViewBag.NetTotal = invoices.Sum(i => i.NetTotal);
-            ViewBag.TotalWithVAT = invoices.Sum(i => i.TotalWithVAT);
+            invoices_paged = invoices.OrderByDescending(i => i.TimeStamp).ToPagedList(currentPageIndex, defaultPageSize);            
 
-            var invoicesListPaged = invoices.ToPagedList(currentPageIndex, defaultPageSize);
+            ViewBag.NetTotal = invoices_paged.Sum(i => i.NetTotal);
+            ViewBag.TotalWithVAT = invoices_paged.Sum(i => i.TotalWithVAT);
 
             if (Request.IsAjaxRequest())
-                return PartialView("Index", invoicesListPaged);
+                return PartialView("Index", invoices_paged);
             else
-                return View("Index", invoicesListPaged);
+                return View("Index", invoices_paged);
         }
 
         public PartialViewResult UnPaidInvoices()
@@ -128,16 +131,23 @@ namespace iloire_Facturacion.Controllers
 
 
             int currentPageIndex = page.HasValue ? page.Value - 1 : 0;
-            var invoices = db.Invoices.Include(i => i.InvoiceDetails).Include(i => i.Customer).ToList();
+            var invoices = db.Invoices.Include(i => i.InvoiceDetails).Include(i => i.Customer);
             ViewBag.IsProposal = proposal;
             
-            ViewBag.NetTotal = invoices.Sum(i => i.NetTotal);
-            ViewBag.TotalWithVAT = invoices.Sum(i => i.TotalWithVAT);
-
+            IPagedList<Invoice> invoices_paged = null;
             if (proposal == true)
-                return View(invoices.OrderByDescending(i => i.TimeStamp).Where(i => i.IsProposal).ToPagedList(currentPageIndex, defaultPageSize));
+            {
+                invoices = invoices.Where(i => i.InvoiceNumber == 0);  //we can not use  Where(i => i.IsProposal) from within the LINQ db context                
+            }
             else
-                return View(invoices.OrderByDescending(i => i.InvoiceNumber).Where(i => !i.IsProposal).ToPagedList(currentPageIndex, defaultPageSize));            
+            {
+                invoices = invoices.Where(i => i.InvoiceNumber > 0);  //we can not use  Where(i => i.IsProposal) from within the LINQ db context                
+            }
+
+            invoices_paged = invoices.OrderByDescending(i => i.TimeStamp).ToPagedList(currentPageIndex, defaultPageSize);
+            ViewBag.NetTotal = invoices_paged.Sum(i => i.NetTotal);
+            ViewBag.TotalWithVAT = invoices_paged.Sum(i => i.TotalWithVAT);
+            return View(invoices_paged);
         }
 
         //
