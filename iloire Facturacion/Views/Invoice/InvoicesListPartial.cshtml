@@ -38,7 +38,7 @@
          </a>
         </td>
         <td>
-            <a href="@Url.Action("Edit", "Invoice", new { id = item.InvoiceID, proposal = ViewBag.IsProposal })">                
+            <a href="@Url.Action("Edit", "Invoice", new { id = item.InvoiceID, proposal = item.IsProposal })">                
                 @Html.Truncate(item.Notes, 100)
             </a>
         </td>
