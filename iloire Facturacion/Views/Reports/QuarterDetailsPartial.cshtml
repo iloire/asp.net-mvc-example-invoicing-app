@@ -67,6 +67,23 @@
 				@String.Format("{0:C}", (Model.Month1.VATReceived + Model.Month2.VATReceived + Model.Month3.VATReceived))
 				</td>
 		    </tr>
+             <tr>
+				<td>
+                APT (Advance payment TAX)
+                </td>
+				<td>
+                 @String.Format("{0:C}", Model.Month1.AdvancePaymentTaxPaid)
+                </td>
+				<td class="ta_right">						
+                   @String.Format("{0:C}", Model.Month2.AdvancePaymentTaxPaid)
+				</td>
+				<td class="ta_right">
+				 @String.Format("{0:C}", Model.Month3.AdvancePaymentTaxPaid)									
+                 </td>
+				<td class="ta_right total">
+				@String.Format("{0:C}", (Model.Month1.AdvancePaymentTaxPaid + Model.Month2.AdvancePaymentTaxPaid + Model.Month3.AdvancePaymentTaxPaid))
+				</td>
+		    </tr>
 			<!-- LESS EXPENSES -->
 			<tr>
 				<td colspan="5">

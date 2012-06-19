@@ -43,6 +43,7 @@ namespace iloire_Facturacion.Controllers
 
             s.AmountPaid = s.Invoices.Where(i => i.Paid).Sum(i => i.TotalToPay);
 
+            s.AdvancePaymentTaxPaid = s.Invoices.Sum(i => i.AdvancePaymentTaxAmount);
             return s;
         }
 

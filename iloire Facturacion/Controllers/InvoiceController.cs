@@ -25,6 +25,13 @@ namespace iloire_Facturacion.Controllers
 
         /*CUSTOM*/
 
+        private void FillIndexViewBags(IPagedList<Invoice> invoices)
+        {
+            ViewBag.NetTotal = invoices.Sum(i => i.NetTotal);
+            ViewBag.TotalWithVAT = invoices.Sum(i => i.TotalWithVAT);
+            ViewBag.AdvancePaymentTaxAmountTotal = invoices.Sum(i => i.AdvancePaymentTaxAmount);
+        }
+
         public ViewResultBase Search(string text, string from, string to, int? page, bool? proposal = false)
         {
             Session["invoiceText"] = text;
@@ -65,10 +72,9 @@ namespace iloire_Facturacion.Controllers
             else
                 invoices = invoices.Where(i => i.InvoiceNumber > 0); //we can not use  Where(i => i.IsProposal) from within the LINQ db context                     
 
-            invoices_paged = invoices.OrderByDescending(i => i.TimeStamp).ToPagedList(currentPageIndex, defaultPageSize);            
+            invoices_paged = invoices.OrderByDescending(i => i.TimeStamp).ToPagedList(currentPageIndex, defaultPageSize);
 
-            ViewBag.NetTotal = invoices_paged.Sum(i => i.NetTotal);
-            ViewBag.TotalWithVAT = invoices_paged.Sum(i => i.TotalWithVAT);
+            FillIndexViewBags(invoices_paged);
 
             if (Request.IsAjaxRequest())
                 return PartialView("Index", invoices_paged);
@@ -145,8 +151,9 @@ namespace iloire_Facturacion.Controllers
             }
 
             invoices_paged = invoices.OrderByDescending(i => i.TimeStamp).ToPagedList(currentPageIndex, defaultPageSize);
-            ViewBag.NetTotal = invoices_paged.Sum(i => i.NetTotal);
-            ViewBag.TotalWithVAT = invoices_paged.Sum(i => i.TotalWithVAT);
+
+            FillIndexViewBags(invoices_paged);
+
             return View(invoices_paged);
         }
 

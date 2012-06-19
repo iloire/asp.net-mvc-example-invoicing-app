@@ -26,4 +26,6 @@ public class Summary
     public decimal VATPaid { get; set; }
 
     public decimal VATBalance { get; set; }
+
+    public decimal AdvancePaymentTaxPaid { get; set; }
 }

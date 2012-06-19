@@ -58,7 +58,7 @@
             Notes
         </th>
         <th>
-            Created
+            Date
         </th>
          <th>
             Net Amount
@@ -66,9 +66,9 @@
       @*   <th>
             SubTotal (VAT inc.)
         </th>*@
-      @*  <th>
+        <th>
             Advance Tax Pay.
-        </th>*@
+        </th>
         <th>
             Total to be Paid
         </th>
@@ -99,9 +99,9 @@
         @* <td>
             @String.Format("{0:C}", item.InvoiceDetails.Sum(i => i.TotalPlusVAT))
         </td>*@
-       @* <td>
-            @item.AdvancePaymentTax %
-        </td>*@
+        <td>
+            @String.Format("{0:C}", item.AdvancePaymentTaxAmount)
+        </td>
         <td nowrap>
             @String.Format("{0:C}", item.TotalToPay)
             @if (!item.IsProposal)
@@ -133,6 +133,7 @@
         <td colspan=4>        
         </td>
         <td>@String.Format("{0:C}", ViewBag.NetTotal)</td>
+        <td>@String.Format("{0:C}", ViewBag.AdvancePaymentTaxAmountTotal)</td>
         <td>@String.Format("{0:C}", ViewBag.TotalWithVAT)</td>         
         <td></td>
     </tr>
