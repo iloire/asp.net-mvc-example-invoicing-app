@@ -82,6 +82,13 @@ Based on convention, EF will look for a connection strign named as the DBContext
 
 ## TAGS (change log):
 
+**0.21** 10/05/2012
+
+ * Improve performance in EF queries
+ * Bug fixing.
+ * Added warning if invoice due date is less than 5 days ahead.
+ * Some improvements and fixing related to sorting tables.
+
 **0.20** 19/04/2012
 
  * Bug fixing
