@@ -32,7 +32,7 @@ namespace iloire_Facturacion.Controllers
             ViewBag.AdvancePaymentTaxAmountTotal = invoices.Sum(i => i.AdvancePaymentTaxAmount);
         }
 
-        public ViewResultBase Search(string text, string from, string to, int? page, bool? proposal = false)
+        public ViewResultBase Search(string text, string from, string to, int? page,  int? pagesize, bool? proposal = false)
         {
             Session["invoiceText"] = text;
             Session["invoiceFrom"] = from;
@@ -72,7 +72,7 @@ namespace iloire_Facturacion.Controllers
             else
                 invoices = invoices.Where(i => i.InvoiceNumber > 0); //we can not use  Where(i => i.IsProposal) from within the LINQ db context                     
 
-            invoices_paged = invoices.OrderByDescending(i => i.TimeStamp).ToPagedList(currentPageIndex, defaultPageSize);
+            invoices_paged = invoices.OrderByDescending(i => i.TimeStamp).ToPagedList(currentPageIndex, (pagesize.HasValue) ? pagesize.Value : defaultPageSize);
 
             FillIndexViewBags(invoices_paged);
 
@@ -117,7 +117,7 @@ namespace iloire_Facturacion.Controllers
         //
         // GET: /Invoice/
 
-        public ActionResult Index(string filter, int? page, bool? proposal = false)
+        public ActionResult Index(string filter, int? page, int? pagesize, bool? proposal = false)
         {
             #region remember filter stuff
             if (filter == "clear")
@@ -150,7 +150,7 @@ namespace iloire_Facturacion.Controllers
                 invoices = invoices.Where(i => i.InvoiceNumber > 0);  //we can not use  Where(i => i.IsProposal) from within the LINQ db context                
             }
 
-            invoices_paged = invoices.OrderByDescending(i => i.TimeStamp).ToPagedList(currentPageIndex, defaultPageSize);
+            invoices_paged = invoices.OrderByDescending(i => i.TimeStamp).ToPagedList(currentPageIndex, (pagesize.HasValue) ? pagesize.Value : defaultPageSize);
 
             FillIndexViewBags(invoices_paged);
 

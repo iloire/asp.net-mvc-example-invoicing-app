@@ -23,7 +23,7 @@ namespace iloire_Facturacion_Tests
         public void TestListInvoices()
         {
             InvoiceController ic = new InvoiceController();
-            System.Web.Mvc.ViewResult result = ic.Index(null,null) as ViewResult;
+            System.Web.Mvc.ViewResult result = ic.Index(null,null,null) as ViewResult;
             Assert.IsNotNull(result.ViewData.Model);
             Assert.IsInstanceOf(typeof(IPagedList<Invoice>), result.ViewData.Model);
         }
@@ -59,7 +59,7 @@ namespace iloire_Facturacion_Tests
         public void TestEditInvoice()
         {
             InvoiceController ic = new InvoiceController();
-            ActionResult result = ic.Index(null,null);
+            ActionResult result = ic.Index(null,null,null);
             ViewResult view = result as ViewResult;
             Invoice i = ((IPagedList<Invoice>)view.ViewData.Model).First();
             System.Web.Mvc.ActionResult invoiceEdition = ic.Edit(i.InvoiceID);
@@ -80,7 +80,7 @@ namespace iloire_Facturacion_Tests
         public void TestDeleteInvoice()
         {
             InvoiceController ic = new InvoiceController();
-            System.Web.Mvc.ViewResult result = ic.Index(null,null) as ViewResult;
+            System.Web.Mvc.ViewResult result = ic.Index(null,null,null) as ViewResult;
 
             Invoice i = ((IPagedList<Invoice>)result.ViewData.Model).First();
             Assert.NotNull(i);
