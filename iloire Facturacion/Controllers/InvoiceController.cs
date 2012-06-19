@@ -43,13 +43,13 @@ namespace iloire_Facturacion.Controllers
             if (!string.IsNullOrWhiteSpace(from))
             {
                 DateTime fromDate;
-                if (DateTime.TryParse(from, CultureInfo.CurrentUICulture,  DateTimeStyles.AssumeUniversal, out fromDate))
+                if (DateTime.TryParse(from, CultureInfo.CurrentUICulture, DateTimeStyles.AssumeLocal, out fromDate))
                     invoices = invoices.Where(t => t.TimeStamp >= fromDate);
             }
             if (!string.IsNullOrWhiteSpace(to)) 
             {
                 DateTime toDate;
-                if (DateTime.TryParse(to, CultureInfo.CurrentUICulture, DateTimeStyles.AssumeUniversal, out toDate))
+                if (DateTime.TryParse(to, CultureInfo.CurrentUICulture, DateTimeStyles.AssumeLocal, out toDate))
                     invoices = invoices.Where(t => t.TimeStamp <= toDate);
             }
 
