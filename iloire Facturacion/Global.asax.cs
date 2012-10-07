@@ -24,13 +24,19 @@ namespace iloire_Facturacion
             routes.MapRoute(
             "Invoice", // Nombre de ruta
             "Invoice/{action}/{id}", // URL con parámetros
-            new { controller = "Invoice", action = "Index", id = UrlParameter.Optional, proposal = false } // Valores predeterminados de parámetro
+            new { controller = "Invoice", action = "Index", id = UrlParameter.Optional, proposal = false, reminder = false } // Valores predeterminados de parámetro
             );
 
             routes.MapRoute(
               "Proposal", // Nombre de ruta
               "Proposal/{action}/{id}", // URL con parámetros
-              new { controller = "Invoice", action = "Index", id = UrlParameter.Optional, proposal=true } // Valores predeterminados de parámetro
+              new { controller = "Invoice", action = "Index", id = UrlParameter.Optional, proposal = true, reminder = false } // Valores predeterminados de parámetro
+            );
+
+            routes.MapRoute(
+              "Reminder", // Nombre de ruta
+              "Reminder/{action}/{id}", // URL con parámetros
+              new { controller = "Invoice", action = "Index", id = UrlParameter.Optional, proposal=false, reminder = true } // Valores predeterminados de parámetro
           );
         
 

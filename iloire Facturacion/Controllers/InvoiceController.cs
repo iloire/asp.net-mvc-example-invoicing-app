@@ -13,6 +13,7 @@ using System.Web;
 using System.Web.Mvc;
 using MvcPaging;
 using System.Globalization;
+using Rotativa;
 
 namespace iloire_Facturacion.Controllers
 {
@@ -32,7 +33,7 @@ namespace iloire_Facturacion.Controllers
             ViewBag.AdvancePaymentTaxAmountTotal = invoices.Sum(i => i.AdvancePaymentTaxAmount);
         }
 
-        public ViewResultBase Search(string text, string from, string to, int? page,  int? pagesize, bool? proposal = false)
+        public ViewResultBase Search(string text, string from, string to, int? page, int? pagesize, bool? proposal = false, bool? reminder = false)
         {
             Session["invoiceText"] = text;
             Session["invoiceFrom"] = from;
@@ -62,6 +63,7 @@ namespace iloire_Facturacion.Controllers
             }
 
             ViewBag.IsProposal = proposal;
+            ViewBag.IsReminder = reminder;
 
             int currentPageIndex = page.HasValue ? page.Value - 1 : 0;
 
@@ -117,7 +119,7 @@ namespace iloire_Facturacion.Controllers
         //
         // GET: /Invoice/
 
-        public ActionResult Index(string filter, int? page, int? pagesize, bool? proposal = false)
+        public ActionResult Index(string filter, int? page, int? pagesize, bool? proposal = false, bool? reminder = false)
         {
             #region remember filter stuff
             if (filter == "clear")
@@ -139,6 +141,7 @@ namespace iloire_Facturacion.Controllers
             int currentPageIndex = page.HasValue ? page.Value - 1 : 0;
             var invoices = db.Invoices.Include(i => i.InvoiceDetails).Include(i => i.Customer);
             ViewBag.IsProposal = proposal;
+            ViewBag.IsReminder = reminder;
             
             IPagedList<Invoice> invoices_paged = null;
             if (proposal == true)
@@ -158,28 +161,35 @@ namespace iloire_Facturacion.Controllers
         }
 
         //
-        // GET: /Invoice/Details/5
+        // GET: /Invoice/Print/5
 
-        public ViewResult Print(int id, bool? proposal = false)
+        public ViewResult Print(int id, bool? proposal = false, bool? reminder = false)
         {
-            if (Request["lan"] != null)
+            try
             {
-                //valid culture name?
-                CultureInfo[] cultures = System.Globalization.CultureInfo.GetCultures
-                         (CultureTypes.SpecificCultures);
+                if (Request["lan"] != null)
+                {
+                    //valid culture name?
+                    CultureInfo[] cultures = System.Globalization.CultureInfo.GetCultures
+                             (CultureTypes.SpecificCultures);
 
-                var selectCulture = from p in cultures
-                                    where p.Name == Request["lan"]
-                                    select p;
+                    var selectCulture = from p in cultures
+                                        where p.Name == Request["lan"]
+                                        select p;
                 
-                if (selectCulture.Count() == 1)
-                    System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo(Request["lan"]);
+                    if (selectCulture.Count() == 1)
+                        System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo(Request["lan"]);
+                }
+            }
+            catch
+            {
             }
 
 
             ViewBag.Print = true;
             ViewBag.MyCompany = System.Configuration.ConfigurationManager.AppSettings["MyCompanyName"];
             ViewBag.MyCompanyID = System.Configuration.ConfigurationManager.AppSettings["MyCompanyID"];
+            ViewBag.MyVATID = System.Configuration.ConfigurationManager.AppSettings["MyVATID"];
             ViewBag.MyCompanyAddress = System.Configuration.ConfigurationManager.AppSettings["MyCompanyAddress"];
             ViewBag.MyCompanyPhone = System.Configuration.ConfigurationManager.AppSettings["MyCompanyPhone"];
             ViewBag.MyEmail = System.Configuration.ConfigurationManager.AppSettings["MyEmail"];
@@ -188,8 +198,20 @@ namespace iloire_Facturacion.Controllers
             Invoice invoice = db.Invoices.Find(id);
             if (proposal == true)
                 return View("PrintProposal", invoice);
+            else if (reminder == true)
+                return View("PrintReminder", invoice);
             else
                 return View(invoice);
+        }
+
+        //
+        // GET: /Invoice/Pdf/5
+
+        public ActionResult Pdf(int id, bool? proposal = false, bool? reminder = false)
+        {
+            return new ActionAsPdf(
+                           "Print",
+                           new { id = id, proposal = proposal, reminder = reminder }) { FileName = "Invoice.pdf" };
         }
 
         //
@@ -199,7 +221,8 @@ namespace iloire_Facturacion.Controllers
         {
             Invoice i = new Invoice();
             i.TimeStamp = DateTime.Now;
-            i.DueDate = DateTime.Now.AddDays(30); //30 days after today
+            //i.DueDate = DateTime.Now.AddDays(30); //30 days after today
+            i.DueDate = DateTime.Now.AddDays(14); //14 days after today
             i.AdvancePaymentTax = Convert.ToDecimal(System.Configuration.ConfigurationManager.AppSettings["DefaultAdvancePaymentTax"]);
 
             if (!proposal == true)
@@ -214,17 +237,18 @@ namespace iloire_Facturacion.Controllers
             ViewBag.IsProposal = proposal;
             ViewBag.CustomerID = new SelectList(db.Customers.OrderBy(c=>c.Name), "CustomerID", "Name");
             return View(i);
-        } 
+        }
 
         //
         // POST: /Invoice/Create
 
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult Create(Invoice invoice, bool? proposal = false)
+        public ActionResult Create(Invoice invoice, bool? proposal = false, bool? reminder = false)
         {
             ViewBag.CustomerID = new SelectList(db.Customers.OrderBy(c => c.Name), "CustomerID", "Name", invoice.CustomerID);
             ViewBag.IsProposal = proposal;
+            ViewBag.IsReminder = reminder;
 
             if (ModelState.IsValid)
             {
@@ -248,7 +272,7 @@ namespace iloire_Facturacion.Controllers
         //
         // GET: /Invoice/Edit/5
 
-        public ActionResult Edit(int id, bool? proposal = false, bool? makeinvoice = false, bool? makeproposal = false)
+        public ActionResult Edit(int id, bool? proposal = false, bool? makeinvoice = false, bool? makeproposal = false, bool? reminder = false)
         {
             Invoice invoice = db.Invoices.Find(id);
             ViewBag.CustomerID = new SelectList(db.Customers.OrderBy(c => c.Name), "CustomerID", "Name", invoice.CustomerID);
@@ -298,10 +322,11 @@ namespace iloire_Facturacion.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult Edit(Invoice invoice, bool? proposal = false)
+        public ActionResult Edit(Invoice invoice, bool? proposal = false, bool? reminder = false)
         {
             ViewBag.CustomerID = new SelectList(db.Customers.OrderBy(c => c.Name), "CustomerID", "Name", invoice.CustomerID);
             ViewBag.IsProposal = proposal;
+            ViewBag.IsPrReminder = reminder;
             if (ModelState.IsValid)
             {
                 if (proposal == false)
@@ -329,9 +354,10 @@ namespace iloire_Facturacion.Controllers
         //
         // GET: /Invoice/Delete/5
 
-        public ActionResult Delete(int id, bool? proposal = false)
+        public ActionResult Delete(int id, bool? proposal = false, bool? reminder = false)
         {
             ViewBag.IsProposal = proposal;
+            ViewBag.IsReminder = reminder;
             Invoice invoice = db.Invoices.Find(id);
             return View(invoice);
         }
@@ -340,9 +366,10 @@ namespace iloire_Facturacion.Controllers
         // POST: /Invoice/Delete/5
 
         [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id, bool? proposal = false)
+        public ActionResult DeleteConfirmed(int id, bool? proposal = false, bool? reminder = false)
         {
             ViewBag.IsProposal = proposal;
+            ViewBag.IsReminder = reminder;
             Invoice invoice = db.Invoices.Find(id);
             db.Invoices.Remove(invoice);
             db.SaveChanges();

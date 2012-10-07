@@ -183,4 +183,7 @@
   <data name="VAT_Not_Included" xml:space="preserve">
     <value>VAT is not included</value>
   </data>
+  <data name="Invoice_VATNumber" xml:space="preserve">
+    <value>VAT Number</value>
+  </data>
 </root>

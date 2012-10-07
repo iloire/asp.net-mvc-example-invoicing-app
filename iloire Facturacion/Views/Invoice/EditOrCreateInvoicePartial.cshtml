@@ -126,17 +126,36 @@
                 </text>
                }
             @Html.ActionLink("Print", "Print", "Invoice", new { id = Model.InvoiceID, proposal = ViewBag.IsProposal }, new { target = "_blank", @class = "btn" })
+            
+            @Html.ActionLink("PDF", "Pdf", "Invoice", new { id = Model.InvoiceID, proposal = ViewBag.IsProposal }, new { target = "_blank", @class = "btn" })
 
             @if (!Model.IsProposal)
             {  //even if this is an invoice, we let be printed with proposal format
                 @Html.ActionLink("Print as proposal", "Print", "Invoice", new { id = Model.InvoiceID, proposal = true }, new { target = "_blank", @class = "btn" })
             }
+
+            @if (!Model.IsProposal)
+            {  //even if this is an invoice, we let be printed with proposal format
+                @Html.ActionLink("PDF proposal", "Pdf", "Invoice", new { id = Model.InvoiceID, proposal = true }, new { target = "_blank", @class = "btn" })
+            }
+
+            @if (!Model.IsProposal)
+            {  //even if this is an invoice, we let be printed with proposal format
+                @Html.ActionLink("Print as reminder", "Print", "Invoice", new { id = Model.InvoiceID, reminder = true }, new { target = "_blank", @class = "btn" })
+            }
+
+            @if (!Model.IsProposal)
+            {  //even if this is an invoice, we let be printed with proposal format
+                @Html.ActionLink("PDF reminder", "Pdf", "Invoice", new { id = Model.InvoiceID, reminder = true }, new { target = "_blank", @class = "btn" })
+            }
             
-            @if (ViewBag.ShowMakeInvoice == true) { 
+            @if (ViewBag.ShowMakeInvoice == true)
+            { 
                 @Html.ActionLink("Make invoice", "Edit", "Invoice", new { id = Model.InvoiceID, makeinvoice = true }, new { @class = "btn" })
             }
 
-            @if (ViewBag.ShowMakeProposal == true) { 
+            @if (ViewBag.ShowMakeProposal == true)
+            { 
                 @Html.ActionLink("Make proposal", "Edit", "Invoice", new { id = Model.InvoiceID, makeproposal = true }, new { @class = "btn" })
             }
         </div>

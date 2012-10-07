@@ -119,6 +119,7 @@
         <td class="noprint" nowrap>
             @Html.ActionLink("Edit", "Edit", new { id = item.InvoiceID, proposal = ViewBag.IsProposal }, new { @class = "btn primary" }) 
             @Html.ActionLink("Print", "Print", new { id = item.InvoiceID, proposal = ViewBag.IsProposal }, new { target = "_blank", @class = "btn" }) 
+            @Html.ActionLink("PDF", "Pdf", new { id = item.InvoiceID, proposal = ViewBag.IsProposal }, new { target = "_blank", @class = "btn" }) 
             @Html.ActionLink("Delete", "Delete", new { id = item.InvoiceID, proposal = ViewBag.IsProposal }, new { @class = "btn" })
             
             @if (ViewBag.IsProposal) {                

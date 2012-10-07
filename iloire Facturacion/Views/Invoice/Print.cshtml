@@ -8,17 +8,19 @@
 @model Invoice
 
 @{
-    ViewBag.Title = DateTime.Now.Year + "#" + Model.InvoiceNumber + " " + Model.Name + " " + Model.Customer.Name;
+    ViewBag.Title = "FAC" + Model.TimeStamp.ToString("yyyy") + "-" + Model.InvoiceNumber + " " + Model.Name + " " + Model.Customer.Name;
+    ViewBag.Invoicename = "FAC" + Model.TimeStamp.ToString("yyyy") + "-" + Model.InvoiceNumber;
     Layout = "~/Views/Shared/_LayoutPrint.cshtml";
+    
 }
 
 <table class="invoiceHeader">
 <tr>
 <td>
- <img src="@Url.Content("~/Content/images/logo.png")" style="float:left;" />
+ <img src="@Url.Content("~/Content/images/logo.png")" height="55" style="float:left;" />
 </td>
 <td style="text-align:right">
- <h2>@string.Format(@Resources.Print.Invoice_Number, @Model.InvoiceNumber, DateTime.Now.Year)</h2> 
+ <h2>@string.Format(@Resources.Print.Invoice_Number, @Model.InvoiceNumber, @Model.TimeStamp.ToString("yyyy"))</h2> 
   @Model.TimeStamp.ToLongDateString()
 </td>
 </tr>
@@ -32,14 +34,8 @@
     </p>
 
     <p>
-    
-    @Resources.Print.Invoice_CompanyNumber: <strong>@ViewBag.MyCompanyID</strong>
-    </p>
-
-    <p>
     @Html.Raw(ViewBag.MyCompanyAddress.Replace(";","<br/>"))
     </p>
-    <hr />
     <p>
     @Resources.Print.Invoice_Phone: @ViewBag.MyCompanyPhone
     </p>
@@ -176,11 +172,8 @@
 
 <div class="invoiceFooter">
     <p>
-    (*) @string.Format(@Resources.Print.Invoice_AdvancePTComment, ViewBag.MyCompany)
+    
     </p>
-    <p>
-     <strong>@Resources.Print.Invoice_PaymentDetailsTitle</strong>: 
-    @Resources.Print.Invoice_PaymentDetails : @ViewBag.MyBankAccount</p>
     
 
 </div>
