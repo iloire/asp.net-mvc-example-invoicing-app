@@ -1,3 +1,9 @@
+## Note 
+This project is abandoned.
+
+
+
+
 ﻿
 # ASP.NET MVC3 Invoicing Application
 
