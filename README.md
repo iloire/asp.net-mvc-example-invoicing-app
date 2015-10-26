@@ -206,7 +206,7 @@ Based on convention, EF will look for a connection strign named as the DBContext
 
 **0.7**
 
- * Added DateTime editor template to be able to edit datetime fields accross de application
+ * Added DateTime editor template to be able to edit datetime fields across de application
  * Added jQuery UI calendar functionality to datetime editor fields.
  * Set PAID / UNPAID display as text with style instead of checkbox
 
