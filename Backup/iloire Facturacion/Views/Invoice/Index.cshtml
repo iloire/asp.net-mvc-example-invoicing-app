@@ -1,0 +1,142 @@
+﻿@*
+	Iván Loire - www.iloire.com
+	Please readme README file for license terms.
+
+	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
+*@
+
+@model IPagedList<Invoice>
+@using MvcPaging;
+
+@{
+    ViewBag.Title = "List of Invoices";
+}
+
+@{
+    var entityname = ViewBag.IsProposal ? "Proposals" : "Invoices";
+}
+
+@section Header{
+<script>
+    var sorter_options = {
+        headers: {
+            3: { sorter: 'datetime' },
+            4: { sorter: 'decimal' },
+            5: { sorter: 'decimal' }
+        }
+    };
+</script>
+}
+
+<h1>List <small>of @entityname</small></h1>
+
+<p class="noprint">
+    @Html.ActionLink("[+] Create New ", "Create", new { proposal = ViewBag.IsProposal }, new { @class = "btn primary" })
+</p>
+
+@{Html.RenderPartial("SearchBoxItems", ViewBag.IsProposal ? "Proposal" : "Invoice");}
+
+<div class="pagingContainer noprint">
+    @{
+        RouteValueDictionary r = new RouteValueDictionary();
+        r.Add("to", Request["to"]);
+        r.Add("from", Request["from"]);
+        r.Add("text", Request["text"]);
+        }
+    @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount, r)
+</div>
+
+<table class="zebra-striped">
+    <thead>
+         <th>
+            ID
+        </th>
+        <th>
+            Customer
+        </th>
+         <th>
+            Notes
+        </th>
+        <th>
+            Date
+        </th>
+         <th>
+            Net Amount
+        </th>
+      @*   <th>
+            SubTotal (VAT inc.)
+        </th>*@
+        <th>
+            Advance Tax Pay.
+        </th>
+        <th>
+            Total to be Paid
+        </th>
+
+        <th class="noprint"></th>
+    </thead>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            #@Html.DisplayFor(modelItem => item.InvoiceNumber)
+        </td>
+        <td>
+            <a href="@Url.Action("Details", "Customer", new { id=item.CustomerID})">
+            @Html.DisplayFor(modelItem => item.Customer.Name)
+            </a>
+        </td>
+         <td>
+            @Html.Truncate(item.Notes, 90)
+        </td>
+        <td nowrap>
+            @Html.DisplayFor(modelItem => item.TimeStamp)
+        </td>
+        <td nowrap>
+            @String.Format("{0:C}", item.InvoiceDetails.Sum(i => i.Total))
+        </td>
+        @* <td>
+            @String.Format("{0:C}", item.InvoiceDetails.Sum(i => i.TotalPlusVAT))
+        </td>*@
+        <td>
+            @String.Format("{0:C}", item.AdvancePaymentTaxAmount)
+        </td>
+        <td nowrap>
+            @String.Format("{0:C}", item.TotalToPay)
+            @if (!item.IsProposal)
+            {
+                if (!item.Paid)
+                {
+             <span class="label important">UNPAID</span>
+                }
+                else
+                {
+            <span class="label success">PAID</span>  
+                }
+            }
+        </td>
+        <td class="noprint" nowrap>
+            @Html.ActionLink("Edit", "Edit", new { id = item.InvoiceID, proposal = ViewBag.IsProposal }, new { @class = "btn primary" }) 
+            @Html.ActionLink("Print", "Print", new { id = item.InvoiceID, proposal = ViewBag.IsProposal }, new { target = "_blank", @class = "btn" }) 
+            @Html.ActionLink("Delete", "Delete", new { id = item.InvoiceID, proposal = ViewBag.IsProposal }, new { @class = "btn" })
+            
+            @if (ViewBag.IsProposal) {                
+                { @Html.ActionLink("Make invoice", "Edit", new { id = item.InvoiceID, proposal = false, makeinvoice=true }, new { @class = "btn" }); }
+            }
+        </td>
+    </tr>
+}
+
+<tfoot>
+    <tr>
+        <td colspan=4>        
+        </td>
+        <td>@String.Format("{0:C}", ViewBag.NetTotal)</td>
+        <td>@String.Format("{0:C}", ViewBag.AdvancePaymentTaxAmountTotal)</td>
+        <td>@String.Format("{0:C}", ViewBag.TotalWithVAT)</td>         
+        <td></td>
+    </tr>
+</tfoot>
+
+</table>

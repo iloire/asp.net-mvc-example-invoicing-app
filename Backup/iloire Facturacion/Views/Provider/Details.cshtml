@@ -1,0 +1,77 @@
+﻿@*
+	Iván Loire - www.iloire.com
+	Please readme README file for license terms.
+
+	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
+*@
+
+@model Provider
+
+@{
+    ViewBag.Title = "Details";
+}
+
+@section Header{
+<script>
+    var sorter_options = {
+        headers: {
+            1: { sorter: 'decimal' },
+            2: { sorter: 'decimal' },
+            3: { sorter: 'decimal' },
+            5: { sorter: 'datetime' }
+
+        }
+    };
+</script>
+}
+<div class="span7">
+<fieldset>
+ <legend>Provider details</legend>
+	<p>
+        <strong>Name: </strong>
+         @Html.DisplayFor(model => model.Name)
+    </p>
+	<p>
+        <strong>CompanyNumber: </strong>
+         @Html.DisplayFor(model => model.CompanyNumber)
+    </p>
+	<p>
+        <strong>Address: </strong>
+         @Html.DisplayFor(model => model.Address)
+    </p>
+	<p>
+        <strong>Zip Code: </strong>
+         @Html.DisplayFor(model => model.CP)
+    </p>
+	<p>
+        <strong>City: </strong>
+         @Html.DisplayFor(model => model.City)
+    </p>
+	<p>
+        <strong>Phone1: </strong>
+         @Html.DisplayFor(model => model.Phone1)
+    </p>
+	<p>
+        <strong>Phone2: </strong>
+         @Html.DisplayFor(model => model.Phone2)
+    </p>
+	<p>
+        <strong>Fax: </strong>
+         @Html.DisplayFor(model => model.Fax)
+    </p>
+	<p>
+        <strong>Email: </strong>
+         @Html.DisplayFor(model => model.Email)
+    </p>
+</fieldset>
+<p>
+
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ProviderID }, new { @class = "btn"})
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn"})
+</p>
+</div>
+
+<div class="span12">
+    <h2>Last purchases from this provider</h2>
+    @{Html.RenderAction("RecentPurchasesByCustomer", "Purchase", new { providerID = Model.ProviderID });}
+</div>

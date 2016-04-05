@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Site.print.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/bootstrap.print.css")" rel="stylesheet" type="text/css" />
+
+    @RenderSection("Header", false)
+
+
+</head>
+<body>
+    
+    <div class="container-fluid">
+           @RenderBody()
+    </div>
+</body>
+</html>

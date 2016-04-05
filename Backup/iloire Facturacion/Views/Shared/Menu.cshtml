@@ -1,0 +1,66 @@
+﻿  <nav class="noprint">
+        <ul class="nav" id="menu">
+           @if (Request.RawUrl.Contains("/Proposal"))
+             {
+                <text>
+                <li class="active">
+                </text>
+             }
+             else{
+                <text>
+                <li>
+                </text>
+             }
+            @Html.ActionLink("Proposals", "Index", "Invoice", new { proposal=true }, null)</li>
+            <li>@Html.ActionLink("( + )", "Create", "Invoice", new { proposal=true }, null) </li>
+
+            @if (Request.RawUrl.Contains("/Invoice"))
+             {
+                <text>
+                <li class="active">
+                </text>
+             }
+             else{
+                <text>
+                <li>
+                </text>
+             }
+            @Html.ActionLink("Invoices", "Index", "Invoice", new { proposal = false }, null)</li>
+            <li>@Html.ActionLink("( + )", "Create", "Invoice", new { proposal = false }, null)</li>
+            
+             @if (Request.RawUrl.Contains("/Purchase"))
+             {
+                <text>
+                <li class="active">
+                </text>
+             }
+             else{
+                <text>
+                <li>
+                </text>
+             }
+            @Html.ActionLink("Expenses", "Index", "Purchase")</li>
+            <li>@Html.ActionLink("( + )", "Create", "Purchase") </li>
+        </ul>
+        <ul class="nav" id="adminmenu">
+            <li class="dropdown" data-dropdown="dropdown">
+              <a href="#" class="dropdown-toggle">Admin</a>
+              <ul class="dropdown-menu">
+                <li><a href="@Url.Action("Index", "Provider")">Edit providers</a></li>
+                <li><a href="@Url.Action("Index", "Customer")">Edit customers</a></li>
+                <li><a href="@Url.Action("Index", "PurchaseType")">Edit expense types</a></li>
+              </ul>
+            </li>
+        </ul>
+
+         <ul class="nav" id="reportsmenu">
+            <li class="dropdown" data-dropdown="dropdown">
+              <a href="#" class="dropdown-toggle">Reports</a>
+              <ul class="dropdown-menu">
+                <li><a href="@Url.Action("ByYear", "Reports", new { id = DateTime.Now.Year})">@DateTime.Now.Year</a></li>
+                <li><a href="@Url.Action("ByYear", "Reports", new { id = DateTime.Now.Year-1})">@(DateTime.Now.Year-1)</a></li>
+                <li><a href="@Url.Action("QuarterDetails", "Reports")">Details by quarter</a></li>
+              </ul>
+            </li>
+        </ul>
+   </nav>

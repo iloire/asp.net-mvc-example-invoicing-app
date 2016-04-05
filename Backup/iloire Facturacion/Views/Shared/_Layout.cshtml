@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Site.print.css")" rel="stylesheet" type="text/css" media="print"/>
+
+    <script src="@Url.Content("~/Scripts/jquery-1.7.2.min.js")" type="text/javascript"></script>
+
+    <!-- twitter bootstrap css library-->
+    <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/bootstrap.extra.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/jquery.cleditor.css")" rel="stylesheet" type="text/css" />
+
+    <script src="@Url.Content("~/Scripts/bootstrap-modal.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/bootstrap-dropdown.js")" type="text/javascript"></script>
+    
+    <!-- jquery ui -->
+    <script src="@Url.Content("~/Scripts/jquery-ui-1.8.11.min.js")" type="text/javascript"></script> 
+    <link href="@Url.Content("~/Content/themes/base/jquery.ui.all.css")" rel="stylesheet" type="text/css" />
+ 
+    <script src="@Url.Content("~/Scripts/modernizr-1.7.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.tablesorter.min.js")" type="text/javascript"></script>
+
+    <script src="@Url.Content("~/Scripts/jquery-calendar.js")" type="text/javascript"></script>
+   
+    <script src="@Url.Content("~/Scripts/jquery.validate.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/methods_es.js")" type="text/javascript"></script>
+
+    <!--WYSIWYG editor-->
+    <script src="@Url.Content("~/Scripts/jquery.cleditor.min.js")" type="text/javascript"></script>
+    
+    <!--chossen jquery dropdown-->
+     <link href="@Url.Content("~/Content/chosen.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/chosen.jquery.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("div.chzn-select select").chosen();
+            $(".chzn-select-deselect").chosen({ allow_single_deselect: true });
+        });
+    </script>
+
+    @RenderSection("Header", false)
+
+</head>
+<body>
+    <div class="topbar">
+        <div class="topbar-inner">
+            <div class="container-fluid">
+                <h3><a href="@Url.Action("Index", "Home")">@System.Configuration.ConfigurationManager.AppSettings["ApplicationTitle"]</a></h3>
+                 @if (Request.IsAuthenticated){
+                     <text>
+                     @{Html.RenderPartial("Menu");}
+                     </text>
+                 }
+                <p class="pull-right noprint">
+                    @Html.Partial("_LogOnPartial")
+                </p>
+            </div>
+         </div>
+    </div>
+
+    <div class="container-fluid">
+           @{Html.RenderPartial("DisplayMessages");}
+           @RenderBody()
+    </div>
+
+     <script>
+         $(document).ready(function () {
+             $.tablesorter.addParser({
+                 id: "datetime",
+                 is: function (s) {
+                     return false;
+                 },
+                 format: function (s, table) {
+                     s = s.replace(/\-/g, "/");
+                     s = s.replace(/(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})/, "$3/$2/$1");
+                     return $.tablesorter.formatFloat(new Date(s).getTime());
+                 },
+                 type: "numeric"
+             });
+
+             $.tablesorter.addParser({
+                 id: 'decimal',
+                 is: function (s) {
+                     // return false so this parser is not auto detected 
+                     return false;
+                 },
+                 format: function (s) {
+                     // format your data for normalization
+                     //console.log(s);
+                     s = s.replace('.', '').replace(',', '.');
+                     var lNumber = parseFloat(s);
+                     return lNumber;
+                 },
+                 // set type, either numeric or text 
+                 type: 'numeric'
+             });
+
+             $(".datefield").datepicker({ "dateFormat": 'dd/mm/yy' });
+
+             try { //if no data will raise error ¿?
+                 if (typeof (sorter_options) != "undefined") {
+                     $("table.zebra-striped").tablesorter(sorter_options);
+                 }
+                 else {
+                     $("table.zebra-striped").tablesorter();
+                 }
+             }
+             catch (e) { 
+             
+             }
+
+         });
+    </script>
+
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-300651-34']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+
+    </script>
+
+</body>
+</html>

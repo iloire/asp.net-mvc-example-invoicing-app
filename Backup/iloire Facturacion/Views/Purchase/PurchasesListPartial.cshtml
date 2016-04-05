@@ -1,0 +1,70 @@
+﻿@*
+	Iván Loire - www.iloire.com
+	Please readme README file for license terms.
+
+	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
+*@
+
+@model IEnumerable<Purchase>
+
+<table class="zebra-striped">
+    <thead>
+        <th width="30%">
+            Article
+        </th>
+        <th>
+            Price
+        </th>
+        <th>
+            VAT
+        </th>
+         <th>
+            Total
+        </th>
+        <th>
+            Provider
+        </th>      
+        <th with="80">
+            Date
+        </th>
+    </thead>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            <a href="@Url.Action("Edit", "Purchase", new { id=item.PurchaseID})">
+                @Html.DisplayFor(modelItem => item.Article)
+            </a>
+        </td>
+        <td nowrap="nowrap">
+            @String.Format("{0:C}", item.Price)
+        </td>
+        <td nowrap="nowrap">
+            @Html.DisplayFor(modelItem => item.VAT)
+        </td>
+        <td nowrap="nowrap">
+            @String.Format("{0:C}", item.TotalWithVAT)
+        </td>
+        <td>
+            <a href="@Url.Action("Edit", "Provider", new { id=item.ProviderID})">
+              @Html.DisplayFor(modelItem => item.Provider.Name)
+            </a>
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TimeStamp)
+        </td>
+    </tr>
+}
+
+ <tfoot>
+        <tr>
+            <td><span class="label">TOTALS: </span></td>
+            <td nowrap="nowrap">@String.Format("{0:C}", Model.Sum(i => i.SubTotal))</td>
+            <td></td>
+            <td nowrap="nowrap">@String.Format("{0:C}", Model.Sum(i => i.TotalWithVAT))</td>
+            <td colspan="2"></td>
+        </tr>
+    </tfoot>
+
+</table>
+

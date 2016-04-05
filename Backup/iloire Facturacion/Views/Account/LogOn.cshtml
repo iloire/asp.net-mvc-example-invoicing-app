@@ -1,0 +1,72 @@
+﻿@model iloire_Facturacion.Models.LogOnModel
+
+@{
+    ViewBag.Title = "Log in";
+}
+
+<div class="container-fluid" id="login">
+<div class="span7">
+<img class="logo" src="@Url.Content("~/Content/images/logo.png")" alt="" />
+
+<h2>Log in</h2>
+<p>
+    Plase enter your email and password to access the application
+</p>
+
+
+@Html.ValidationSummary(true, "There were some errors. Please fix them and try again")
+
+@using (Html.BeginForm()) {
+    <div>
+        <fieldset>
+            <legend>Account information</legend>
+
+             <div class="clearfix">
+                @Html.LabelFor(m => m.UserName) 
+                <div class="input">
+                    @Html.TextBoxFor(m => m.UserName)
+                    @Html.ValidationMessageFor(m => m.UserName)
+                </div>
+            </div>
+
+            <div class="clearfix">
+                @Html.LabelFor(m => m.Password)
+                <div class="input">
+                    @Html.PasswordFor(m => m.Password)
+                    @Html.ValidationMessageFor(m => m.Password)
+                </div>
+            </div>
+
+             <div class="clearfix">
+                 <div class="input">
+                     @Html.CheckBoxFor(m => m.RememberMe)
+                     <span>Remember me</span>
+                </div>
+            </div>
+
+    	    <div class="actions">
+                <input type="submit" class="btn primary" value="Login" />
+            </div>
+        </fieldset>
+    </div>
+}
+</div>
+
+<div class="span11" style="padding-top:120px;">
+    <div class="alert-message block-message info">
+    <h3>Demo</h3>
+    <p>
+        In order to try the application, use this credentials:
+    </p>
+    <br />
+    <ul>
+    <li><strong>login:</strong> user</li>
+    <li><strong>password:</strong> pass</li>
+    </ul>
+    <br />
+    <p>Remember you can fork the project on github: <a class="btn" target="_blank" href="https://github.com/iloire/ASP.NET-MVC-ACME-Invoicing--App">Fork project on Github</a></p>
+    </div>
+</div>
+
+
+</div>

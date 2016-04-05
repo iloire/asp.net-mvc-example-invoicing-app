@@ -1,0 +1,65 @@
+﻿@*
+	Iván Loire - www.iloire.com
+	Please readme README file for license terms.
+
+	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
+*@
+@model Provider
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete Provider</h2>
+
+
+<div class="alert-message warning">
+  <a class="close" href="#">×</a>
+  <p><strong>Are you sure you want to delete this Provider?</strong></p>
+</div>
+
+<fieldset>
+    <legend>Provider</legend>
+  <p>
+        <strong>Name: </strong>
+		@Html.DisplayFor(model => model.Name)
+  </p>
+  <p>
+        <strong>CompanyNumber: </strong>
+		@Html.DisplayFor(model => model.CompanyNumber)
+  </p>
+  <p>
+        <strong>Address: </strong>
+		@Html.DisplayFor(model => model.Address)
+  </p>
+  <p>
+        <strong>Zip Code: </strong>
+		@Html.DisplayFor(model => model.CP)
+  </p>
+  <p>
+        <strong>City: </strong>
+		@Html.DisplayFor(model => model.City)
+  </p>
+  <p>
+        <strong>Phone1: </strong>
+		@Html.DisplayFor(model => model.Phone1)
+  </p>
+  <p>
+        <strong>Phone2: </strong>
+		@Html.DisplayFor(model => model.Phone2)
+  </p>
+  <p>
+        <strong>Fax: </strong>
+		@Html.DisplayFor(model => model.Fax)
+  </p>
+  <p>
+        <strong>Email: </strong>
+		@Html.DisplayFor(model => model.Email)
+  </p>
+</fieldset>
+@using (Html.BeginForm()) {
+	<div class="actions">
+            <input type="submit" class="btn primary" value="Delete" />
+			@Html.ActionLink("Back to List", "Index", null, new { @class = "btn"})
+    </div>
+}

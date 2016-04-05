@@ -1,0 +1,9 @@
+﻿@*
+	Iván Loire - www.iloire.com
+	Please readme README file for license terms.
+
+	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
+*@
+
+@model decimal?
+@Html.TextBox("", String.Format("{0:d}", Model.HasValue ? Model.Value.ToString() : string.Empty), new { @class = "decimal small" })

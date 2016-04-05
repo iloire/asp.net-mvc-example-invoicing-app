@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "Página principal";
+}
+
+<p align="right" style="float:right">
+    @Html.ActionLink("[+] Create new Invoice", "Create","Invoice", null, new { @class = "btn primary" })
+    @Html.ActionLink("[+] Create new expense", "Create", "Purchase", null, new { @class = "btn primary" })
+</p>
+
+<h2>Dashboard</h2>
+
+<table width="100%" class="dashboard">
+<tr>
+    <td width="50%">
+        <h3>Invoices Overdue</h3>
+        @{Html.RenderAction("OverDueInvoices","Invoice");}
+
+        <h3>Unpaid invoices</h3>
+        @{Html.RenderAction("UnPaidInvoices","Invoice");}
+
+        <h3>Latest proposals</h3>
+        @{Html.RenderAction("LatestProposals","Invoice");}
+    </td>
+    <td>
+        <h3>Recent purchases</h3>
+        @{Html.RenderAction("RecentPurchases","Purchase", new {top=5});}
+
+        <h3>This Quarter</h3>
+        <div style="padding:20px;">        
+        @{Html.RenderAction("ThisQuarterSummary", "Reports");}
+        </div>
+ 
+        <h3>This year</h3>
+        @{Html.RenderAction("YearSummary", "Reports", new {id=DateTime.Now.Year});}
+
+        <h3>Last year</h3>
+        @{Html.RenderAction("YearSummary", "Reports", new { id = DateTime.Now.Year-1 });}
+    </td>
+</tr>
+</table>

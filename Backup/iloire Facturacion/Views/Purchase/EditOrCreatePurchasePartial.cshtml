@@ -1,0 +1,96 @@
+﻿@*
+	Iván Loire - www.iloire.com
+	Please readme README file for license terms.
+
+	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
+*@
+
+@model Purchase
+
+   <fieldset>
+        <legend>@ViewBag.Title</legend>
+
+        @Html.HiddenFor(model => model.PurchaseID)
+
+        <div class="clearfix">
+            @Html.LabelFor(model => model.Article)
+        
+        <div class="input">
+            @Html.EditorFor(model => model.Article)
+            @Html.ValidationMessageFor(model => model.Article)
+        </div>
+		</div>
+
+         <div class="clearfix">
+            @Html.LabelFor(model => model.PurchaseTypeID, "PurchaseType")
+        
+        <div class="input chzn-select">
+            @Html.DropDownList("PurchaseTypeID", String.Empty)
+            @Html.ValidationMessageFor(model => model.PurchaseTypeID)
+        </div>
+		</div>
+
+        <div class="clearfix">
+            @Html.LabelFor(model => model.Price)
+        
+        <div class="input">
+            @Html.EditorFor(model => model.Price)
+            @Html.ValidationMessageFor(model => model.Price)
+        </div>
+		</div>
+
+        <div class="clearfix">
+            @Html.LabelFor(model => model.VAT)
+        
+        <div class="input">
+            @Html.EditorFor(model => model.VAT) %
+            @Html.ValidationMessageFor(model => model.VAT)
+        </div>
+		</div>
+
+        <div class="clearfix">
+            @Html.LabelFor(model => model.ProviderID, "Provider")
+        
+        <div class="input chzn-select">
+            @Html.DropDownList("ProviderID", String.Empty)
+            @Html.ValidationMessageFor(model => model.ProviderID)
+        </div>
+		</div>
+
+         <div class="clearfix">
+            @Html.LabelFor(model => model.AdvancePaymentTax)
+        
+            <div class="input">
+                @Html.EditorFor(model => model.AdvancePaymentTax) %
+                @Html.ValidationMessageFor(model => model.AdvancePaymentTax)
+            </div>
+		</div>
+
+        <div class="clearfix">
+            @Html.LabelFor(model => model.Notes)
+        
+        <div class="input">
+            @Html.TextAreaFor(model => model.Notes)
+            @Html.ValidationMessageFor(model => model.Notes)
+        </div>
+		</div>
+
+        <div class="clearfix">
+            @Html.LabelFor(model => model.TimeStamp)
+        
+        <div class="input">
+            @Html.EditorFor(model => model.TimeStamp)
+            @Html.ValidationMessageFor(model => model.TimeStamp)
+        </div>
+		</div>
+
+		<div class="actions">
+            <input type="submit" class="btn primary" value="Save" />
+            @if (Model!=null && Model.PurchaseID > 0)
+            {   <text>
+                @Html.ActionLink("Delete", "Delete", new { id = Model.PurchaseID }, new { @class = "btn" })
+                </text>
+            }
+			@Html.ActionLink("Back to List", "Index", null, new { @class = "btn" })
+        </div>
+    </fieldset>

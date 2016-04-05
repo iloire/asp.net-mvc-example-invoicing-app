@@ -1,0 +1,76 @@
+﻿@*
+	Iván Loire - www.iloire.com
+	Please readme README file for license terms.
+
+	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
+*@
+
+@model IEnumerable<Invoice>
+
+<table class="zebra-striped">
+    <thead>
+        <th width="30">
+            ID
+        </th>
+        <th>
+            Customer
+        </th>
+        <th width="35%">
+            Invoice
+        </th>
+         <th width="90">
+            Total to pay
+        </th>
+        <th  width="80">
+            Date
+        </th>
+        <th  width="80">
+            Due Date
+        </th>               
+    </thead>
+
+@foreach (var item in Model) {
+    <tr>
+        <td># @item.InvoiceNumber</td>
+        <td>
+         <a href="@Url.Action("Details", "Customer", new { id=item.CustomerID})">
+            @Html.DisplayFor(modelItem => item.Customer.Name)
+         </a>
+        </td>
+        <td>
+            <a href="@Url.Action("Edit", "Invoice", new { id = item.InvoiceID, proposal = item.IsProposal })">                
+                @Html.Truncate(item.Notes, 100)
+            </a>
+        </td>
+         <td nowrap="nowrap" align="right"   style="align:text-right">
+            @String.Format("{0:C}", item.TotalToPay)
+        </td>
+         <td>
+            @Html.DisplayFor(modelItem => item.TimeStamp)
+        </td>
+        <td>
+             @if ((!item.Paid) && (!item.IsProposal) && item.DueDate < DateTime.Now)
+             {
+                 <span class="label important">@Html.DisplayFor(modelItem => item.DueDate)</span>
+             }
+             else if ((!item.Paid) && (!item.IsProposal) && item.DueDate < DateTime.Now.AddDays(5))
+             {
+                <span class="label warning">@Html.DisplayFor(modelItem => item.DueDate)</span>
+             }
+             else
+             { 
+                @Html.DisplayFor(modelItem => item.DueDate)
+             }
+        </td>
+    </tr>
+}
+
+  <tfoot>
+        <tr>
+            <td colspan=3><span class="label">TOTALS: </span></td>
+            <td nowrap="nowrap">@String.Format("{0:C}", Model.Sum(i => i.TotalToPay))</td>
+            <td></td>
+            <td></td>
+        </tr>
+    </tfoot>
+</table>

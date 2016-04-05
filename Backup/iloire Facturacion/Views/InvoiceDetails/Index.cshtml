@@ -1,0 +1,119 @@
+﻿@*
+	Iván Loire - www.iloire.com
+	Please readme README file for license terms.
+
+	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
+*@
+
+@model IEnumerable<InvoiceDetails>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<table class="zebra-striped">
+    <thead>
+        <th>
+            Article
+        </th>
+        <th width="40">
+            Qty
+        </th>
+        <th width="70">
+            Price
+        </th>
+        <th width="70">
+            SubTotal
+        </th>
+        <th width="50">
+            VAT
+        </th>
+         <th width="80">
+          Total
+        </th> 
+        @if (ViewBag.Print != true){
+        <th width="100"></th>
+        }
+    </thead>
+
+@foreach (var item in Model) {
+    var invoiceDetail = "invoiceDetail" + item.InvoiceDetailsID; 
+    <tr id="@invoiceDetail">
+        <td>
+            @Html.DisplayFor(modelItem => item.Article)
+        </td>
+        <td nowrap>
+            @Html.DisplayFor(modelItem => item.Qty)
+        </td>
+        <td nowrap>
+            @String.Format("{0:C}", item.Price)
+        </td>
+       
+         <td nowrap>
+            @String.Format("{0:C}", item.Total)
+        </td>
+         <td nowrap>
+            @Html.DisplayFor(modelItem => item.VAT)%
+        </td>
+         <td nowrap>
+            @String.Format("{0:C}", item.TotalPlusVAT)
+        </td>
+        @if (ViewBag.Print != true)
+        {
+        <td nowrap>
+            @Html.ActionLink("Edit", "Edit", new { id = item.InvoiceDetailsID }, new { idInvoiceDetails = item.InvoiceDetailsID, @class = "btn primary small editInvoiceDetails" }) 
+         @*   @Html.ActionLink("Details", "Details", new { id=item.InvoiceDetailsID }, new { @class = "btn"}) |*@
+            @Html.ActionLink("Delete", "Delete", new { id = item.InvoiceDetailsID }, new { idInvoiceDetails = item.InvoiceDetailsID, @class = "btn small deleteInvoiceDetails" })
+        </td>
+        }
+    </tr>
+}
+
+    <tfoot>
+        <tr>
+            <td><span class="label">TOTALS: </span></td>
+            <td>@Model.Sum(i=>i.Qty)</td>
+            <td>-</td>
+            <td>@String.Format("{0:C}", Model.Sum(i => i.Total))</td>
+            <td>-</td>
+            <td>@String.Format("{0:C}", Model.Sum(i => i.TotalPlusVAT))</td>
+            @if (ViewBag.Print != true){
+            <td></td>
+            }
+        </tr>
+    </tfoot>
+
+</table>
+
+
+<table class="InvoiceFooterTotals">
+        <tr>
+            <td colspan="5" class="title">@Resources.Print.Invoice_SubTotal:</td>
+            <td width="200" class="value">@String.Format("{0:C}", Model.Sum(i=>i.Total))</td>
+        </tr>
+        @if ((ViewBag.IsProposal!=null) && !ViewBag.IsProposal)
+        {
+        <tr>
+            <td colspan="5" class="title">@Resources.Print.Invoice_VAT:</td>
+            <td width="200" class="value">@String.Format("{0:C}", Model.Sum(i => i.VAT))</td>
+        </tr>
+
+        if (ViewBag.Invoice != null)
+        {
+            var invoice = ViewBag.Invoice as Invoice;
+
+            if (invoice.AdvancePaymentTaxAmount > 0)
+            { 
+        <tr>
+            <td colspan="5" class="title">@Resources.Print.Invoice_AdvancePaymentTax (*):</td>
+            <td class="value">- @String.Format("{0:C}", invoice.AdvancePaymentTaxAmount)</td>
+        </tr>
+            }
+         <tr>
+            <td colspan="5" class="title">@Resources.Print.Invoice_TotalToPay: </td>
+            <td class="value">@String.Format("{0:C}", invoice.TotalToPay)</td>
+        </tr>
+        }
+        }
+</table>

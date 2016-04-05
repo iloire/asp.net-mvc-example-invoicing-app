@@ -1,0 +1,20 @@
+﻿@*
+	Iván Loire - www.iloire.com
+	Please readme README file for license terms.
+
+	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
+*@
+
+@model Purchase
+
+@{
+    ViewBag.Title = "Edit Expense";
+}
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <text>
+    @{Html.RenderPartial("EditOrCreatePurchasePartial", Model);}
+    </text>
+}
+

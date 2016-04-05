@@ -1,0 +1,46 @@
+﻿@*
+	Iván Loire - www.iloire.com
+	Please readme README file for license terms.
+
+	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
+*@
+
+@model InvoiceDetails
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<fieldset>
+ <legend>InvoiceDetails details</legend>
+	<p>
+        <strong>Invoice: </strong>
+         @Html.DisplayFor(model => model.Invoice.Notes)
+    </p>
+	<p>
+        <strong>Article: </strong>
+         @Html.DisplayFor(model => model.Article)
+    </p>
+	<p>
+        <strong>Qty: </strong>
+         @Html.DisplayFor(model => model.Qty)
+    </p>
+	<p>
+        <strong>Price: </strong>
+          @String.Format("{0:C}", Model.Price)
+    </p>
+	<p>
+        <strong>VAT: </strong>
+         @Html.DisplayFor(model => model.VAT)
+    </p>
+	<p>
+        <strong>TimeStamp: </strong>
+         @Html.DisplayFor(model => model.TimeStamp)
+    </p>
+</fieldset>
+<p>
+
+    @Html.ActionLink("Edit", "Edit", new { id=Model.InvoiceDetailsID }, new { @class = "btn"}) |
+    @Html.ActionLink("Back to invoice", "Details", "Invoice", new { id = Model.InvoiceID }, new { @class = "btn" })
+</p>

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Globalization;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
-using System.Web.Security;
 
 namespace iloire_Facturacion.Models
 {
@@ -23,7 +19,7 @@ namespace iloire_Facturacion.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm new password")]
-        [Compare("NewPassword", ErrorMessage = "New password and confirmation password are not the same")]
+        [System.ComponentModel.DataAnnotations.Compare("NewPassword", ErrorMessage = "New password and confirmation password are not the same")]
         public string ConfirmPassword { get; set; }
     }
 
@@ -61,7 +57,7 @@ namespace iloire_Facturacion.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "New password and confirmation password are not the same")]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "New password and confirmation password are not the same")]
         public string ConfirmPassword { get; set; }
     }
 }

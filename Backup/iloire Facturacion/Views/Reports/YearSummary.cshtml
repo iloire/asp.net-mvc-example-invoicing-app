@@ -1,0 +1,65 @@
+﻿@*
+	Iván Loire - www.iloire.com
+	Please readme README file for license terms.
+
+	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
+*@
+
+@model YearSummary
+
+@functions{ 
+    private string PrintQty(decimal qty){
+        var sign = (qty>0) ? "positive" : "negative";
+        return "<span class=\"" + sign + "\">" + String.Format("{0:C}", qty) + "</span>";
+    }
+}
+<table>
+<tr>
+    <td width="15%" style="background-color:#f5f5f5"></td>
+    <td width="15%"><strong>@Html.ActionLink("Q1", "QuarterDetails", "Reports", new { quarter = 1, year = Model.Q1.Year }, null)</strong></td>
+    <td width="15%"><strong>@Html.ActionLink("Q2", "QuarterDetails", "Reports", new { quarter = 2, year = Model.Q2.Year }, null)</strong></td>
+    <td width="15%"><strong>@Html.ActionLink("Q3", "QuarterDetails", "Reports", new { quarter = 3, year = Model.Q3.Year }, null)</strong></td>
+    <td width="15%"><strong>@Html.ActionLink("Q4", "QuarterDetails", "Reports", new { quarter = 4, year = Model.Q4.Year }, null)</strong></td>
+    <td width="25%"><strong>TOTAL</strong></td>
+</tr>
+
+<tr>
+    <td><strong>Net Income:</strong></td>
+    <td>@String.Format("{0:C}", Model.Q1.NetIncome)</td>
+    <td>@String.Format("{0:C}", Model.Q2.NetIncome)</td>
+    <td>@String.Format("{0:C}", Model.Q3.NetIncome)</td>
+    <td>@String.Format("{0:C}", Model.Q4.NetIncome)</td>      
+    <td style="background-color:#f5f5f5">@String.Format("{0:C}", Model.Q1.NetIncome + Model.Q2.NetIncome + Model.Q3.NetIncome + Model.Q4.NetIncome)</td>    
+</tr>
+
+<tr>
+    <td><strong>Net Expense:</strong></td>
+    <td><span class="expense">@String.Format("{0:C}", Model.Q1.NetExpense)</span></td>
+    <td><span class="expense">@String.Format("{0:C}", Model.Q2.NetExpense)</span></td>
+    <td><span class="expense">@String.Format("{0:C}", Model.Q3.NetExpense)</span></td>
+    <td><span class="expense">@String.Format("{0:C}", Model.Q4.NetExpense)</span></td>
+    <td style="background-color:#f5f5f5"><span class="expense">@String.Format("{0:C}", Model.Q1.NetExpense + Model.Q2.NetExpense + Model.Q3.NetExpense + Model.Q4.NetExpense)</span></td>
+</tr>
+
+<tr>
+<td><strong>Net Benefit:</strong></td>
+<td>
+    @Html.Raw(PrintQty(Model.Q1.NetBenefit))
+</td>
+<td>
+    @Html.Raw(PrintQty(Model.Q2.NetBenefit))
+</td>
+<td>
+    @Html.Raw(PrintQty(Model.Q3.NetBenefit))    
+</td>
+<td>
+    @Html.Raw(PrintQty(Model.Q4.NetBenefit))
+</td>
+<td style="background-color:#f5f5f5">
+    @{var total_benefit = Model.Q1.NetBenefit + Model.Q2.NetBenefit + Model.Q3.NetBenefit + Model.Q4.NetBenefit;}
+    @Html.Raw(PrintQty(total_benefit))
+</td>
+</tr>
+
+</table>
+

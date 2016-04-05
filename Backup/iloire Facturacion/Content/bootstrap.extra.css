@@ -1,0 +1,42 @@
+body {
+  padding-top: 60px !important;
+}
+
+body, p, td
+{
+    font-size:90% !important;
+}
+
+.container-fluid > .sidebar {width:120px}
+.container-fluid > .content {margin-left:140px}
+
+tfoot 
+{
+    background-color:#666666;
+}
+tfoot * 
+{
+  font-weight:bold;
+  color:white;
+}
+.actions {
+    margin-top: 18px;
+    margin-bottom: 18px;
+    padding: 15px 10px 15px 100px;
+}
+
+
+/*form*/
+label 
+{
+    width:90px;    
+}
+form .input 
+{
+    margin-left:100px;
+}
+
+fieldset legend
+{
+    padding-left:100px;    
+}

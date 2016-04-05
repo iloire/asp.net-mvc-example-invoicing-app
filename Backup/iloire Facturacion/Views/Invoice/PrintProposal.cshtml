@@ -1,0 +1,147 @@
+﻿@*
+	Iván Loire - www.iloire.com
+	Please readme README file for license terms.
+
+	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
+*@
+
+@model Invoice
+
+@{
+    ViewBag.Title = DateTime.Now.Year + " " + Model.Name + Model.Notes + " - " + Model.Customer.Name;
+    Layout = "~/Views/Shared/_LayoutPrint.cshtml";
+}
+
+<table class="invoiceHeader">
+<tr>
+<td>
+ <img src="@Url.Content("~/Content/images/logo.png")" style="float:left;" />
+</td>
+<td style="text-align:right">
+ <h2>@string.Format(@Resources.Print.Proposal, @Model.InvoiceNumber, DateTime.Now.Year)</h2> 
+  @Model.TimeStamp.ToLongDateString()
+</td>
+</tr>
+</table>
+
+<div class="from">
+    <blockquote>
+    <p>    <strong>
+    @ViewBag.MyCompany
+    </strong>
+    </p>
+
+    <p>
+    
+    @Resources.Print.Invoice_CompanyNumber: <strong>@ViewBag.MyCompanyID</strong>
+    </p>
+
+    <p>
+    @Html.Raw(ViewBag.MyCompanyAddress.Replace(";","<br/>"))
+    </p>
+    <hr />
+    <p>
+    @Resources.Print.Invoice_Phone: @ViewBag.MyCompanyPhone
+    </p>
+
+    <p>
+    @ViewBag.MyEmail
+    </p>
+
+    </blockquote>
+</div>
+
+ <table>
+ <tr>
+    <td width="65%">
+            <h3>@Resources.Print.Invoice_To :</h3>
+            <blockquote>
+            <p>
+                <strong>
+                    @Html.DisplayFor(model => model.Customer.Name)
+                </strong>
+            </p>
+
+            <p>
+                @Resources.Print.Invoice_CompanyNumber:
+                <strong>
+                    @Html.DisplayFor(model => model.Customer.CompanyNumber)
+                </strong>
+            </p>
+             <p>
+                @Html.DisplayFor(model => model.Customer.Address)
+            </p>
+
+             <p>
+                @Html.DisplayFor(model => model.Customer.CP), 
+                @Html.DisplayFor(model => model.Customer.City)
+            </p>	      
+            </blockquote>
+    </td>
+    <td>
+        <h3>@Resources.Print.Proposal :</h3>
+         @Html.Raw(Model.Notes.Replace(Environment.NewLine,"<br/>"))
+    </td>
+ </tr>
+
+ <tr>
+     <td colspan="2">
+        <h3>@Resources.Print.ProposalDetails :</h3>
+        @Html.Raw(Model.ProposalDetails.Replace(Environment.NewLine, "<br/>"))
+     </td> 
+     </tr>
+ </table>
+   
+
+<h3><h3>@Resources.Print.Quote :</h3>
+
+<table class="zebra-striped proposal">
+    <thead>
+        <th>
+            @Resources.Print.Invoice_Item
+        </th>
+        <th width="40">
+            @Resources.Print.Invoice_Qty
+        </th>
+        <th width="75">
+            @Resources.Print.Invoice_Price
+        </th>
+        <th width="80">
+            @Resources.Print.Invoice_Total
+        </th>
+        @if (ViewBag.Print != true){
+        <th width="100"></th>
+        }
+    </thead>
+
+@foreach (var item in Model.InvoiceDetails) {
+    var invoiceDetail = "invoiceDetail" + item.InvoiceDetailsID; 
+    <tr id="@invoiceDetail">
+        <td>
+            @Html.DisplayFor(modelItem => item.Article)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Qty)
+        </td>
+        <td>
+            @String.Format("{0:C}", item.Price)
+        </td>
+       
+         <td>
+            @String.Format("{0:C}", item.Total)
+        </td>
+    </tr>
+}
+    <tfoot>
+        <tr>
+         <td class="invoiceFooterTitle">@Resources.Print.Proposal_Total :</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td nowrap="nowrap">@String.Format("{0:C}", Model.NetTotal) (*)</td>
+        </tr>
+    </tfoot>
+</table>
+
+<div class="invoiceFooter">
+    (*) @Resources.Print.VAT_Not_Included
+</div>

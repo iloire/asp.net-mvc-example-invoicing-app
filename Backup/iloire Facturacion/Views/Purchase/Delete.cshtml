@@ -1,0 +1,53 @@
+﻿@*
+	Iván Loire - www.iloire.com
+	Please readme README file for license terms.
+
+	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
+*@
+@model Purchase
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete Purchase</h2>
+
+
+<div class="alert-message warning">
+  <a class="close" href="#">×</a>
+  <p><strong>Are you sure you want to delete this Purchase?</strong></p>
+</div>
+
+<fieldset>
+    <legend>Purchase</legend>
+  <p>
+        <strong>Article: </strong>
+		@Html.DisplayFor(model => model.Article)
+  </p>
+  <p>
+        <strong>Price: </strong>
+		@Html.DisplayFor(model => model.Price)
+  </p>
+  <p>
+        <strong>VAT: </strong>
+		@Html.DisplayFor(model => model.VAT)
+  </p>
+  <p>
+        <strong>Provider: </strong>
+		@Html.DisplayFor(model => model.Provider.Name)
+  </p>
+  <p>
+        <strong>Notes: </strong>
+		@Html.DisplayFor(model => model.Notes)
+  </p>
+  <p>
+        <strong>TimeStamp: </strong>
+		@Html.DisplayFor(model => model.TimeStamp)
+  </p>
+</fieldset>
+@using (Html.BeginForm()) {
+	<div class="actions">
+            <input type="submit" class="btn primary" value="Delete" />
+			@Html.ActionLink("Back to List", "Index", null, new { @class = "btn"})
+    </div>
+}

@@ -1,0 +1,64 @@
+﻿@*
+	Iván Loire - www.iloire.com
+	Please readme README file for license terms.
+
+	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
+*@
+
+@model Summary
+
+
+@{
+    var chart_name = Model.GetHashCode();  
+    }
+
+<div class="chart_summary">
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+        google.load("visualization", "1", { packages: ["corechart"] });
+        google.setOnLoadCallback(drawChart);
+        function drawChart() {
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Task');
+            data.addColumn('number', 'Hours per Day');
+            data.addRows(2);
+            data.setValue(0, 0, 'Income');
+            data.setValue(0, 1, @Model.NetIncome);
+            data.setValue(1, 0, 'Expenses');
+            data.setValue(1, 1, @Model.NetExpense);
+            var chart = new google.visualization.PieChart(document.getElementById('@chart_name'));
+            chart.draw(data, { width: 350, height: 150, title: 'Income vs expenses' });
+        }
+    </script>
+    <div id="@chart_name"></div>
+</div>
+
+<div class="summary">
+    <h4>
+    @String.Format("{0:d}", Model.From)  -  @String.Format("{0:d}", Model.To)         
+    </h4>
+
+    <p>
+        <strong>NET Income:</strong> <span class="income big">@String.Format("{0:C}", Model.NetIncome)</span>
+        +
+        <strong>VAT received:</strong> <span class="income big">@String.Format("{0:C}", Model.VATReceived)</span>
+        =
+        <strong>Gross Income:</strong> <span class="income big">@String.Format("{0:C}", Model.GrossIncome) </span>
+        <br />
+        <strong>NET Expense:</strong><span class="expense big"> @String.Format("{0:C}", Model.NetExpense)</span>
+        +
+        <strong>VAT Paid:</strong> <span class="expense big">@String.Format("{0:C}", Model.VATPaid)</span>
+        =
+        <strong>Total Paid:</strong> <span class="expense big">@String.Format("{0:C}", Model.GrossExpense)</span>
+        <hr />
+        <strong>Benefit:</strong> 
+        <span class=expense>
+        @{Html.RenderPartial("Money", Model.NetBenefit);}
+        </span>    
+        <br />
+        <strong>VAT Balance:</strong> @String.Format("{0:C}", Model.VATBalance)
+    
+    </p>
+</div>
+
+

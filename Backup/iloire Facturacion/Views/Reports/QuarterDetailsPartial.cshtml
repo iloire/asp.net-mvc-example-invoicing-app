@@ -1,0 +1,192 @@
+﻿@*
+	Iván Loire - www.iloire.com
+	Please readme README file for license terms.
+
+	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
+*@
+
+@model QuarterSummary
+
+
+<table class="zebra-striped" cellspacing="0" cellpadding="0" width="100%">
+		<colgroup>
+			    <col style="width: 156px;">
+				<col style="width:201px">
+				<col style="width:201px">
+				<col style="width:201px">
+				<col style="width:201px">
+				<col style="width:201px">
+		</colgroup>
+		<thead>
+			<tr>
+			<th>@Model.Year</th>
+			<th>@Model.Month1.From.ToString("MMMM")</th>
+			<th>@Model.Month2.From.ToString("MMMM")</th>
+			<th>@Model.Month3.From.ToString("MMMM")</th>
+			<th>Total for Quarter</th>
+			</tr>
+		</thead>
+		<tbody>
+			<!-- INCOME -->
+			<tr class="section-title">
+			<td colspan="5"><h4>Income</h4></td>
+			</tr>
+			
+			<!-- sales -->
+			<tr>
+				<td>
+                @Html.ActionLink("Net Incom from sales (EUR)", "Search", "Invoice", new { from = Model.Month1.From.ToShortDateString(), to = Model.Month3.From.AddMonths(1).AddDays(-1).ToShortDateString()}, null)                
+                </td>
+				<td>
+                @Html.ActionLink(String.Format("{0:C}", Model.Month1.NetIncome), "Search", "Invoice", new { from = Model.Month1.From.ToShortDateString(), to = Model.Month1.From.AddMonths(1).AddDays(-1).ToShortDateString()}, null)                
+                </td>
+				<td class="ta_right">						
+                @Html.ActionLink(String.Format("{0:C}", Model.Month2.NetIncome), "Search", "Invoice", new { from = Model.Month2.From.ToShortDateString(), to = Model.Month2.From.AddMonths(1).AddDays(-1).ToShortDateString()}, null)                
+				</td>
+				<td class="ta_right">
+                @Html.ActionLink(String.Format("{0:C}", Model.Month3.NetIncome), "Search", "Invoice", new { from = Model.Month3.From.ToShortDateString(), to = Model.Month3.From.AddMonths(1).AddDays(-1).ToShortDateString()}, null)
+                 </td>
+				<td class="ta_right total">
+				@Html.ActionLink(String.Format("{0:C}", (Model.Month1.NetIncome + Model.Month2.NetIncome + Model.Month3.NetIncome)), "Search", "Invoice", new { from = Model.Month1.From.ToShortDateString(), to = Model.Month3.From.AddMonths(1).AddDays(-1).ToShortDateString() }, null)                
+				</td>
+		    </tr>
+            <tr>
+				<td>
+                VAT (EUR)
+                </td>
+				<td>
+                 @String.Format("{0:C}", Model.Month1.VATReceived)
+                </td>
+				<td class="ta_right">						
+                   @String.Format("{0:C}", Model.Month2.VATReceived)
+				</td>
+				<td class="ta_right">
+				 @String.Format("{0:C}", Model.Month3.VATReceived)									
+                 </td>
+				<td class="ta_right total">
+				@String.Format("{0:C}", (Model.Month1.VATReceived + Model.Month2.VATReceived + Model.Month3.VATReceived))
+				</td>
+		    </tr>
+             <tr>
+				<td>
+                APT (Advance payment TAX)
+                </td>
+				<td>
+                 @String.Format("{0:C}", Model.Month1.AdvancePaymentTaxPaid)
+                </td>
+				<td class="ta_right">						
+                   @String.Format("{0:C}", Model.Month2.AdvancePaymentTaxPaid)
+				</td>
+				<td class="ta_right">
+				 @String.Format("{0:C}", Model.Month3.AdvancePaymentTaxPaid)									
+                 </td>
+				<td class="ta_right total">
+				@String.Format("{0:C}", (Model.Month1.AdvancePaymentTaxPaid + Model.Month2.AdvancePaymentTaxPaid + Model.Month3.AdvancePaymentTaxPaid))
+				</td>
+		    </tr>
+			<!-- LESS EXPENSES -->
+			<tr>
+				<td colspan="5">
+					<h4>Expenses</h4>
+				</td>
+			</tr>
+			
+            @{
+                var purchaseTypes = ViewBag.PurchaseTypes as List<PurchaseType>;
+            }
+                
+                @foreach (var purchaseType in purchaseTypes)
+                { 
+                
+                <tr>
+				<td>@purchaseType.Name</td>
+					<td>
+                        @{
+                         var purchasesM1 = Model.Month1.Purchases.Where(i => i.PurchaseTypeID == purchaseType.PurchaseTypeID).Sum(p=>p.SubTotal);
+                         var purchasesM2 = Model.Month2.Purchases.Where(i => i.PurchaseTypeID == purchaseType.PurchaseTypeID).Sum(p=>p.SubTotal);
+                         var purchasesM3 = Model.Month3.Purchases.Where(i => i.PurchaseTypeID == purchaseType.PurchaseTypeID).Sum(p=>p.SubTotal);
+                         }
+                        @String.Format("{0:C}", purchasesM1)	                        
+					</td>
+					<td>
+                        @String.Format("{0:C}", purchasesM2)	                        
+					</td>
+					<td>
+                        @String.Format("{0:C}", purchasesM3)	                        
+					</td>
+					<td class=total>
+
+                        <strong>
+                        @String.Format("{0:C}", purchasesM1 + purchasesM2 + purchasesM3)
+                        </strong>	                        
+					</td>
+				</tr>
+                }
+			
+			<tr>
+				<td><strong>Total Expenses</strong></td>		
+                @{
+                    var totat_purchasedM1 = Model.Month1.Purchases.Sum(p => p.SubTotal);
+                    var totat_purchasedM2 = Model.Month2.Purchases.Sum(p => p.SubTotal);
+                    var totat_purchasedM3 = Model.Month3.Purchases.Sum(p => p.SubTotal);
+                    
+                 }		
+				<td>
+                <strong>
+                    @Html.ActionLink(String.Format("{0:C}", totat_purchasedM1), "Search", "Purchase", new { from = Model.Month1.From.ToShortDateString(), to = Model.Month1.From.AddMonths(1).AddDays(-1).ToShortDateString() }, null)                
+                </strong>
+                </td>
+				<td><strong>
+                    @Html.ActionLink(String.Format("{0:C}", totat_purchasedM2), "Search", "Purchase", new { from = Model.Month2.From.ToShortDateString(), to = Model.Month2.From.AddMonths(1).AddDays(-1).ToShortDateString() }, null)                                                        
+                </strong></td>
+				<td><strong>
+                    @Html.ActionLink(String.Format("{0:C}", totat_purchasedM3), "Search", "Purchase", new { from = Model.Month3.From.ToShortDateString(), to = Model.Month3.From.AddMonths(1).AddDays(-1).ToShortDateString() }, null)                                                        
+                </strong></td>
+				<td>
+                    <strong>
+                    @Html.ActionLink(String.Format("{0:C}", totat_purchasedM1 + totat_purchasedM2 + totat_purchasedM3), "Search", "Purchase", new { from = Model.Month1.From.ToShortDateString(), to = Model.Month3.From.AddMonths(1).AddDays(-1).ToShortDateString() }, null)                
+                   </strong>
+                </td>
+			</tr>
+            <tr>
+				<td><strong>VAT from Expenses</strong></td>		
+                @{
+                    var vat_purchasedM1 = Model.Month1.Purchases.Sum(p => p.VATAmount);
+                    var vat_purchasedM2 = Model.Month2.Purchases.Sum(p => p.VATAmount);
+                    var vat_purchasedM3 = Model.Month3.Purchases.Sum(p => p.VATAmount);
+                    
+                 }		
+				<td><strong>@String.Format("{0:C}", vat_purchasedM1)</strong></td>
+				<td><strong>@String.Format("{0:C}", vat_purchasedM3)</strong></td>
+				<td><strong>@String.Format("{0:C}", vat_purchasedM3)</strong></td>
+				<td class=total><strong>@String.Format("{0:C}", vat_purchasedM1 + vat_purchasedM2 + vat_purchasedM3)</strong></td>
+			</tr>
+
+            <tr>
+				<td colspan="5">
+				    <h4>Net Profit</h4>
+				</td>
+			</tr>
+			<tr>
+			    <td></td>
+			    <td>@{Html.RenderPartial("Money", Model.Month1.NetBenefit);}</td>
+			    <td>@{Html.RenderPartial("Money", Model.Month2.NetBenefit);}</td>
+			    <td>@{Html.RenderPartial("Money", Model.Month3.NetBenefit);}</td>
+                <td class=total>@{Html.RenderPartial("Money", Model.Month1.NetBenefit + Model.Month2.NetBenefit + Model.Month3.NetBenefit);}</td>
+			</tr>
+      
+            <tr>
+				<td colspan="5">
+				    <h4>VAT Balance</h4>
+				</td>
+			</tr>
+			<tr>
+			    <td></td>
+			    <td>@{Html.RenderPartial("Money", -Model.Month1.VATBalance);}</td>
+			    <td>@{Html.RenderPartial("Money", -Model.Month2.VATBalance);}</td>
+			    <td>@{Html.RenderPartial("Money", -Model.Month3.VATBalance);}</td>
+                <td class=total>@{Html.RenderPartial("Money", -Model.Month1.VATBalance - Model.Month2.VATBalance - Model.Month3.VATBalance);}</td>
+			</tr>
+		</tbody>
+	</table>
+

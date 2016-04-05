@@ -1,0 +1,119 @@
+﻿@*
+	Iván Loire - www.iloire.com
+	Please readme README file for license terms.
+
+	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
+*@
+
+@using MvcPaging;
+@model IPagedList<Purchase>
+
+@{
+    ViewBag.Title = "List of expenses";
+}
+
+@section Header{
+<script>
+    var sorter_options = {
+        headers: {
+            2: { sorter: 'decimal' },
+            4: { sorter: 'decimal' },
+            6: { sorter: 'datetime' }
+
+        }
+    };
+</script>
+}
+
+<h1>List <small>of Expenses</small></h1>
+
+<p class="noprint">
+    @Html.ActionLink("[+] Create New", "Create", null, new {@class="btn primary"})
+</p>
+
+@{Html.RenderPartial("SearchBoxItems", "Purchase");}
+
+<div class="pagingContainer noprint">
+    @{
+        RouteValueDictionary r = new RouteValueDictionary();
+        r.Add("to", Request["to"]);
+        r.Add("from", Request["from"]);
+        r.Add("text", Request["text"]);
+        }
+    @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount, r)
+</div>
+
+<table class="zebra-striped">
+    <thead>
+        <th  width="25%">
+            Article
+        </th>
+        <th>
+            Type
+        </th>
+        <th>
+            Price
+        </th>
+        <th>
+            VAT
+        </th>
+         <th>
+            Total
+        </th>
+        <th>
+            Provider
+        </th>
+        <th>
+            Date
+        </th>
+        <th class="noprint" width="200"></th>
+    </thead>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Article)
+        </td>
+        <td>
+            @item.PurchaseType.Name
+
+            @if (!string.IsNullOrWhiteSpace(item.Notes)) { 
+                <span class="label">Notes in this expense</span>
+            }
+        </td>
+        <td nowrap>
+            @String.Format("{0:C}", item.Price)
+        </td>
+        <td nowrap>
+            @Html.DisplayFor(modelItem => item.VAT) %
+        </td>
+        <td nowrap>
+            @String.Format("{0:C}", item.TotalWithVAT)
+        </td>
+        <td>
+            <a href="@Url.Action("Details", "Provider", new { id= item.ProviderID})">
+            @Html.DisplayFor(modelItem => item.Provider.Name)
+            </a>
+        </td>
+        <td nowrap>
+            @Html.DisplayFor(modelItem => item.TimeStamp)
+        </td>
+        <td class="noprint" nowrap>
+            @Html.ActionLink("Edit", "Edit", new { id=item.PurchaseID }, new { @class = "btn primary"}) 
+            @Html.ActionLink("Details", "Details", new { id=item.PurchaseID }, new { @class = "btn"}) 
+            @Html.ActionLink("Delete", "Delete", new { id=item.PurchaseID }, new { @class = "btn"})
+        </td>
+    </tr>
+}
+
+ <tfoot>
+        <tr>
+            <td colspan="2"><span class="label">TOTALS: </span></td>
+            <td>@String.Format("{0:C}", Model.Sum(i => i.SubTotal))</td>
+            <td></td>
+            <td>@String.Format("{0:C}", Model.Sum(i => i.TotalWithVAT))</td>
+            <td colspan="3"></td>
+        </tr>
+    </tfoot>
+
+</table>

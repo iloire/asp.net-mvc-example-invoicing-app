@@ -1,0 +1,163 @@
+﻿@*
+	Iván Loire - www.iloire.com
+	Please readme README file for license terms.
+
+	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
+*@
+
+@model Invoice
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+@{
+    var entityname = ViewBag.IsProposal ? "Proposal" : "Invoice";
+}
+
+
+@section Header{
+  <script type="text/javascript">
+
+        var sorter_options = {
+            headers: {
+                1: { sorter: 'decimal' },
+                2: { sorter: 'decimal' },
+                3: { sorter: 'decimal' },
+                4: { sorter: 'decimal' },
+                5: { sorter: 'decimal' }
+            }
+        };
+
+      function clearErrors() {
+          $('#msgErrorNewInvoiceDetails').html('');
+          $('#msgError').html('');
+      }
+      
+      function writeError(control, msg) {
+          var err_msg = '<div class="alert-message error"><a class="close" href="#">×</a><p>' + msg + '</p></div>';
+          $('#' + control).html (err_msg);
+      }
+
+      $(document).ready(function () {
+
+          $('.closeModal').live('click', function () {
+              $('#my-modal').modal('hide');
+          });
+
+          $('#my-modal form').live('submit', function () {
+              clearErrors();
+
+              $.post($(this).attr('action'), $(this).serialize(), function (data, status) {
+                  $('#my-modal').modal('hide');
+                  $("#invoiceDetailsList").html(data);
+
+              }).error(function (error, status, a, b) {
+                  writeError('msgError', 'Error processing request. Please check errors and try again!');
+                  $('.modal-body p.body').html(error.responseText);
+
+              });
+              return false;
+          });
+
+          function getRequest(url) {
+              $.ajax({
+                  url: url,
+                  context: document.body,
+                  success: function (data) {
+                      $('.modal-body p.body').html(data);
+                      $(this).addClass("done");
+                      $('#my-modal').modal('show');
+                      $('#Article').focus();
+                  },
+                  error: function (err) {
+                      writeError('msgErrorNewInvoiceDetails', err);
+                  }
+              });
+          }
+
+          $('a.newDetailInvoice').live('click', function () {
+              clearErrors();
+
+              //alert('sdf');
+              var id = $(this).attr("idInvoice");
+              var url = '@Url.Content("~/InvoiceDetails/Create")/' + id;
+
+              getRequest(url);
+
+              return false;
+          });
+
+          $('.deleteInvoiceDetails').live('click', function () {
+              clearErrors();
+
+              var id = $(this).attr("idInvoiceDetails");
+              var url = '@Url.Content("~/InvoiceDetails/Delete")/' + id;
+              
+              getRequest(url);
+
+              return false;
+          });
+
+
+
+          $('.editInvoiceDetails').live('click', function () {
+              clearErrors();
+
+              var id = $(this).attr("idInvoiceDetails");
+              var url = '@Url.Content("~/InvoiceDetails/Edit")/' + id;
+
+              getRequest(url);
+
+              return false;
+          });
+
+
+
+
+      }); 
+    </script>
+}
+
+<table class="noborder">
+<tr>
+<td width="40%">
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <text>
+    @{Html.RenderPartial("EditOrCreateInvoicePartial", Model);}
+    </text>
+}
+</td>
+
+<td width="60%">
+     <p>
+         <a href="@Url.Action("Create", "InvoiceDetails", new { id = Model.InvoiceID })" idInvoice="@Model.InvoiceID" class="btn primary newDetailInvoice">Create new @entityname details</a>
+     </p>
+     <div id="msgErrorNewInvoiceDetails"></div>
+
+    <div id="invoiceDetailsList">
+        @{Html.RenderAction("IndexByInvoice", "InvoiceDetails", new { id = Model.InvoiceID, proposal = ViewBag.IsProposal});}
+    </div>
+</td>
+</tr>
+</table>
+
+
+<div id="my-modal" class="modal hide fade">
+<div class="modal-header">
+    <a href="#" class="close">&times;</a>
+    <h3>@entityname detail</h3>
+</div>
+<div class="modal-body">
+    <div id="msgError"></div>
+    <p class="body">
+                   
+    </p>
+</div>
+<div class="modal-footer">
+             
+</div>
+</div>
+

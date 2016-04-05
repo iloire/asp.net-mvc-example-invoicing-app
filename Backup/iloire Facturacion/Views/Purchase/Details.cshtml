@@ -1,0 +1,59 @@
+﻿@*
+	Iván Loire - www.iloire.com
+	Please readme README file for license terms.
+
+	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
+*@
+
+@model Purchase
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<fieldset>
+ <legend>Expense edition</legend>
+	<p>
+        <strong>Article: </strong>
+         @Html.DisplayFor(model => model.Article)
+    </p>
+    <hr />
+	<p>
+        <strong>Net Price: </strong>
+         @String.Format("{0:C}", Model.Price)
+    </p>
+	<p>
+        <strong>VAT: </strong>
+        @String.Format("{0:C}", Model.VATAmount)
+        (@Html.DisplayFor(model => model.VAT) %)
+    </p>
+
+    <p>
+        <strong>Total: </strong>
+        <strong>
+            @String.Format("{0:C}", Model.TotalWithVAT)
+         </strong>
+    </p>
+
+    <hr />
+	<p>
+        <strong>Provider: </strong>
+         @Html.DisplayFor(model => model.Provider.Name)
+    </p>
+    @if (!string.IsNullOrWhiteSpace(Model.Notes)){
+	<p>
+        <strong>Notes: </strong>
+         @Html.DisplayFor(model => model.Notes)
+    </p>
+    }
+	<p>
+        <strong>Date: </strong>
+         @Html.DisplayFor(model => model.TimeStamp)
+    </p>
+</fieldset>
+<p>
+
+    @Html.ActionLink("Edit", "Edit", new { id=Model.PurchaseID }, new { @class = "btn"}) |
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn"})
+</p>

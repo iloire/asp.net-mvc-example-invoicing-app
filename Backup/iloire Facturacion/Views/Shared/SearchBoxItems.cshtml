@@ -1,0 +1,69 @@
+﻿@*
+	Iván Loire - www.iloire.com
+	Please readme README file for license terms.
+
+	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
+*@
+
+@model string
+
+<script>
+    function SetQ(q, year) {
+        var startd, end;
+        if (q == 1) {
+            $('#from').val('1/01/' + year);
+            $('#to').val('31/03/' + year);
+        }
+        else if (q == 2) {
+            $('#from').val('1/04/'+year);
+            $('#to').val('30/06/'+ year);
+        }
+        else if (q == 3) {
+            $('#from').val('1/07/' + year);
+            $('#to').val('30/09/' + year);
+        }
+        else if (q == 4) {
+            $('#from').val('1/10/' + year);
+            $('#to').val('31/12/' + year);
+        }
+    }
+</script>
+
+@using (Html.BeginForm("Search", Model, new {proposal=ViewBag.IsProposal},  FormMethod.Get))
+{
+ <div class="searchBox noprint">
+            Text:
+                <input name="text" id="text" type="text" value="@Request["text"]"
+              placeholder="Text to look for ..." />
+            
+        From: <input class="datefield small" name="from" id="from" type="text" value="@Request["from"]"
+          placeholder="Date from.."/>
+       
+        To:  <input class="datefield small" name="to" id="to" type="text" value="@Request["to"]"
+          placeholder="Date to.."/>
+
+           <input type="submit" value="Filter" class="btn small primary" />
+           <a href="?filter=clear" class="btn small">Clear filters</a>
+
+           <div class="setQuarter">
+                <div>
+                   @{var year=DateTime.Now.Year-1;}
+                   <strong>@year:</strong>               
+                   <a name="" onclick="SetQ(1, @year)" href="#">1Q</a>
+                   <a name="" onclick="SetQ(2, @year)" href="#">2Q</a>
+                   <a name="" onclick="SetQ(3, @year)" href="#">3Q</a>
+                   <a name="" onclick="SetQ(4, @year)" href="#">4Q</a>
+
+                   /
+
+                   @{year = DateTime.Now.Year;}
+                   <strong>@year:</strong>
+                   <a name="" onclick="SetQ(1, @year)" href="#">1Q</a>
+                   <a name="" onclick="SetQ(2, @year)" href="#">2Q</a>
+                   <a name="" onclick="SetQ(3, @year)" href="#">3Q</a>
+                   <a name="" onclick="SetQ(4, @year)" href="#">4Q</a>
+               </div>
+           </div>
+
+ </div>
+}

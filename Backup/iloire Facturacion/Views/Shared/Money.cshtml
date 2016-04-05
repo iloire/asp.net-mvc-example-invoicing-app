@@ -1,0 +1,16 @@
+﻿@*
+	Iván Loire - www.iloire.com
+	Please readme README file for license terms.
+
+	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
+*@
+
+@model decimal
+ @if (Model >= 0)
+ { 
+        <span class="positive">@String.Format("{0:C}", Model)</span>
+ }
+ else
+ { 
+        <span class="negative">@String.Format("{0:C}", Model)</span>
+ }
