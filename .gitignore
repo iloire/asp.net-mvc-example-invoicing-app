@@ -6,3 +6,4 @@ iloire Facturacion Tests/*.dll
 *.suo
 iloire Facturacion/App_Error/*
 *.sdf
+Backup/
