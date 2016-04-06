@@ -11,7 +11,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -161,31 +160,9 @@ namespace  iloire_Facturacion.Models.Security {
         {
             InvoiceDB db = new InvoiceDB();
             var user = (from u in db.Users
-                        //where u.Login == username && u.Password == password
+                        where u.Login == username && u.Password == password
                         select u).FirstOrDefault();
 
-            var users = (from u in db.Users
-                        select u);
-            foreach(var u in users)
-            {
-                Debug.WriteLine($"{u.Login} {u.Password}");
-            }
-
-            if (users.Count() == 0)
-            {
-                User u = new User
-                {
-                    Name = "user",
-                    Login = "user",
-                    Password = "password",
-                    Enabled = true,
-                    Email = "test@test.com",
-                    UserID = 1
-                };
-                db.Users.Add(u);
-
-                db.SaveChanges();
-            }
             return (user != null);
         }
     }
