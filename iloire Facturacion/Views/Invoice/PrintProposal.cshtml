@@ -15,7 +15,7 @@
 <table class="invoiceHeader">
 <tr>
 <td>
- <img src="@Url.Content("~/Content/images/logo.png")" style="float:left;" />
+ <img src="@Url.Content("~/Content/images/logo.png")" height="55" style="float:left;" />
 </td>
 <td style="text-align:right">
  <h2>@string.Format(@Resources.Print.Proposal, @Model.InvoiceNumber, DateTime.Now.Year)</h2> 
@@ -32,14 +32,8 @@
     </p>
 
     <p>
-    
-    @Resources.Print.Invoice_CompanyNumber: <strong>@ViewBag.MyCompanyID</strong>
-    </p>
-
-    <p>
     @Html.Raw(ViewBag.MyCompanyAddress.Replace(";","<br/>"))
     </p>
-    <hr />
     <p>
     @Resources.Print.Invoice_Phone: @ViewBag.MyCompanyPhone
     </p>

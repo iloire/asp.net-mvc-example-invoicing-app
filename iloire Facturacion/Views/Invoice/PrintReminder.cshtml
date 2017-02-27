@@ -1,0 +1,133 @@
+﻿@*
+	Iván Loire - www.iloire.com
+	Please readme README file for license terms.
+
+	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
+*@
+
+@model Invoice
+
+@{
+    ViewBag.Title = "FAC" + Model.TimeStamp.ToString("yyyy") + "-" + Model.InvoiceNumber + " " + Model.Name + " " + Model.Customer.Name;
+    ViewBag.Invoicename = "FAC" + Model.TimeStamp.ToString("yyyy") + "-" + Model.InvoiceNumber;
+
+    if(Model.TotalToPay <= 2500) {
+        ViewBag.IncassoKosten = (float)Model.TotalToPay * 0.15;
+    }
+    else if(Model.TotalToPay <= 5000)
+    {
+        ViewBag.calcvalue = Model.TotalToPay - 2500;
+        ViewBag.IncassoKosten = (float)ViewBag.calcvalue * 0.10 + 375;
+    }
+    else if (Model.TotalToPay <= 10000)
+    {
+        ViewBag.calcvalue = Model.TotalToPay - 5000;
+        ViewBag.IncassoKosten = (float)ViewBag.calcvalue * 0.05 + 625;
+    }
+    else if (Model.TotalToPay <= 200000)
+    {
+        ViewBag.calcvalue = Model.TotalToPay - 10000;
+        ViewBag.IncassoKosten = (float)ViewBag.calcvalue * 0.01 + 875;
+    }
+    else
+    {
+        ViewBag.calcvalue = Model.TotalToPay - 200000;
+        ViewBag.IncassoKosten = (float)ViewBag.calcvalue * 0.005 + 2775;
+    }
+    
+    if(ViewBag.IncassoKosten < 40)
+    {
+        ViewBag.IncassoKosten = 40;
+    }
+    
+    Layout = "~/Views/Shared/_LayoutPrint.cshtml";
+}
+
+<table class="invoiceHeader">
+<tr>
+<td>
+ <img src="@Url.Content("~/Content/images/logo.png")" height="55" style="float:left;" />
+</td>
+</tr>
+
+ <tr>
+    <td width="65%">
+            <blockquote>
+            <p>
+                <strong>
+                    @Html.DisplayFor(model => model.Customer.Name)
+                </strong>
+            </p>
+
+            <p>
+                @Resources.Print.Invoice_CompanyNumber:
+                <strong>
+                    @Html.DisplayFor(model => model.Customer.CompanyNumber)
+                </strong>
+            </p>
+             <p>
+                @Html.DisplayFor(model => model.Customer.Address)
+            </p>
+
+             <p>
+                @Html.DisplayFor(model => model.Customer.CP), 
+                @Html.DisplayFor(model => model.Customer.City)
+            </p>	      
+            </blockquote>
+    </td>
+ </tr>
+ <tr>
+    <td width="65%">
+            
+            <p>
+                Ons Kenmerk: @ViewBag.Invoicename<br />
+                Betreft: Openstaande post(en)
+            </p>	    
+    </td>
+ </tr>
+ </table>
+
+<p>Veenendaal, @Model.DueDate.ToString("dd MMMM yyyy")</p>
+<p>Geachte Heer/Mevrouw,</p>
+<p>Volgens onze administratie, staan er een of meerdere posten open waarvan de betalingstermijn reeds is vervallen.</p>
+<p>Middels dit schrijven verzoeken wij u, binnen 14 dagen na dagtekening, het onderstaande te vergelijken met uw administratie en onder vermelding van uw factuur nummer (@ViewBag.Invoicename) te doen bijschrijven op rekening: xxxx.xx.xxx ten name van: xxx.</p>
+<p>Indien u reeds heeft betaald, verzoeken wij u contact met ons op te nemen, mogelijk kon uw betaling niet verwerkt worden.</p>
+
+<table class="zebra-striped">
+    <thead>
+        <th>
+            Factuur nummer
+        </th>
+        <th width="160">
+            Factuur datum
+        </th>
+        <th width="160">
+            Verval datum
+        </th>
+        <th width="160">
+            Bedrag
+        </th>
+        @if (ViewBag.Print != true){
+        <th width="100"></th>
+        }
+    </thead>
+    <tr id="invoicedata">
+        <td>
+            @ViewBag.Invoicename
+        </td>
+        <td>
+            @Model.TimeStamp.ToString("dd-MM-yyyy")
+        </td>
+        <td>
+            @Model.DueDate.ToString("dd-MM-yyyy")
+        </td>
+       
+         <td>
+            @String.Format("{0:C}", Model.TotalToPay)
+        </td>
+    </tr>
+
+</table>
+
+<p>Volledigheidshalve melden wij, mocht het gestelde termijn verstrijken zonder dat het genoemde totaalbedrag is voldaan, wordt de vordering uithanden gegeven. Op grond van de Wet incassokosten bent u in dat geval ad. @String.Format("{0:C}", ViewBag.IncassoKosten) aan buitengerechtelijke incassokosten verschuldigd. BTW Incassokosten kunnen  niet worden verrekend.</p>
+<p>Hoogachtend,<br /><br /><br /><br />xx xxxxx</p>
